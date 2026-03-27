@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#32CE13;--deep:#092903;--lime:#D2F612;--carrot:#FF7F00;--blue:#1679FA;--ubas:#8139EE;--bg1:#F7F5F2;--bg2:#F7F9ED;--bg3:#E8FAF8;--bg4:#E1F6C8;--bg5:#F5F3FF}
+body{font-family:'Rubik',sans-serif;background:var(--bg1);color:var(--deep);min-height:100vh}
+.role-bar{background:var(--deep);padding:8px 32px;display:flex;align-items:center;justify-content:flex-end;gap:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.role-label{font-size:11px;color:rgba(255,255,255,.4);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.role-btn{font-size:12px;font-family:'Rubik',sans-serif;font-weight:500;padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.55);cursor:pointer;transition:.15s}
+.role-btn.active{background:var(--ubas);border-color:var(--ubas);color:#fff}
+.role-btn:not(.active):hover{border-color:rgba(255,255,255,.3);color:#fff}
+nav{background:var(--deep);padding:0 32px;display:flex;align-items:center;height:58px;gap:24px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#8435EB,#32CE13);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-icon svg{width:16px;height:16px}
+.nav-brand{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:#fff}
+.nav-brand span{color:var(--green)}
+.nav-internal{font-size:11px;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.12);padding:2px 10px;border-radius:20px;margin-left:4px}
+.nav-tabs{display:flex;gap:2px;margin-left:auto}
+.nav-tab{background:transparent;border:none;color:rgba(255,255,255,.5);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;font-weight:500;transition:.15s;white-space:nowrap}
+.nav-tab:hover,.nav-tab.active{background:rgba(255,255,255,.1);color:#fff}
+.nav-badge{background:var(--ubas);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:5px}
+.nav-admin-tag{background:linear-gradient(90deg,var(--ubas),var(--blue));color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:6px}
+.page{display:none}.page.active{display:block}
+
+/* EMPLOYEE */
+.emp-hero{background:var(--deep);padding:52px 32px 60px;position:relative;overflow:hidden}
+.eg1{position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(129,57,238,.3) 0%,transparent 68%);pointer-events:none}
+.eg2{position:absolute;bottom:-60px;left:15%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(50,206,19,.12) 0%,transparent 68%);pointer-events:none}
+.emp-hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(129,57,238,.2);border:1px solid rgba(129,57,238,.35);color:#c4a3f7;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:22px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--ubas)}
+h1{font-family:'Inter',sans-serif;font-weight:700;font-size:40px;line-height:1.1;color:#fff;margin-bottom:16px;letter-spacing:-1px}
+h1 .ga{background:linear-gradient(90deg,#32CE13,#D2F612);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h1 .ua{background:linear-gradient(90deg,#8139EE,#1679FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;max-width:520px}
+.hero-stats{display:flex;gap:36px;margin-top:44px;padding-top:36px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.hstat .num{font-family:'Inter',sans-serif;font-weight:700;font-size:26px;color:#fff}
+.hstat .num.g{color:var(--green)}.hstat .num.bl{color:#93c5fd}.hstat .num.o{color:var(--carrot)}
+.hstat .lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.board-wrap{max-width:900px;margin:0 auto;padding:40px 32px}
+.section-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.ebar{width:18px;height:2px;background:var(--ubas);border-radius:2px}
+h2{font-family:'Inter',sans-serif;font-weight:700;font-size:26px;color:var(--deep);margin-bottom:8px}
+h2 em{font-style:normal;color:var(--ubas)}
+.board-filters{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.board-filters input{flex:1;min-width:180px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:'Rubik',sans-serif;background:#fff;outline:none;transition:.15s}
+.board-filters input:focus{border-color:var(--ubas);box-shadow:0 0 0 3px rgba(129,57,238,.08)}
+.board-filters select{padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:'Rubik',sans-serif;background:#fff;outline:none;cursor:pointer}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.scard{background:#fff;border-radius:12px;border:1px solid #e8edf2;padding:18px;text-align:center}
+.scard .sn{font-family:'Inter',sans-serif;font-weight:700;font-size:26px;color:var(--deep)}
+.scard .sn.bl{color:var(--blue)}.scard .sn.or{color:var(--carrot)}.scard .sn.gr{color:var(--green)}
+.scard .sl{font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.mlist{display:flex;flex-direction:column;gap:12px}
+.mc{background:#fff;border-radius:14px;border:1px solid #e8edf2;padding:18px 22px;transition:.2s}
+.mc:hover{box-shadow:0 4px 18px rgba(9,41,3,.07);border-color:#d0d8ee}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.mc-sys{font-weight:500;font-size:15px;color:var(--deep)}
+.mc-dt{font-size:12px;color:#9ca3af;margin-top:2px}
+.badge{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0}
+.b-upcoming{background:#e8f0fe;color:#1a56c4}
+.b-ongoing{background:#fff4e8;color:#9a4500}
+.b-completed{background:var(--bg4);color:#2a6b0a}
+.b-cancelled{background:#f3f4f6;color:#6b7280}
+.mc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6}
+.mc-f .fl{font-size:10px;color:#8b5cf6;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.mc-f .fv{font-size:13px;color:var(--deep);font-weight:500;margin-top:3px}
+.mc-rem{margin-top:12px;background:var(--bg2);border-radius:8px;padding:10px 14px;font-size:13px;color:#4b5563;border-left:3px solid var(--green)}
+.empty{text-align:center;padding:64px 20px;color:#9ca3af;font-size:14px}
+
+/* ADMIN */
+.login-wrap{min-height:calc(100vh - 100px);display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.login-card{background:#fff;border-radius:20px;border:1px solid #e8edf2;padding:44px 40px;width:100%;max-width:400px;text-align:center}
+.login-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#8435EB,#32CE13);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.login-icon svg{width:26px;height:26px}
+.login-card h2{font-size:22px;margin-bottom:6px}
+.login-card p{font-size:13px;color:#9ca3af;margin-bottom:28px}
+.login-field{text-align:left;margin-bottom:16px}
+.login-field label{font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px}
+.login-field input{width:100%;padding:11px 14px;border:1px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Rubik',sans-serif;outline:none;transition:.15s}
+.login-field input:focus{border-color:var(--ubas);box-shadow:0 0 0 3px rgba(129,57,238,.1)}
+.login-err{font-size:12px;color:#dc2626;margin-top:-8px;margin-bottom:12px;text-align:left;display:none}
+.btn-login{width:100%;background:linear-gradient(135deg,var(--deep),#1a4d0a);color:#fff;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;padding:13px;border-radius:10px;border:none;cursor:pointer;transition:.15s;margin-top:4px}
+.btn-login:hover{opacity:.9}
+.admin-wrap{max-width:900px;margin:0 auto;padding:36px 32px}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.admin-header h2{margin-bottom:0}
+.btn-logout{background:var(--bg5);color:var(--ubas);font-family:'Rubik',sans-serif;font-weight:500;font-size:12px;padding:8px 16px;border-radius:8px;border:1px solid rgba(129,57,238,.2);cursor:pointer;transition:.15s}
+.btn-logout:hover{background:var(--ubas);color:#fff}
+.atab{background:transparent;border:none;border-bottom:2px solid transparent;color:#9ca3af;font-family:'Rubik',sans-serif;font-weight:500;font-size:14px;padding:10px 18px;cursor:pointer;transition:.15s;margin-bottom:-1px}
+.atab:hover{color:var(--deep)}.atab.active{color:var(--ubas);border-bottom-color:var(--ubas)}
+.atab-content{display:none}.atab-content.active{display:block}
+.form-card{background:#fff;border-radius:16px;border:1px solid #e8edf2;padding:28px;margin-bottom:20px}
+.form-card-ttl{font-weight:500;font-size:15px;color:var(--deep);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.fci{width:30px;height:30px;border-radius:8px;background:var(--bg5);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+label{font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:.6px}
+input[type=text],input[type=date],input[type=time],input[type=url],input[type=password],select,textarea{width:100%;padding:10px 13px;border:1px solid #e5e7eb;border-radius:9px;font-size:14px;font-family:'Rubik',sans-serif;color:var(--deep);background:#fafafa;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--ubas);background:#fff;box-shadow:0 0 0 3px rgba(129,57,238,.08)}
+textarea{resize:vertical;min-height:80px}
+.form-acts{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn-submit{background:linear-gradient(135deg,var(--deep),#1a4d0a);color:#fff;font-family:'Rubik',sans-serif;font-weight:600;font-size:13px;padding:11px 24px;border-radius:9px;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.15s}
+.btn-submit:hover{opacity:.9}
+.btn-clear{background:var(--bg1);color:#6b7280;font-family:'Rubik',sans-serif;font-weight:500;font-size:13px;padding:11px 18px;border-radius:9px;border:1px solid #e5e7eb;cursor:pointer}
+.amc{background:#fff;border-radius:14px;border:1px solid #e8edf2;padding:18px 22px;transition:.2s;margin-bottom:12px}
+.amc:hover{box-shadow:0 4px 18px rgba(9,41,3,.07);border-color:#d0d8ee}
+.amc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.amc-sys{font-weight:500;font-size:15px;color:var(--deep)}
+.amc-meta{font-size:12px;color:#9ca3af;margin-top:2px}
+.amc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6}
+.amc-rem{margin-top:12px;background:var(--bg2);border-radius:8px;padding:10px 14px;font-size:13px;color:#4b5563;border-left:3px solid var(--green)}
+.amc-acts{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid #f3f4f6;flex-wrap:wrap}
+.act{padding:6px 14px;border-radius:8px;font-size:12px;font-family:'Rubik',sans-serif;font-weight:500;cursor:pointer;border:none;transition:.15s}
+.act-edit{background:var(--bg5);color:var(--ubas)}.act-edit:hover{background:var(--ubas);color:#fff}
+.act-chat{background:var(--bg4);color:#2a6b0a}.act-chat:hover{background:var(--green);color:var(--deep)}
+.act-del{background:#fff0f0;color:#c62828;border:1px solid #fee2e2}.act-del:hover{background:#fecaca}
+.status-sel{padding:5px 10px;border-radius:8px;font-size:12px;font-family:'Rubik',sans-serif;border:1px solid #e5e7eb;color:var(--deep);background:#fff;cursor:pointer;outline:none}
+.wh-row{display:flex;gap:10px;flex-wrap:wrap}
+.wh-row input{flex:1;min-width:200px}
+.btn-ws{font-family:'Rubik',sans-serif;font-weight:600;font-size:13px;padding:10px 18px;border-radius:9px;border:none;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn-ws.save{background:var(--bg5);color:var(--ubas);border:1px solid rgba(129,57,238,.2)}.btn-ws.save:hover{background:var(--ubas);color:#fff}
+.btn-ws.test{background:var(--bg4);color:#2a6b0a;border:1px solid rgba(50,206,19,.2)}.btn-ws.test:hover{background:var(--green);color:var(--deep)}
+.wdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d1d5db;margin-right:6px}
+.wdot.ok{background:var(--green)}.wdot.err{background:#ef4444}
+.wstatus{font-size:12px;color:#9ca3af;margin-top:8px;display:flex;align-items:center}
+.howto{background:var(--bg2);border-radius:12px;padding:20px;margin-top:16px}
+.howto-ttl{font-weight:500;font-size:14px;color:var(--deep);margin-bottom:10px}
+.howto ol{font-size:13px;color:#4b5563;line-height:2;padding-left:18px}
+.modal-bg{display:none;position:absolute;inset:0;background:rgba(9,41,3,.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:60px;min-height:100%}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:20px;padding:32px;width:90%;max-width:500px}
+.modal h3{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--deep);margin-bottom:22px}
+.modal-acts{display:flex;gap:10px;margin-top:18px}
+#toast{position:absolute;bottom:20px;right:20px;padding:11px 20px;border-radius:12px;font-size:13px;font-weight:500;font-family:'Rubik',sans-serif;opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;z-index:400;max-width:300px}
+#toast.show{opacity:1;transform:translateY(0)}
+#toast.ok{background:var(--deep);color:var(--lime)}
+#toast.err{background:#7f1d1d;color:#fca5a5}
+@media(max-width:600px){
+  h1{font-size:28px}.stat-row,.fgrid,.amc-grid,.mc-grid{grid-template-columns:1fr}
+  .hero-stats{gap:18px}.nav-tab{padding:6px 9px;font-size:11px}
+  .board-wrap,.admin-wrap{padding:28px 16px}.emp-hero{padding:40px 16px 48px}
+}
+</style>
+</head>
+<body>
+<div style="position:relative">
+
+<div class="role-bar">
+  <span class="role-label">View as:</span>
+  <button class="role-btn active" id="rb-emp" onclick="switchRole('employee')">Employee</button>
+  <button class="role-btn" id="rb-adm" onclick="switchRole('admin')">Admin</button>
+</div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+    </div>
+    <span class="nav-brand">Maint<span>Track</span></span>
+    <span class="nav-internal">Internal</span>
+  </div>
+  <div class="nav-tabs" id="emp-nav-tabs">
+    <button class="nav-tab active" onclick="showEmpPage('home',this)">Home</button>
+    <button class="nav-tab" onclick="showEmpPage('board',this)">Maintenance Board <span class="nav-badge" id="emp-nav-count">0</span></button>
+  </div>
+  <div class="nav-tabs" id="adm-nav-tabs" style="display:none">
+    <button class="nav-tab active" onclick="showAtab('records',this)">Records <span class="nav-badge" id="adm-nav-count">0</span></button>
+    <button class="nav-tab" onclick="showAtab('addform',this)">Add Maintenance</button>
+    <button class="nav-tab" onclick="showAtab('webhook',this)">Settings</button>
+    <span class="nav-admin-tag">Admin</span>
+  </div>
+</nav>
+
+<!-- ══ EMPLOYEE UI ══ -->
+<div id="emp-ui">
+
+  <div class="page active" id="ep-home">
+    <div class="emp-hero">
+      <div class="eg1"></div><div class="eg2"></div>
+      <div class="emp-hero-inner">
+        <div class="hero-eyebrow"><span class="hero-dot"></span>Sprout Systems · Internal Use Only</div>
+        <h1>Know every <span class="ga">maintenance.</span><br>Plan <span class="ua">ahead.</span></h1>
+        <p class="hero-sub">Stay informed on Sprout system maintenance.</p>
+        <div class="hero-stats">
+          <div class="hstat"><div class="num" id="eh-total">0</div><div class="lbl">Total records</div></div>
+          <div class="hstat"><div class="num bl" id="eh-up">0</div><div class="lbl">Upcoming</div></div>
+          <div class="hstat"><div class="num o" id="eh-on">0</div><div class="lbl">Ongoing now</div></div>
+          <div class="hstat"><div class="num g" id="eh-done">0</div><div class="lbl">Completed</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="board-wrap">
+      <div class="section-eyebrow"><span class="ebar"></span>Latest maintenance</div>
+      <h2 style="margin-bottom:20px">Recent <em>records</em></h2>
+      <div class="mlist" id="emp-recent"></div>
+      <div style="margin-top:20px;text-align:center">
+        <button style="background:var(--bg5);color:var(--ubas);font-family:'Rubik',sans-serif;font-weight:500;font-size:13px;padding:10px 24px;border-radius:10px;border:1px solid rgba(129,57,238,.2);cursor:pointer" onclick="showEmpPage('board',document.querySelectorAll('#emp-nav-tabs .nav-tab')[1])">View all maintenance records</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="ep-board">
+    <div class="board-wrap">
+      <div class="section-eyebrow"><span class="ebar"></span>Maintenance board</div>
+      <h2 style="margin-bottom:6px">All <em>maintenance records</em></h2>
+      <p style="font-size:14px;color:#6b7280;margin-bottom:24px">Read-only view — visible to all Sprout employees.</p>
+      <div class="stat-row">
+        <div class="scard"><div class="sn" id="eb-total">0</div><div class="sl">Total</div></div>
+        <div class="scard"><div class="sn bl" id="eb-up">0</div><div class="sl">Upcoming</div></div>
+        <div class="scard"><div class="sn or" id="eb-on">0</div><div class="sl">Ongoing</div></div>
+        <div class="scard"><div class="sn gr" id="eb-done">0</div><div class="sl">Completed</div></div>
+      </div>
+      <div class="board-filters">
+        <input type="text" id="emp-search" placeholder="Search system or remarks..." oninput="renderEmpBoard()">
+        <select id="emp-filter" onchange="renderEmpBoard()">
+          <option value="">All statuses</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="mlist" id="emp-board-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ ADMIN UI ══ -->
+<div id="adm-ui" style="display:none">
+
+  <div class="page active" id="ap-login">
+    <div class="login-wrap">
+      <div class="login-card">
+        <div class="login-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2>Admin access</h2>
+        <p>Enter your password to manage system maintenance records.</p>
+        <div class="login-field">
+          <label>Password</label>
+          <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+        <button class="btn-login" onclick="doLogin()">Sign in</button>
+        <p style="font-size:11px;color:#d1d5db;margin-top:20px">Default password: <code style="background:#f3f4f6;color:#6b7280;padding:2px 6px;border-radius:4px">admin123</code></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="ap-dashboard">
+    <div class="admin-wrap">
+      <div class="admin-header">
+        <div>
+          <div class="section-eyebrow"><span class="ebar"></span>Admin panel</div>
+          <h2>Manage <em>system maintenance</em></h2>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">Sign out</button>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-bottom:28px;border-bottom:1px solid #e8edf2;flex-wrap:wrap">
+        <button class="atab active" onclick="showAtab('records',this)">All records <span class="nav-badge" id="adm-rec-count">0</span></button>
+        <button class="atab" onclick="showAtab('addform',this)">Add maintenance</button>
+        <button class="atab" onclick="showAtab('webhook',this)">Google Chat settings</button>
+      </div>
+
+      <!-- RECORDS -->
+      <div class="atab-content active" id="at-records">
+        <div class="board-filters" style="margin-bottom:20px">
+          <input type="text" id="adm-search" placeholder="Search system or remarks..." oninput="renderAdmBoard()">
+          <select id="adm-filter" onchange="renderAdmBoard()">
+            <option value="">All statuses</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div id="adm-list"></div>
+      </div>
+
+      <!-- ADD FORM -->
+      <div class="atab-content" id="at-addform">
+        <div class="form-card">
+          <div class="form-card-ttl">
+            <div class="fci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            System maintenance details
+          </div>
+          <div class="fgrid">
+            <div class="field full">
+              <label>Product / System</label>
+              <select id="f-product">
+                <option value="" disabled selected>Select a product...</option>
+                <option value="ReadyCash">ReadyCash</option>
+                <option value="readyWage">readyWage</option>
+                <option value="Sprout HR">Sprout HR</option>
+                <option value="Sprout Payroll">Sprout Payroll</option>
+                <option value="Sandbox">Sandbox</option>
+                <option value="API">API</option>
+              </select>
+            </div>
+            <div class="field"><label>Date</label><input id="f-date" type="date"></div>
+            <div class="field"><label>Time (start)</label><input id="f-time" type="time"></div>
+            <div class="field"><label>Duration</label><input id="f-dur" type="text" placeholder="e.g. 2 hours, 30 minutes"></div>
+            <div class="field"><label>Status</label>
+              <select id="f-status">
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="field full"><label>Remarks</label><textarea id="f-remarks" placeholder="Reason, expected impact, notes for the team..."></textarea></div>
+          </div>
+          <div class="form-acts">
+            <button class="btn-submit" onclick="submitForm()">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Save & announce to Google Chat
+            </button>
+            <button class="btn-clear" onclick="clearForm()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBHOOK -->
+      <div class="atab-content" id="at-webhook">
+        <div class="form-card">
+          <div class="form-card-ttl">
+            <div class="fci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            Google Chat webhook
+          </div>
+          <div class="field" style="margin-bottom:10px">
+            <label>Webhook URL</label>
+            <div class="wh-row">
+              <input id="wh-url" type="url" placeholder="https://chat.googleapis.com/v1/spaces/...">
+              <button class="btn-ws save" onclick="saveWh()">Save</button>
+              <button class="btn-ws test" onclick="testWh()">Test</button>
+            </div>
+            <div class="wstatus"><span class="wdot" id="wdot"></span><span id="wstatus-txt">Not configured</span></div>
+          </div>
+          <div class="howto">
+            <div class="howto-ttl">How to get your webhook URL</div>
+            <ol>
+              <li>Open Google Chat → go to your <strong>CS General</strong> channel</li>
+              <li>Click the channel name → <strong>Apps &amp; Integrations</strong> → Manage webhooks</li>
+              <li>Click <strong>Add webhook</strong>, name it "MaintTrack Bot"</li>
+              <li>Copy the URL and paste it above, then click Save</li>
+            </ol>
+          </div>
+        </div>
+        <div class="form-card" style="margin-top:16px">
+          <div class="form-card-ttl">
+            <div class="fci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            Change admin password
+          </div>
+          <div class="fgrid">
+            <div class="field"><label>New password</label><input type="password" id="new-pw" placeholder="Enter new password"></div>
+            <div class="field"><label>Confirm password</label><input type="password" id="confirm-pw" placeholder="Confirm new password"></div>
+          </div>
+          <div class="form-acts">
+            <button class="btn-submit" onclick="changePw()">Update password</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="edit-modal">
+  <div class="modal">
+    <h3>Edit maintenance record</h3>
+    <div class="fgrid">
+      <div class="field full">
+        <label>Product / System</label>
+        <select id="e-product">
+          <option value="" disabled>Select a product...</option>
+          <option value="ReadyCash">ReadyCash</option>
+          <option value="readyWage">readyWage</option>
+          <option value="Sprout HR">Sprout HR</option>
+          <option value="Sprout Payroll">Sprout Payroll</option>
+          <option value="Sandbox">Sandbox</option>
+          <option value="API">API</option>
+        </select>
+      </div>
+      <div class="field"><label>Date</label><input id="e-date" type="date"></div>
+      <div class="field"><label>Time</label><input id="e-time" type="time"></div>
+      <div class="field"><label>Duration</label><input id="e-dur" type="text"></div>
+      <div class="field"><label>Status</label>
+        <select id="e-status">
+          <option value="upcoming">Upcoming</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="field full"><label>Remarks</label><textarea id="e-remarks"></textarea></div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-submit" onclick="saveEdit()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save changes
+      </button>
+      <button class="btn-clear" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+</div>
+
+<script>
+let data=JSON.parse(localStorage.getItem('mt_data')||'[]');
+let wh=localStorage.getItem('mt_wh')||'';
+let pw=localStorage.getItem('mt_pw')||'admin123';
+let loggedIn=false,editId=null;
+
+if(wh){document.getElementById('wh-url').value=wh;setWdot(true)}
+document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
+updateCounts();renderEmpRecent();renderEmpBoard();
+
+function save(){localStorage.setItem('mt_data',JSON.stringify(data));updateCounts()}
+function updateCounts(){
+  const n=data.length,up=data.filter(m=>m.status==='upcoming').length,on=data.filter(m=>m.status==='ongoing').length,done=data.filter(m=>m.status==='completed').length;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+  set('eh-total',n);set('eh-up',up);set('eh-on',on);set('eh-done',done);
+  set('eb-total',n);set('eb-up',up);set('eb-on',on);set('eb-done',done);
+  set('emp-nav-count',n);set('adm-nav-count',n);set('adm-rec-count',n);
+}
+
+function switchRole(role){
+  document.getElementById('rb-emp').classList.toggle('active',role==='employee');
+  document.getElementById('rb-adm').classList.toggle('active',role==='admin');
+  document.getElementById('emp-ui').style.display=role==='employee'?'block':'none';
+  document.getElementById('adm-ui').style.display=role==='admin'?'block':'none';
+  document.getElementById('emp-nav-tabs').style.display=role==='employee'?'flex':'none';
+  document.getElementById('adm-nav-tabs').style.display=role==='admin'?'flex':'none';
+  if(role==='admin'&&!loggedIn)showAdmLoginPage();
+  else if(role==='admin'&&loggedIn)showAdmDashboard();
+}
+
+function showEmpPage(p,btn){
+  document.querySelectorAll('#emp-ui .page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('#emp-nav-tabs .nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('ep-'+p).classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(p==='board')renderEmpBoard();
+}
+
+function showAtab(id,btn){
+  document.querySelectorAll('.atab').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.atab-content').forEach(el=>el.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('.atab').forEach(el=>{if((el.getAttribute('onclick')||'').includes("'"+id+"'"))el.classList.add('active')});
+  const el=document.getElementById('at-'+id);if(el)el.classList.add('active');
+  if(id==='records')renderAdmBoard();
+  // sync nav tab highlight
+  const navMap={records:0,addform:1,webhook:2};
+  document.querySelectorAll('#adm-nav-tabs .nav-tab').forEach((t,i)=>t.classList.toggle('active',i===navMap[id]));
+}
+
+function showAdmLoginPage(){
+  document.querySelectorAll('#adm-ui .page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('ap-login').classList.add('active');
+}
+function showAdmDashboard(){
+  document.querySelectorAll('#adm-ui .page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('ap-dashboard').classList.add('active');
+  renderAdmBoard();
+}
+
+function doLogin(){
+  const val=document.getElementById('pw-input').value;
+  if(val===pw){loggedIn=true;document.getElementById('login-err').style.display='none';document.getElementById('pw-input').value='';showAdmDashboard();}
+  else document.getElementById('login-err').style.display='block';
+}
+function doLogout(){loggedIn=false;showAdmLoginPage();toast('Signed out.','ok')}
+function changePw(){
+  const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
+  if(!np){toast('Enter a new password.','err');return}
+  if(np!==cp){toast('Passwords do not match.','err');return}
+  pw=np;localStorage.setItem('mt_pw',pw);
+  document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
+  toast('Password updated!','ok');
+}
+
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='show '+type;
+  setTimeout(()=>t.className='',3500);
+}
+
+function formatTime(t){if(!t)return'—';const[h,m]=t.split(':');const ap=+h>=12?'PM':'AM';return((+h%12)||12)+':'+(m||'00')+' '+ap}
+function fmtDateShort(d){if(!d)return'—';return new Date(d+'T12:00').toLocaleDateString('en-PH',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function badgeClass(s){return{upcoming:'b-upcoming',ongoing:'b-ongoing',completed:'b-completed',cancelled:'b-cancelled'}[s]||'b-upcoming'}
+
+function mcHTML(m,isAdmin){
+  return`<div class="${isAdmin?'amc':'mc'}">
+    <div class="${isAdmin?'amc-top':'mc-top'}">
+      <div>
+        <div class="${isAdmin?'amc-sys':'mc-sys'}">${esc(m.product)}</div>
+        <div class="${isAdmin?'amc-meta':'mc-dt'}">Added ${new Date(m.createdAt).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'})}</div>
+      </div>
+      ${isAdmin
+        ?`<select class="status-sel" onchange="changeStatus('${m.id}',this.value)">
+            <option value="upcoming"${m.status==='upcoming'?' selected':''}>Upcoming</option>
+            <option value="ongoing"${m.status==='ongoing'?' selected':''}>Ongoing</option>
+            <option value="completed"${m.status==='completed'?' selected':''}>Completed</option>
+            <option value="cancelled"${m.status==='cancelled'?' selected':''}>Cancelled</option>
+          </select>`
+        :`<span class="badge ${badgeClass(m.status)}">${m.status}</span>`}
+    </div>
+    <div class="${isAdmin?'amc-grid':'mc-grid'}">
+      <div class="mc-f"><div class="fl">Date</div><div class="fv">${fmtDateShort(m.date)}</div></div>
+      <div class="mc-f"><div class="fl">Time</div><div class="fv">${formatTime(m.time)}</div></div>
+      <div class="mc-f"><div class="fl">Duration</div><div class="fv">${esc(m.duration)}</div></div>
+    </div>
+    ${m.remarks?`<div class="${isAdmin?'amc-rem':'mc-rem'}">${esc(m.remarks)}</div>`:''}
+    ${isAdmin?`<div class="amc-acts">
+      <button class="act act-edit" onclick="openEdit('${m.id}')">Edit</button>
+      <button class="act act-chat" onclick="reannounce('${m.id}')">Announce to Chat</button>
+      <button class="act act-del" onclick="del('${m.id}')">Delete</button>
+    </div>`:''}
+  </div>`;
+}
+
+function renderEmpRecent(){
+  const el=document.getElementById('emp-recent');
+  const recent=data.slice(0,3);
+  el.innerHTML=recent.length?recent.map(m=>mcHTML(m,false)).join(''):'<div class="empty">No maintenance records yet.</div>';
+}
+function renderEmpBoard(){
+  const q=(document.getElementById('emp-search').value||'').toLowerCase();
+  const st=document.getElementById('emp-filter').value;
+  const filtered=data.filter(m=>(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||m.status===st));
+  document.getElementById('emp-board-list').innerHTML=filtered.length?filtered.map(m=>mcHTML(m,false)).join(''):'<div class="empty">No records found.</div>';
+  updateCounts();
+}
+function renderAdmBoard(){
+  const q=(document.getElementById('adm-search').value||'').toLowerCase();
+  const st=document.getElementById('adm-filter').value;
+  const filtered=data.filter(m=>(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||m.status===st));
+  document.getElementById('adm-list').innerHTML=filtered.length?filtered.map(m=>mcHTML(m,true)).join(''):'<div class="empty">No maintenance records found.</div>';
+  updateCounts();
+}
+
+function clearForm(){
+  document.getElementById('f-product').value='';
+  ['f-time','f-dur','f-remarks'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-status').value='upcoming';
+  document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
+}
+function submitForm(){
+  const product=document.getElementById('f-product').value;
+  const date=document.getElementById('f-date').value;
+  const time=document.getElementById('f-time').value;
+  const dur=document.getElementById('f-dur').value.trim();
+  const status=document.getElementById('f-status').value;
+  const remarks=document.getElementById('f-remarks').value.trim();
+  if(!product||!date||!time||!dur){toast('Fill in all required fields.','err');return}
+  const entry={id:Date.now().toString(),product,date,time,duration:dur,status,remarks,createdAt:new Date().toISOString()};
+  data.unshift(entry);save();renderEmpRecent();
+  sendToChat(entry,'new');
+  toast('Saved & announced!','ok');
+  clearForm();
+  showAtab('records',null);
+}
+
+function changeStatus(id,val){
+  const idx=data.findIndex(x=>x.id===id);if(idx===-1)return;
+  data[idx].status=val;save();renderEmpRecent();toast('Status updated!','ok');
+}
+
+function openEdit(id){
+  const m=data.find(x=>x.id===id);if(!m)return;
+  editId=id;
+  document.getElementById('e-product').value=m.product;
+  document.getElementById('e-date').value=m.date;
+  document.getElementById('e-time').value=m.time;
+  document.getElementById('e-dur').value=m.duration;
+  document.getElementById('e-status').value=m.status;
+  document.getElementById('e-remarks').value=m.remarks||'';
+  document.getElementById('edit-modal').classList.add('open');
+}
+function closeModal(){document.getElementById('edit-modal').classList.remove('open');editId=null}
+function saveEdit(){
+  const idx=data.findIndex(x=>x.id===editId);if(idx===-1)return;
+  data[idx]={...data[idx],product:document.getElementById('e-product').value,date:document.getElementById('e-date').value,time:document.getElementById('e-time').value,duration:document.getElementById('e-dur').value.trim(),status:document.getElementById('e-status').value,remarks:document.getElementById('e-remarks').value.trim()};
+  save();closeModal();renderAdmBoard();renderEmpRecent();toast('Updated!','ok');
+}
+function del(id){if(!confirm('Delete this maintenance record?'))return;data=data.filter(x=>x.id!==id);save();renderAdmBoard();renderEmpRecent();toast('Deleted.','ok')}
+
+function buildMsg(e,type){
+  const icon=type==='new'?'🔧':'📋';
+  const hdr=type==='new'?'System Maintenance Scheduled':'System Maintenance Update';
+  return`${icon} *${hdr}*\n\n*Product/System:* ${e.product}\n*Date & Time:* ${fmtDateShort(e.date)}${e.time?' at '+formatTime(e.time):''}\n*Duration:* ${e.duration}\n*Status:* ${e.status.charAt(0).toUpperCase()+e.status.slice(1)}\n`+(e.remarks?`*Remarks:* ${e.remarks}\n`:'')+`\nPlease plan your tasks accordingly. 🙏`;
+}
+async function sendToChat(entry,type){
+  const url=localStorage.getItem('mt_wh');
+  if(!url){toast('No webhook set — go to Google Chat settings.','err');return}
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:buildMsg(entry,type)})});
+    if(r.ok)toast('Announced to Google Chat!','ok');
+    else toast('Webhook error: '+r.status,'err');
+  }catch{toast('Could not reach webhook.','err')}
+}
+function reannounce(id){const m=data.find(x=>x.id===id);if(m)sendToChat(m,'update')}
+function saveWh(){
+  const url=document.getElementById('wh-url').value.trim();
+  if(!url){toast('Enter a webhook URL.','err');return}
+  localStorage.setItem('mt_wh',url);wh=url;setWdot(true);toast('Webhook saved!','ok');
+}
+async function testWh(){
+  const url=document.getElementById('wh-url').value.trim();
+  if(!url){toast('Enter a webhook URL first.','err');return}
+  localStorage.setItem('mt_wh',url);
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🔧 *MaintTrack* — Test message. Webhook is working! ✅'})});
+    if(r.ok){toast('Test sent!','ok');setWdot(true)}else{toast('Error: '+r.status,'err');setWdot(false)}
+  }catch{toast('Could not reach webhook.','err');setWdot(false)}
+}
+function setWdot(ok){
+  const d=document.getElementById('wdot'),s=document.getElementById('wstatus-txt');
+  if(d)d.className='wdot '+(ok?'ok':'err');
+  if(s)s.textContent=ok?'Webhook configured and ready':'Webhook error — check URL';
+}
+</script>
+</body>
+</html>
