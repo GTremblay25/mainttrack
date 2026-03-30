@@ -12,219 +12,150 @@
   --green:#32CE13;--deep:#092903;--lime:#D2F612;
   --carrot:#FF7F00;--blue:#1679FA;--ubas:#8139EE;
   --bg:#F7F9ED;--bg2:#F7F5F2;--bg3:#E1F6C8;--bg4:#F5F3FF;
-  --surface:#ffffff;--border:#e0e8d0;--border2:#d4d0ea;
+  --surface:#fff;--border:#e0e8d0;
   --text:#092903;--muted:#5a6e50;--muted2:#7b6fa8;
   --radius:14px;--radius-sm:9px;
-  --shadow:0 2px 12px rgba(9,41,3,.07);
-  --shadow-md:0 4px 24px rgba(9,41,3,.10);
+  --shadow:0 2px 12px rgba(9,41,3,.07);--shadow-md:0 4px 24px rgba(9,41,3,.10);
 }
 body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-h1,h2,h3,h4,h5{font-family:'Inter',sans-serif}
+h1,h2,h3,h4{font-family:'Inter',sans-serif}
+*{box-sizing:border-box}
 
-/* ── NAV ── */
-nav{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:0 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:62px;position:sticky;top:0;z-index:100;
-  box-shadow:0 1px 8px rgba(9,41,3,.06);
-}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{
-  width:36px;height:36px;
-  background:linear-gradient(135deg,var(--green),var(--lime));
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;box-shadow:0 2px 8px rgba(50,206,19,.3);
-}
+/* NAV */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(9,41,3,.06)}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 8px rgba(50,206,19,.3)}
 .logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:var(--deep);line-height:1.1}
-.logo-sub{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.3px}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:.3px}
 .nav-tabs{display:flex;gap:2px;background:var(--bg);padding:4px;border-radius:10px}
-.nav-tab{
-  padding:7px 16px;border-radius:7px;cursor:pointer;
-  font-size:13px;color:var(--muted);border:none;
-  background:transparent;font-family:'Rubik',sans-serif;font-weight:500;
-  transition:.15s;
-}
+.nav-tab{padding:7px 16px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--muted);border:none;background:transparent;font-family:'Rubik',sans-serif;font-weight:500;transition:.15s}
 .nav-tab:hover{color:var(--text);background:var(--surface)}
 .nav-tab.active{color:var(--deep);background:var(--surface);box-shadow:var(--shadow);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:10px}
 
-/* ── BUTTONS ── */
-.btn{
-  padding:8px 18px;border-radius:var(--radius-sm);border:none;
-  cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;
-  font-weight:500;transition:.15s;display:inline-flex;align-items:center;gap:6px;
-}
+/* BUTTONS */
+.btn{padding:8px 18px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;font-weight:500;transition:.15s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--green);color:var(--deep);box-shadow:0 2px 8px rgba(50,206,19,.25)}
-.btn-primary:hover{filter:brightness(1.05);box-shadow:0 4px 14px rgba(50,206,19,.35)}
-.btn-outline{background:transparent;color:var(--deep);border:1.5px solid var(--border);font-weight:500}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-outline{background:transparent;color:var(--deep);border:1.5px solid var(--border)}
 .btn-outline:hover{border-color:var(--green);color:var(--green);background:rgba(50,206,19,.05)}
+.btn-approve{background:linear-gradient(135deg,var(--green),#28b010);color:var(--deep);box-shadow:0 2px 8px rgba(50,206,19,.25)}
+.btn-approve:hover{filter:brightness(1.05)}
+.btn-reject{background:#fff0f0;color:#c0392b;border:1.5px solid #ffd5d5}
+.btn-reject:hover{background:#ffe0e0}
 .btn-danger{background:#fff0f0;color:#c0392b;border:1.5px solid #ffd5d5}
-.btn-danger:hover{background:#ffe0e0}
 .btn-warn{background:linear-gradient(135deg,var(--carrot),#ffaa40);color:#fff;box-shadow:0 2px 8px rgba(255,127,0,.25)}
 .btn-ubas{background:linear-gradient(135deg,var(--ubas),#a060f0);color:#fff;box-shadow:0 2px 8px rgba(129,57,238,.25)}
-.btn-sm{padding:5px 12px;font-size:12px}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
 .btn-ghost:hover{color:var(--text);border-color:var(--muted)}
-.badge-admin{
-  background:var(--bg4);color:var(--ubas);
-  border:1px solid #ddd6f7;
-  padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;
-  font-family:'Inter',sans-serif;
-}
+.btn-sm{padding:5px 12px;font-size:12px}
+.badge-admin{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
 
-/* ── VIEWS ── */
+/* VIEWS */
 .view{display:none;padding:28px;max-width:1140px;margin:0 auto}
 .view.active{display:block}
 
-/* ── CARDS ── */
+/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:16px}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-4{grid-template-columns:repeat(4,1fr)}
 
-/* ── STATUS BADGES ── */
+/* STATUS BADGES */
 .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.2px}
+.badge-pending{background:#FFF8E8;color:#a06000;border:1px solid #ffe0a0}
 .badge-upcoming{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
 .badge-ongoing{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
 .badge-completed{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
 .badge-cancelled{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
-
+.badge-rejected{background:#f5f0ff;color:#6a30b0;border:1px solid #d4b8f5}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--carrot);animation:pulse 1.4s ease-in-out infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.35)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── MAINT CARDS ── */
-.maint-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:18px 20px;
-  box-shadow:var(--shadow);transition:.15s;
-}
+/* MAINT CARDS */
+.maint-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);transition:.15s;animation:fadeIn .2s ease}
 .maint-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
 .maint-card.ongoing{border-left:4px solid var(--carrot);background:linear-gradient(to right,#fffaf5,var(--surface))}
 .maint-card.upcoming{border-left:4px solid var(--blue);background:linear-gradient(to right,#f5f8ff,var(--surface))}
+.maint-card.pending-card{border-left:4px solid #f0a500;background:linear-gradient(to right,#fffdf0,var(--surface))}
+.maint-card.rejected-card{border-left:4px solid #9b59b6;background:linear-gradient(to right,#fdf5ff,var(--surface));opacity:.85}
 .maint-product{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep)}
 .maint-meta{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:8px}
-.maint-meta span{display:flex;align-items:center;gap:4px}
 .maint-remarks{font-size:12px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.6}
 .maint-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 
-/* ── STAT CARDS ── */
-.stat-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:20px;
-  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;
-}
+/* PENDING COUNT BADGE */
+.tab-badge{display:inline-flex;align-items:center;justify-content:center;background:#f0a500;color:#fff;border-radius:10px;font-size:10px;font-weight:700;min-width:18px;height:18px;padding:0 5px;margin-left:5px;font-family:'Inter',sans-serif}
+
+/* STAT CARDS */
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
 .stat-num{font-family:'Inter',sans-serif;font-weight:800;font-size:30px;line-height:1}
 .stat-label{font-size:12px;color:var(--muted);font-weight:500}
 .stat-icon{font-size:22px;margin-bottom:4px}
 
-/* ── FORMS ── */
+/* FORMS */
 .form-group{margin-bottom:14px}
 .form-label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500;font-family:'Inter',sans-serif}
-.form-input,.form-select,.form-textarea{
-  width:100%;background:var(--bg);border:1.5px solid var(--border);
-  border-radius:var(--radius-sm);padding:9px 12px;
-  color:var(--text);font-family:'Rubik',sans-serif;font-size:13px;
-  outline:none;transition:.15s;
-}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;color:var(--text);font-family:'Rubik',sans-serif;font-size:13px;outline:none;transition:.15s}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(50,206,19,.1);background:var(--surface)}
 .form-select option{background:var(--surface)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 
-/* ── PRODUCT ENTRY ── */
-.product-entry{
-  background:var(--surface);border:1.5px solid var(--border);
-  border-radius:var(--radius);padding:20px;margin-bottom:14px;
-  position:relative;box-shadow:var(--shadow);
-}
-.product-entry-label{
-  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
-  color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;
-  display:flex;align-items:center;gap:6px;
-}
-.remove-entry{
-  position:absolute;top:14px;right:14px;
-  background:var(--bg);border:1px solid var(--border);
-  color:var(--muted);cursor:pointer;font-size:14px;
-  padding:4px 8px;border-radius:6px;transition:.15s;
-}
+/* PRODUCT ENTRY */
+.product-entry{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;position:relative;box-shadow:var(--shadow)}
+.product-entry-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
+.remove-entry{position:absolute;top:14px;right:14px;background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px;transition:.15s}
 .remove-entry:hover{background:#fff0f0;border-color:#ffc8c8;color:#c0392b}
 
-/* ── FILTER BAR ── */
+/* FILTER BAR */
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;padding:14px 18px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
 .filter-bar .form-select,.filter-bar .form-input{width:auto;min-width:130px;background:var(--bg)}
 
-/* ── SUB TABS ── */
-.sub-tabs{display:flex;gap:2px;background:var(--surface);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;border:1px solid var(--border);box-shadow:var(--shadow)}
-.sub-tab{padding:7px 18px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--muted);border:none;background:transparent;font-family:'Rubik',sans-serif;font-weight:500}
+/* SUB TABS */
+.sub-tabs{display:flex;gap:2px;background:var(--surface);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;border:1px solid var(--border);box-shadow:var(--shadow);flex-wrap:wrap}
+.sub-tab{padding:7px 18px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--muted);border:none;background:transparent;font-family:'Rubik',sans-serif;font-weight:500;display:inline-flex;align-items:center}
 .sub-tab.active{background:var(--deep);color:#fff;font-weight:600}
 
-/* ── MODAL ── */
+/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(9,41,3,.35);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 .modal-overlay.open{display:flex}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(9,41,3,.18)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .modal-title{font-family:'Inter',sans-serif;font-weight:700;font-size:16px}
-.modal-close{background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:18px;line-height:1;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.modal-close{background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:18px;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center}
 .modal-close:hover{background:#fff0f0;color:#c0392b}
 
-/* ── LOGIN ── */
-#login-view{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 62px);background:linear-gradient(135deg,var(--bg4) 0%,var(--bg) 60%,var(--bg3) 100%)}
-.login-wrap{text-align:center}
-.login-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;width:380px;text-align:center;box-shadow:0 8px 32px rgba(9,41,3,.12)}
 .login-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;box-shadow:0 4px 14px rgba(50,206,19,.3)}
-.login-card h2{font-size:20px;color:var(--deep);margin-bottom:6px}
-.login-card p{color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6}
 .login-error{color:#c0392b;font-size:12px;margin-top:10px;background:#fff0f0;padding:8px 12px;border-radius:7px;border:1px solid #ffc8c8;display:none}
 .login-error.show{display:block}
 
-/* ── HERO BANNER ── */
-.home-hero{
-  background:linear-gradient(135deg,var(--deep) 0%,#1a3d10 50%,#0f2a30 100%);
-  border-radius:18px;padding:32px 36px;margin-bottom:24px;
-  display:flex;align-items:center;justify-content:space-between;
-  overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(9,41,3,.2);
-}
-.home-hero::before{
-  content:'';position:absolute;right:-60px;top:-60px;
-  width:260px;height:260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(50,206,19,.15),transparent 70%);
-}
-.home-hero::after{
-  content:'';position:absolute;left:40%;bottom:-40px;
-  width:180px;height:180px;border-radius:50%;
-  background:radial-gradient(circle,rgba(129,57,238,.12),transparent 70%);
-}
-.hero-title{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:6px;line-height:1.2}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+/* HERO */
+.home-hero{background:linear-gradient(135deg,var(--deep) 0%,#1a3d10 50%,#0f2a30 100%);border-radius:18px;padding:32px 36px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(9,41,3,.2);flex-wrap:wrap;gap:20px}
+.home-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(50,206,19,.15),transparent 70%)}
+.home-hero::after{content:'';position:absolute;left:40%;bottom:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(129,57,238,.12),transparent 70%)}
 .hero-month{font-size:12px;color:var(--lime);font-weight:600;font-family:'Inter',sans-serif;margin-bottom:6px;letter-spacing:.4px}
+.hero-title{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:6px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
 
-/* ── SECTION HEADER ── */
-.section-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+/* MISC */
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--green);font-family:'Inter',sans-serif;margin-bottom:4px}
 .section-title{font-family:'Inter',sans-serif;font-weight:700;font-size:18px;color:var(--deep)}
 .section-sub{color:var(--muted);font-size:13px;margin-top:3px}
-.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--green);font-family:'Inter',sans-serif;margin-bottom:4px}
-
-/* ── GROUP LABELS ── */
+.section-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px}
 .group-label{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .group-label-text{font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
 .group-label-text.ongoing{color:var(--carrot)}
 .group-label-text.upcoming{color:var(--blue)}
-
-/* ── CHART ── */
 .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 .chart-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--deep);margin-bottom:14px}
-
-/* ── EMPTY STATE ── */
 .empty{text-align:center;padding:48px 0;color:var(--muted)}
 .empty-icon{font-size:36px;margin-bottom:10px}
 .empty p{font-size:13px}
-
-/* ── SETTING ROW ── */
 .setting-row{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
 .setting-row:last-child{border-bottom:none}
 .setting-info h4{font-size:14px;font-weight:600;font-family:'Inter',sans-serif;color:var(--deep)}
@@ -233,94 +164,81 @@ nav{
 .status-pill.ok{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
 .status-pill.err{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
 .status-pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-
-/* ── ANNOUNCE ── */
 .announce-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border);margin-bottom:8px;transition:.1s}
 .announce-item:hover{border-color:var(--green);background:#f5fdf0}
 .announce-item input[type=checkbox]{accent-color:var(--green);margin-top:2px;width:15px;height:15px;cursor:pointer}
-
-/* ── CHIP ── */
 .chip{display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
 .chip-green{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
-.chip-blue{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
-.chip-ubas{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7}
-
-/* ── DIVIDER ── */
+.chip-orange{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
 .divider{height:1px;background:var(--border);margin:20px 0}
-
-/* ── TOAST ── */
+.gradient-strip{height:3px;background:linear-gradient(90deg,var(--green),var(--ubas),var(--blue));border-radius:2px;margin-bottom:18px}
 .toast-container{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:300}
 .toast{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:13px;animation:slideIn .2s ease;max-width:300px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:8px}
 .toast.success{border-color:#b8eea5;background:#f5fdf0}
 .toast.error{border-color:#ffc8c8;background:#fff5f5}
 .toast.info{border-color:#c5d9ff;background:#f0f6ff}
-@keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes spin{to{transform:rotate(360deg)}}
+.subscribe-card{background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #c5d9ff;border-radius:var(--radius);padding:22px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:28px;box-shadow:var(--shadow)}
+.subscribe-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--ubas));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 
-/* ── GRADIENT ACCENT STRIP ── */
-.gradient-strip{height:3px;background:linear-gradient(90deg,var(--green),var(--ubas),var(--blue));border-radius:2px;margin-bottom:18px}
-
-/* ── AI BADGE ── */
-.ai-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  background:linear-gradient(135deg,var(--ubas),#a060f0);
-  color:#fff;padding:3px 10px;border-radius:20px;
-  font-size:10px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.3px;
-}
-
-/* ── CALENDAR ── */
-.cal-card{
-  background:linear-gradient(135deg,var(--bg4) 0%,#f0f8ff 100%);
-  border:1px solid #ddd6f7;border-radius:var(--radius);
-  padding:40px;text-align:center;box-shadow:var(--shadow);
-}
+/* PENDING APPROVAL card special styling */
+.approval-card{background:var(--surface);border:1px solid #ffe0a0;border-left:4px solid #f0a500;border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);animation:fadeIn .2s ease;transition:.15s}
+.approval-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.from-cal-tag{display:inline-flex;align-items:center;gap:4px;background:#FFF8E8;color:#a06000;border:1px solid #ffe0a0;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.3px}
 </style>
 </head>
 <body>
 
-<!-- ── GLOBAL NAV ── -->
 <nav>
-  <a class="logo" href="#">
+  <div class="logo" id="logo-btn">
     <div class="logo-mark">🌱</div>
     <div>
       <div class="logo-text">Sprout Maintenance Hub</div>
       <div class="logo-sub">System Status · CS Operations</div>
     </div>
-  </a>
+  </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showView('home')">Home</button>
-    <button class="nav-tab" onclick="showView('board')">Maintenance Board</button>
+    <button class="nav-tab active" id="nav-home">Home</button>
+    <button class="nav-tab" id="nav-board">Maintenance Board</button>
   </div>
   <div class="nav-right">
     <span id="admin-badge" style="display:none" class="badge-admin">⚙ Admin</span>
-    <button id="admin-link-btn" class="btn btn-outline btn-sm" onclick="handleAdminClick()">Admin</button>
-    <button id="signout-btn" style="display:none" class="btn btn-outline btn-sm" onclick="signOut()">Sign out</button>
+    <button id="admin-link-btn" class="btn btn-outline btn-sm">Admin</button>
+    <button id="signout-btn" style="display:none" class="btn btn-outline btn-sm">Sign out</button>
   </div>
 </nav>
 
 <div class="toast-container" id="toasts"></div>
 
-<!-- ══════════════ HOME ══════════════ -->
+<!-- ══ HOME ══ -->
 <div class="view active" id="home-view">
-
-  <!-- Hero Banner -->
   <div class="home-hero">
     <div style="position:relative;z-index:1">
-      <div class="hero-month" id="hero-month">Loading…</div>
+      <div class="hero-month" id="hero-month"></div>
       <div class="hero-title">System Status Overview</div>
-      <div class="hero-sub" style="max-width:420px">Real-time visibility into all Sprout product maintenance windows. Stay informed, plan ahead.</div>
+      <div class="hero-sub" style="max-width:420px">Real-time visibility into all <strong style="color:var(--lime)">approved</strong> Sprout maintenance windows. Stay informed, plan ahead.</div>
     </div>
-    <div style="position:relative;z-index:1;text-align:right">
-      <button class="btn btn-primary" onclick="showView('board')">View All Records →</button>
+    <div style="position:relative;z-index:1">
+      <button class="btn btn-primary" id="hero-board-btn">View All Records →</button>
       <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.45)">Auto-refreshes every 60s</div>
     </div>
   </div>
 
-  <!-- Stats -->
+  <!-- Subscribe -->
+  <div class="subscribe-card">
+    <div class="subscribe-icon">✉</div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:3px">Subscribe to Weekly Digest</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Get a summary of upcoming approved maintenance delivered to your inbox every Monday morning.</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input class="form-input" id="subscribe-email" placeholder="your@email.com" style="width:220px;background:#fff">
+      <button class="btn btn-primary btn-sm" id="subscribe-btn">Subscribe</button>
+    </div>
+  </div>
+
   <div class="grid grid-4" style="margin-bottom:28px" id="home-stats"></div>
 
-  <!-- Ongoing -->
-  <div id="ongoing-section" style="margin-bottom:28px">
+  <div id="ongoing-section" style="margin-bottom:28px;display:none">
     <div class="group-label">
       <span class="pulse"></span>
       <span class="group-label-text ongoing">Ongoing Maintenance</span>
@@ -328,7 +246,6 @@ nav{
     <div id="ongoing-cards" class="grid grid-2"></div>
   </div>
 
-  <!-- Upcoming -->
   <div id="upcoming-section">
     <div class="group-label">
       <span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block"></span>
@@ -336,278 +253,399 @@ nav{
     </div>
     <div id="upcoming-cards" class="grid grid-2"></div>
   </div>
-
 </div>
 
-<!-- ══════════════ BOARD ══════════════ -->
+<!-- ══ BOARD ══ -->
 <div class="view" id="board-view">
   <div class="section-header">
     <div>
       <div class="section-eyebrow">Maintenance Records</div>
       <h2 class="section-title">Maintenance Board</h2>
-      <div class="section-sub">Searchable history of all system maintenance windows</div>
+      <div class="section-sub">All approved and completed maintenance announcements</div>
     </div>
   </div>
-
-  <div class="sub-tabs">
-    <button class="sub-tab active" onclick="switchBoardTab('records')">Records</button>
-    <button class="sub-tab" onclick="switchBoardTab('analytics')">Analytics</button>
-    <button class="sub-tab" onclick="switchBoardTab('calendar')">Calendar</button>
+  <div class="sub-tabs" id="board-subtabs">
+    <button class="sub-tab active" data-tab="records">Records</button>
+    <button class="sub-tab" data-tab="analytics">Analytics</button>
+    <button class="sub-tab" data-tab="calendar">Calendar</button>
   </div>
 
   <!-- Records -->
   <div id="board-records">
     <div class="filter-bar">
-      <select class="form-select" id="filter-month" onchange="renderBoard()">
+      <select class="form-select" id="filter-month">
         <option value="">All Months</option>
-        <option value="1">January</option><option value="2">February</option>
-        <option value="3">March</option><option value="4">April</option>
-        <option value="5">May</option><option value="6">June</option>
-        <option value="7">July</option><option value="8">August</option>
-        <option value="9">September</option><option value="10">October</option>
-        <option value="11">November</option><option value="12">December</option>
+        <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
       </select>
-      <select class="form-select" id="filter-year" onchange="renderBoard()"></select>
-      <select class="form-select" id="filter-status" onchange="renderBoard()">
+      <select class="form-select" id="filter-year"></select>
+      <select class="form-select" id="filter-status">
         <option value="">All Statuses</option>
         <option value="upcoming">Upcoming</option>
         <option value="ongoing">Ongoing</option>
         <option value="completed">Completed</option>
         <option value="cancelled">Cancelled</option>
       </select>
-      <input class="form-input" id="filter-search" placeholder="🔍  Search product or remarks…" oninput="renderBoard()" style="min-width:220px;flex:1">
-      <button class="btn btn-outline btn-sm" onclick="resetFilters()">Reset</button>
+      <input class="form-input" id="filter-search" placeholder="🔍  Search product or remarks…" style="min-width:220px;flex:1">
+      <button class="btn btn-outline btn-sm" id="reset-filters-btn">Reset</button>
     </div>
     <div id="board-cards" class="grid"></div>
   </div>
 
   <!-- Analytics -->
   <div id="board-analytics" style="display:none">
-    <div class="grid grid-2" style="gap:20px">
+    <div class="grid grid-2" style="gap:20px;margin-bottom:20px">
       <div class="chart-wrap">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div>
-            <div class="section-eyebrow" style="margin-bottom:2px">Trends</div>
-            <div class="chart-label">Maintenance Count MoM</div>
-          </div>
-          <select class="form-select" id="chart-year" onchange="renderCharts()" style="width:100px"></select>
+          <div><div class="section-eyebrow" style="margin-bottom:2px">Trends</div><div class="chart-label" style="margin-bottom:0">Maintenance Count MoM</div></div>
+          <select class="form-select" id="chart-year" style="width:100px"></select>
         </div>
         <canvas id="line-chart" height="220"></canvas>
       </div>
       <div class="chart-wrap">
-        <div style="margin-bottom:16px">
-          <div class="section-eyebrow" style="margin-bottom:2px">Distribution</div>
-          <div class="chart-label">Per Product · All-time</div>
-        </div>
+        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Distribution</div><div class="chart-label" style="margin-bottom:0">Per Product · All-time</div></div>
         <canvas id="pie-chart" height="220"></canvas>
+      </div>
+    </div>
+    <div class="grid grid-2" style="gap:20px;margin-bottom:20px">
+      <div class="chart-wrap">
+        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Duration</div><div class="chart-label" style="margin-bottom:0">Avg. Downtime per Product</div></div>
+        <canvas id="duration-chart" height="220"></canvas>
+      </div>
+      <div class="chart-wrap">
+        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">Maintenance by Day of Week</div></div>
+        <canvas id="dow-chart" height="220"></canvas>
+      </div>
+    </div>
+    <div class="grid grid-2" style="gap:20px">
+      <div class="chart-wrap">
+        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Status</div><div class="chart-label" style="margin-bottom:0">Completion vs. Cancellation Rate</div></div>
+        <canvas id="status-chart" height="220"></canvas>
+      </div>
+      <div class="chart-wrap">
+        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">Maintenance by Hour of Day</div></div>
+        <canvas id="hour-chart" height="220"></canvas>
       </div>
     </div>
   </div>
 
   <!-- Calendar -->
   <div id="board-calendar" style="display:none">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-      <div>
-        <div class="section-eyebrow" style="margin-bottom:2px">Developer Announcements</div>
-        <div class="chart-label" style="margin-bottom:0">Maintenance Schedule Calendar</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;gap:2px;background:var(--surface);padding:4px;border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow)">
+        <button id="cal-btn-month" class="sub-tab active">Month</button>
+        <button id="cal-btn-week" class="sub-tab">Week</button>
       </div>
       <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
     </div>
-    <!-- Calendar embed -->
-    <div id="cal-sandbox">
-      <!-- View toggle -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
-        <div style="display:flex;gap:2px;background:var(--surface);padding:4px;border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow)">
-          <button id="cal-btn-month" class="sub-tab active" onclick="switchCalView('MONTH')">Month</button>
-          <button id="cal-btn-week" class="sub-tab" onclick="switchCalView('WEEK')">Week</button>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
+      <iframe id="gcal-iframe" src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH" style="width:100%;height:640px;border:none;display:block" title="Sprout Maintenance Schedule"></iframe>
+    </div>
+    <div id="cal-fallback" style="display:none;margin-top:12px">
+      <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px;align-items:flex-start">
+        <div style="font-size:36px">📅</div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:6px">Calendar preview unavailable in this sandbox</div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.7">The calendar displays correctly once deployed to Vercel.</p>
+          <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
         </div>
-        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
-      </div>
-
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
-        <iframe
-          id="gcal-iframe"
-          src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH"
-          style="width:100%;height:640px;border:none;display:block"
-          title="Sprout Maintenance Schedule">
-        </iframe>
-      </div>
-
-      <div id="cal-fallback" style="display:none;margin-top:12px">
-        <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
-          <div style="font-size:36px;flex-shrink:0">📅</div>
-          <div style="flex:1;min-width:220px">
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:6px">Calendar preview unavailable in this sandbox</div>
-            <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px">Google Calendar embeds are blocked by browser security in this preview. The calendar will display correctly once deployed to Vercel.</p>
-            <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Note -->
-      <div style="margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;gap:14px;align-items:flex-start">
-        <span style="font-size:16px;flex-shrink:0;margin-top:1px">ℹ️</span>
-        <p style="font-size:12px;color:var(--muted);line-height:1.7;margin:0">
-          This calendar reflects all scheduled maintenance activities across Sprout products — including windows that may result in <span style="color:var(--carrot);font-weight:600">service interruptions or downtime</span> for users, as well as routine maintenance performed <span style="color:#1a7a06;font-weight:600">transparently in the background</span> with no expected impact. We publish all windows here so your team can plan with confidence.
-        </p>
       </div>
     </div>
-    <div id="cal-loading" style="display:none"></div>
-    <div id="cal-content" style="display:none"></div>
+    <div style="margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;gap:14px;align-items:flex-start">
+      <span style="font-size:16px;flex-shrink:0;margin-top:1px">ℹ️</span>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin:0">This calendar reflects <strong>all</strong> scheduled maintenance activities across Sprout products — including windows that may or may not result in <span style="color:var(--carrot);font-weight:600">service interruptions or downtime</span> for users. Events shown here are from the developer schedule and may not yet be formally approved. We publish all windows here so your team can plan with confidence.</p>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════ LOGIN MODAL ══════════════ -->
-<div class="modal-overlay" id="login-modal">
-  <div class="modal" style="max-width:400px;text-align:center">
-    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
-      <button class="modal-close" onclick="closeModal('login-modal')" style="margin-left:auto">✕</button>
-    </div>
-    <div class="login-logo" style="margin:0 auto 16px">🌱</div>
-    <h2 style="font-size:20px;color:var(--deep);margin-bottom:6px">Admin Access</h2>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6">Sign in to manage maintenance records and send Google Chat announcements.</p>
-    <div class="form-group" style="text-align:left">
-      <input class="form-input" type="password" id="login-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="doLogin()">Sign In</button>
-    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
-  </div>
-</div>
-
-<!-- ══════════════ ADMIN ══════════════ -->
+<!-- ══ ADMIN ══ -->
 <div class="view" id="admin-view">
   <div class="section-header" style="margin-bottom:10px">
     <div>
       <div class="section-eyebrow">CS Operations</div>
       <h2 class="section-title">Admin Panel</h2>
-      <div class="section-sub">Schedule maintenance windows and manage records</div>
+      <div class="section-sub">Review pending events, manage records, and announce to Google Chat</div>
     </div>
   </div>
   <div class="gradient-strip"></div>
 
-  <div class="sub-tabs">
-    <button class="sub-tab active" onclick="switchAdminTab('add')">Add Maintenance</button>
-    <button class="sub-tab" onclick="switchAdminTab('records')">All Records</button>
-    <button class="sub-tab" onclick="switchAdminTab('announce')">Announce</button>
-    <button class="sub-tab" onclick="switchAdminTab('settings')">Settings</button>
+  <div class="sub-tabs" id="admin-subtabs">
+    <button class="sub-tab active" data-tab="pending">Pending Approvals <span class="tab-badge" id="pending-count-badge" style="display:none">0</span></button>
+    <button class="sub-tab" data-tab="records">All Records</button>
+    <button class="sub-tab" data-tab="announce">Announce</button>
+    <button class="sub-tab" data-tab="add">Add Maintenance</button>
+    <button class="sub-tab" data-tab="digest">Email Digest</button>
+    <button class="sub-tab" data-tab="settings">Settings</button>
   </div>
 
-  <!-- ADD -->
-  <div id="admin-add">
-    <div id="product-entries"></div>
-    <button class="btn btn-outline btn-sm" onclick="addProductEntry()" style="margin-bottom:18px">+ Add another product</button>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="saveAll(false)">Save all</button>
-      <button class="btn btn-warn" onclick="saveAll(true)">💬 Save &amp; Announce to Google Chat</button>
+  <!-- ── PENDING APPROVALS ── -->
+  <div id="admin-pending">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:4px">Pending Approvals</div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.6">These are calendar-imported events awaiting your review. Only approved events are visible to employees.</p>
+      </div>
+      <button class="btn btn-outline btn-sm" id="sim-import-btn">+ Simulate Calendar Import</button>
     </div>
+    <!-- Flow diagram -->
+    <div style="background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #ddd6f7;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;flex-wrap:wrap">
+        <span style="background:#FFF8E8;border:1px solid #ffe0a0;padding:4px 10px;border-radius:6px;font-weight:600;color:#a06000;font-family:'Inter',sans-serif">📅 Calendar Import</span>
+        <span style="color:var(--muted)">→</span>
+        <span style="background:#FFF8E8;border:1px solid #ffe0a0;padding:4px 10px;border-radius:6px;font-weight:600;color:#a06000;font-family:'Inter',sans-serif">⏳ Pending</span>
+        <span style="color:var(--muted)">→ you review →</span>
+        <span style="background:#EDFAE5;border:1px solid #b8eea5;padding:4px 10px;border-radius:6px;font-weight:600;color:#1a7a06;font-family:'Inter',sans-serif">✅ Approved → Upcoming</span>
+        <span style="color:var(--muted)">or</span>
+        <span style="background:#f5f0ff;border:1px solid #d4b8f5;padding:4px 10px;border-radius:6px;font-weight:600;color:#6a30b0;font-family:'Inter',sans-serif">✕ Rejected → Hidden</span>
+      </div>
+    </div>
+    <div id="pending-cards" class="grid"></div>
   </div>
 
-  <!-- RECORDS -->
+  <!-- ── ALL RECORDS ── -->
   <div id="admin-records" style="display:none">
     <div class="filter-bar">
-      <input class="form-input" id="admin-search" placeholder="🔍  Search…" oninput="renderAdminRecords()" style="min-width:200px;flex:1">
-      <select class="form-select" id="admin-filter-status" onchange="renderAdminRecords()">
+      <input class="form-input" id="admin-search" placeholder="🔍  Search…" style="min-width:200px;flex:1">
+      <select class="form-select" id="admin-filter-status">
         <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
         <option value="upcoming">Upcoming</option>
         <option value="ongoing">Ongoing</option>
         <option value="completed">Completed</option>
         <option value="cancelled">Cancelled</option>
+        <option value="rejected">Rejected</option>
       </select>
     </div>
     <div id="admin-cards" class="grid"></div>
   </div>
 
-  <!-- ANNOUNCE -->
+  <!-- ── ANNOUNCE ── -->
   <div id="admin-announce" style="display:none">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px">
         <div>
           <div class="chart-label" style="margin-bottom:2px">Batch Announcement</div>
-          <p style="font-size:12px;color:var(--muted)">Select records to send as one combined Google Chat message.</p>
+          <p style="font-size:12px;color:var(--muted)">Select approved records to send as one combined Google Chat message to CS General.</p>
         </div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(true)">Select all</button>
-          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(false)">Deselect all</button>
+          <button class="btn btn-outline btn-sm" id="sel-all-btn">Select all</button>
+          <button class="btn btn-outline btn-sm" id="desel-all-btn">Deselect all</button>
         </div>
       </div>
       <div id="announce-list"></div>
       <div style="margin-top:16px">
-        <button class="btn btn-warn" onclick="sendBatchAnnouncement()">💬 Send to Google Chat</button>
+        <button class="btn btn-warn" id="send-batch-btn">💬 Send to Google Chat</button>
       </div>
     </div>
   </div>
 
-  <!-- SETTINGS -->
+  <!-- ── ADD MAINTENANCE ── -->
+  <div id="admin-add" style="display:none">
+    <div style="background:linear-gradient(135deg,#EDFAE5,var(--bg));border:1px solid #b8eea5;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px;font-size:12px;color:var(--muted);line-height:1.6">
+      <strong style="color:#1a7a06;font-family:'Inter',sans-serif">CS-initiated maintenance</strong> — these records skip the Pending stage and go directly to Upcoming since you're adding them yourself as the approver.
+    </div>
+    <div id="product-entries"></div>
+    <button class="btn btn-outline btn-sm" id="add-entry-btn" style="margin-bottom:18px">+ Add another product</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" id="save-all-btn">Save all</button>
+      <button class="btn btn-warn" id="save-announce-btn">💬 Save &amp; Announce to Google Chat</button>
+    </div>
+  </div>
+
+  <!-- ── EMAIL DIGEST ── -->
+  <div id="admin-digest" style="display:none">
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <div>
+          <div class="chart-label" style="margin-bottom:2px">Weekly Email Digest</div>
+          <p style="font-size:12px;color:var(--muted)">Generate and send a summary of upcoming approved maintenance to your team.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" id="preview-digest-btn">👁 Preview</button>
+          <button class="btn btn-ghost btn-sm" id="copy-digest-btn">📋 Copy HTML</button>
+          <button class="btn btn-primary" id="send-digest-btn">✉ Send Digest</button>
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:14px">
+        <div>
+          <div class="form-label">Digest covers next</div>
+          <select class="form-select" id="digest-range">
+            <option value="7">7 days</option>
+            <option value="14" selected>14 days</option>
+            <option value="30">30 days</option>
+          </select>
+        </div>
+        <div>
+          <div class="form-label">Recipients <span style="color:var(--muted);font-weight:400">(comma-separated)</span></div>
+          <input class="form-input" id="digest-recipients" placeholder="team@sprout.ph, ops@sprout.ph">
+        </div>
+      </div>
+      <div style="background:var(--bg4);border:1px solid #ddd6f7;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:var(--muted2);line-height:1.7">
+        <strong style="color:var(--ubas);font-family:'Inter',sans-serif">EmailJS required for sending.</strong> Configure in Settings. No EmailJS? Use <strong>Copy HTML</strong> to paste into Gmail or Outlook.
+      </div>
+    </div>
+    <div id="digest-preview-wrap" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--deep)">Digest Preview</div>
+        <button class="btn btn-ghost btn-sm" id="close-preview-btn">✕ Close</button>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden">
+        <div id="digest-preview-inner"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS ── -->
   <div id="admin-settings" style="display:none">
     <div class="card">
       <div class="setting-row">
-        <div class="setting-info">
-          <h4>Google Chat Webhook URL</h4>
-          <p>Incoming webhook for maintenance announcements</p>
-        </div>
+        <div class="setting-info"><h4>Google Chat Webhook URL</h4><p>Incoming webhook for CS General announcements</p></div>
         <span id="webhook-status-pill" class="status-pill none">⚪ Not configured</span>
       </div>
       <div style="margin-top:14px;margin-bottom:6px">
         <input class="form-input" id="webhook-url" placeholder="https://chat.googleapis.com/v1/spaces/…" style="margin-bottom:10px">
         <div style="display:flex;gap:8px">
-          <button class="btn btn-primary btn-sm" onclick="saveWebhook()">Save</button>
-          <button class="btn btn-outline btn-sm" onclick="testWebhook()">Test message</button>
+          <button class="btn btn-primary btn-sm" id="save-webhook-btn">Save</button>
+          <button class="btn btn-outline btn-sm" id="test-webhook-btn">Test message</button>
         </div>
       </div>
-
       <div class="divider"></div>
       <div class="setting-row">
-        <div class="setting-info">
-          <h4>Change Admin Password</h4>
-          <p>Update the password used to access this admin panel</p>
-        </div>
+        <div class="setting-info"><h4>Email Digest — EmailJS</h4><p>Required to send digest emails from the browser. <a href="https://www.emailjs.com" target="_blank" style="color:var(--blue)">Get a free account ↗</a></p></div>
       </div>
       <div style="margin-top:14px">
         <div class="form-row" style="margin-bottom:10px">
-          <div>
-            <div class="form-label">New Password</div>
-            <input class="form-input" type="password" id="new-pw" placeholder="New password">
-          </div>
-          <div>
-            <div class="form-label">Confirm Password</div>
-            <input class="form-input" type="password" id="confirm-pw" placeholder="Confirm password">
-          </div>
+          <div><div class="form-label">Service ID</div><input class="form-input" id="ejs-service" placeholder="service_xxxxxxx"></div>
+          <div><div class="form-label">Template ID</div><input class="form-input" id="ejs-template" placeholder="template_xxxxxxx"></div>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="changePassword()">Update Password</button>
+        <div style="margin-bottom:10px"><div class="form-label">Public Key</div><input class="form-input" id="ejs-pubkey" placeholder="your_public_key"></div>
+        <button class="btn btn-primary btn-sm" id="save-emailjs-btn">Save EmailJS Config</button>
+      </div>
+      <div class="divider"></div>
+      <div class="setting-row">
+        <div class="setting-info"><h4>Change Admin Password</h4><p>Update the password used to access this admin panel</p></div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="form-row" style="margin-bottom:10px">
+          <div><div class="form-label">New Password</div><input class="form-input" type="password" id="new-pw" placeholder="New password"></div>
+          <div><div class="form-label">Confirm Password</div><input class="form-input" type="password" id="confirm-pw" placeholder="Confirm password"></div>
+        </div>
+        <button class="btn btn-primary btn-sm" id="change-pw-btn">Update Password</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ EDIT MODAL ══════════════ -->
+<!-- ══ MODALS ══ -->
+<!-- Login -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal" style="max-width:400px;text-align:center">
+    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
+      <button class="modal-close" id="login-modal-close">✕</button>
+    </div>
+    <div class="login-logo">🌱</div>
+    <h2 style="font-size:20px;color:var(--deep);margin-bottom:6px">Admin Access</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6">Sign in to review pending approvals and announce to Google Chat.</p>
+    <div class="form-group" style="text-align:left">
+      <input class="form-input" type="password" id="login-pw" placeholder="Enter admin password">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" id="login-btn">Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- Edit -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title">Edit Maintenance Record</span>
-      <button class="modal-close" onclick="closeModal('edit-modal')">✕</button>
+      <button class="modal-close" id="edit-modal-close">✕</button>
     </div>
     <div id="edit-modal-body"></div>
     <div style="display:flex;gap:8px;margin-top:18px">
-      <button class="btn btn-primary" onclick="saveEdit()">Save changes</button>
-      <button class="btn btn-outline" onclick="closeModal('edit-modal')">Cancel</button>
+      <button class="btn btn-primary" id="save-edit-btn">Save changes</button>
+      <button class="btn btn-outline" id="cancel-edit-btn">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- Reject reason -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <span class="modal-title">Reject Maintenance Event</span>
+      <button class="modal-close" id="reject-modal-close">✕</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">This event will be hidden from employees. Optionally provide a reason so your team knows why it was rejected.</p>
+    <div class="form-group">
+      <div class="form-label">Reason for rejection <span style="color:var(--muted);font-weight:400">(optional)</span></div>
+      <textarea class="form-textarea" id="reject-reason" rows="3" placeholder="e.g. Reschedule needed, conflicting deployment window…"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-reject" id="confirm-reject-btn">Confirm Rejection</button>
+      <button class="btn btn-outline" id="cancel-reject-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Approve + announce -->
+<div class="modal-overlay" id="approve-modal">
+  <div class="modal" style="max-width:440px;text-align:center">
+    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
+      <button class="modal-close" id="approve-modal-close">✕</button>
+    </div>
+    <div style="font-size:40px;margin-bottom:12px">✅</div>
+    <h2 style="font-size:18px;color:var(--deep);margin-bottom:8px">Approve Maintenance?</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:6px;line-height:1.6" id="approve-modal-desc"></p>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:22px">This will make the event visible to all employees as <strong>Upcoming</strong>.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-approve" id="confirm-approve-btn">✅ Approve only</button>
+      <button class="btn btn-warn" id="confirm-approve-announce-btn">✅ Approve + 💬 Announce</button>
+      <button class="btn btn-outline btn-sm" id="cancel-approve-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Subscribe confirmation -->
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal" style="max-width:420px;text-align:center">
+    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
+      <button class="modal-close" id="subscribe-modal-close">✕</button>
+    </div>
+    <div style="font-size:40px;margin-bottom:12px">✉️</div>
+    <h2 style="font-size:18px;color:var(--deep);margin-bottom:8px" id="subscribe-modal-title">You're subscribed!</h2>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px" id="subscribe-modal-body"></p>
+    <button class="btn btn-primary" style="justify-content:center" id="subscribe-modal-ok">Got it</button>
   </div>
 </div>
 
 <script>
 // ══ DATA ══
 const PRODUCTS=['ReadyCash','ReadyWage','Sprout HR','Sprout Payroll','Sandbox','API'];
-let records=JSON.parse(localStorage.getItem('smh_records')||'[]');
-let adminPw=localStorage.getItem('smh_pw')||'admin123';
-let webhookUrl=localStorage.getItem('smh_webhook')||'';
-let customProducts=JSON.parse(localStorage.getItem('smh_custom_products')||'[]');
-let isAdmin=false,editingId=null,lineChart=null,pieChart=null;
+let records = JSON.parse(localStorage.getItem('smh_records')||'[]');
+let adminPw = localStorage.getItem('smh_pw')||'admin123';
+let webhookUrl = localStorage.getItem('smh_webhook')||'';
+let customProducts = JSON.parse(localStorage.getItem('smh_custom_products')||'[]');
+let subscribers = JSON.parse(localStorage.getItem('smh_subscribers')||'[]');
+let isAdmin = false, editingId = null, rejectingId = null, approvingId = null;
+let charts = {};
 
-setInterval(()=>{renderHome();renderBoard();if(isAdmin)renderAdminRecords();},60000);
+function allProducts(){return [...PRODUCTS,...customProducts];}
+function saveRecords(){localStorage.setItem('smh_records',JSON.stringify(records));}
+
+function toast(msg,type='info'){
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  const icons={success:'✅',error:'❌',info:'ℹ️'};
+  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+}
 
 // ══ STATUS ══
 function computeStatus(r){
   if(r.status==='cancelled') return 'cancelled';
+  if(r.status==='rejected') return 'rejected';
+  if(r.status==='pending') return 'pending';
   const now=new Date(),start=new Date(r.date+'T'+r.time),end=new Date(start.getTime()+parseDuration(r.duration)*60000);
   if(now<start) return 'upcoming';
   if(now>=start&&now<end) return 'ongoing';
@@ -621,46 +659,52 @@ function parseDuration(d){
 }
 function formatDuration(h,m){
   if(!h&&!m) return '0 minutes';
-  let p=[];if(h) p.push(h+' hour'+(h>1?'s':''));if(m) p.push(m+' min'+(m>1?'s':''));return p.join(' ');
+  let p=[]; if(h) p.push(h+' hour'+(h>1?'s':'')); if(m) p.push(m+' min'+(m>1?'s':'')); return p.join(' ');
 }
 function getEndTime(d,t,dur){const s=new Date(d+'T'+t);return new Date(s.getTime()+parseDuration(dur)*60000);}
 function formatTime(d){return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function formatDate(d){return new Date(d).toLocaleDateString([],{weekday:'short',year:'numeric',month:'short',day:'numeric'});}
 function weekOf(d){
-  const dt=new Date(d),day=dt.getDay(),diff=dt.getDate()-day+(day===0?-6:1);
-  const mon=new Date(dt.setDate(diff));
+  const dt=new Date(d);
+  const mon=new Date(dt);mon.setDate(dt.getDate()-dt.getDay()+(dt.getDay()===0?-6:1));
   return mon.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'});
 }
-function allProducts(){return [...PRODUCTS,...customProducts];}
+
+function statusBadge(s){
+  const map={pending:'badge-pending',upcoming:'badge-upcoming',ongoing:'badge-ongoing',completed:'badge-completed',cancelled:'badge-cancelled',rejected:'badge-rejected'};
+  const labels={pending:'⏳ Pending',upcoming:'● Upcoming',ongoing:'● Ongoing',completed:'✓ Completed',cancelled:'✕ Cancelled',rejected:'✕ Rejected'};
+  const inner=s==='ongoing'?`<span class="pulse"></span> Ongoing`:labels[s]||s;
+  return `<span class="badge ${map[s]||''}">${inner}</span>`;
+}
 
 // ══ NAV ══
 function showView(v){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
-  const map={home:'home-view',board:'board-view',admin:'admin-view'};
-  document.getElementById(map[v]).classList.add('active');
-  const idx={home:0,board:1};
-  if(idx[v]!==undefined) document.querySelectorAll('.nav-tab')[idx[v]].classList.add('active');
+  document.getElementById(v+'-view').classList.add('active');
+  ['home','board'].forEach(n=>document.getElementById('nav-'+n)?.classList.remove('active'));
+  if(v==='home'||v==='board') document.getElementById('nav-'+v)?.classList.add('active');
   if(v==='home') renderHome();
-  if(v==='board'){renderBoard();populateYearFilters();}
-  if(v==='admin'){initAdminEntries();renderAdminRecords();populateAnnounceList();loadSettings();}
+  if(v==='board'){populateYearFilters();renderBoard();}
+  if(v==='admin'){renderPending();renderAdminRecords();populateAnnounceList();initAdminEntries();}
 }
-function handleAdminClick(){
-  isAdmin ? showView('admin') : document.getElementById('login-modal').classList.add('open');
+
+// ══ AUTH ══
+function openAdminModal(){
+  if(isAdmin){showView('admin');}
+  else{document.getElementById('login-modal').classList.add('open');}
 }
 function doLogin(){
   const pw=document.getElementById('login-pw').value;
-  const errEl=document.getElementById('login-error');
   if(pw===adminPw){
     isAdmin=true;
     document.getElementById('admin-badge').style.display='';
     document.getElementById('signout-btn').style.display='';
     document.getElementById('admin-link-btn').style.display='none';
     document.getElementById('login-pw').value='';
-    errEl.classList.remove('show');
-    closeModal('login-modal');
+    document.getElementById('login-error').classList.remove('show');
+    document.getElementById('login-modal').classList.remove('open');
     showView('admin');
-  } else { errEl.classList.add('show'); }
+  } else {document.getElementById('login-error').classList.add('show');}
 }
 function signOut(){
   isAdmin=false;
@@ -670,63 +714,147 @@ function signOut(){
   showView('home');
 }
 
-// ══ STATUS BADGE ══
-function statusBadge(s){
-  const map={upcoming:'badge-upcoming',ongoing:'badge-ongoing',completed:'badge-completed',cancelled:'badge-cancelled'};
-  const icons={upcoming:'●',ongoing:'●',completed:'✓',cancelled:'✕'};
-  const labels={upcoming:'Upcoming',ongoing:'Ongoing',completed:'Completed',cancelled:'Cancelled'};
-  const inner=s==='ongoing'?`<span class="pulse"></span> Ongoing`:`<span>${icons[s]}</span> ${labels[s]}`;
-  return `<span class="badge ${map[s]}">${inner}</span>`;
-}
-
-// ══ HOME ══
+// ══ HOME — only shows approved (upcoming/ongoing) ══
 function renderHome(){
   const now=new Date(),month=now.getMonth()+1,year=now.getFullYear();
   document.getElementById('hero-month').textContent=now.toLocaleDateString([],{month:'long',year:'numeric'}).toUpperCase();
-  const thisMonth=records.filter(r=>{const d=new Date(r.date);return d.getMonth()+1===month&&d.getFullYear()===year;});
+
+  // Only approved records (not pending/rejected)
+  const approved=records.filter(r=>!['pending','rejected'].includes(r.status));
+  const thisMonth=approved.filter(r=>{const d=new Date(r.date);return d.getMonth()+1===month&&d.getFullYear()===year;});
   const statuses=thisMonth.map(r=>computeStatus(r));
   const total=thisMonth.length,ongoing=statuses.filter(s=>s==='ongoing').length,upcoming=statuses.filter(s=>s==='upcoming').length,completed=statuses.filter(s=>s==='completed').length;
+
   document.getElementById('home-stats').innerHTML=`
     <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-num">${total}</div><div class="stat-label">Total this month</div></div>
     <div class="stat-card" style="border-left:3px solid var(--carrot)"><div class="stat-icon">⚡</div><div class="stat-num" style="color:var(--carrot)">${ongoing}</div><div class="stat-label">Ongoing now</div></div>
     <div class="stat-card" style="border-left:3px solid var(--blue)"><div class="stat-icon">🗓</div><div class="stat-num" style="color:var(--blue)">${upcoming}</div><div class="stat-label">Upcoming</div></div>
     <div class="stat-card" style="border-left:3px solid var(--green)"><div class="stat-icon">✅</div><div class="stat-num" style="color:#1a7a06">${completed}</div><div class="stat-label">Completed</div></div>
   `;
-  const ongoingRecs=records.filter(r=>computeStatus(r)==='ongoing');
-  const upcomingRecs=records.filter(r=>computeStatus(r)==='upcoming').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
-  document.getElementById('ongoing-section').style.display=ongoingRecs.length?'':'none';
-  document.getElementById('ongoing-cards').innerHTML=ongoingRecs.map(r=>renderMaintCard(r,'ongoing')).join('');
-  document.getElementById('upcoming-cards').innerHTML=upcomingRecs.length
-    ?upcomingRecs.map(r=>renderMaintCard(r,'upcoming')).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">✅</div><p>No upcoming maintenance scheduled</p></div>`;
-}
 
-function renderMaintCard(r,cls){
-  const s=computeStatus(r);
-  const end=getEndTime(r.date,r.time,r.duration);
+  const ongoingRecs=approved.filter(r=>computeStatus(r)==='ongoing');
+  const upcomingRecs=approved.filter(r=>computeStatus(r)==='upcoming').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+
+  document.getElementById('ongoing-section').style.display=ongoingRecs.length?'':'none';
+  document.getElementById('ongoing-cards').innerHTML=ongoingRecs.map(r=>maintCard(r,'ongoing')).join('');
+  document.getElementById('upcoming-cards').innerHTML=upcomingRecs.length
+    ?upcomingRecs.map(r=>maintCard(r,'upcoming')).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">✅</div><p>No upcoming approved maintenance scheduled</p></div>`;
+}
+function maintCard(r,cls){
+  const s=computeStatus(r),end=getEndTime(r.date,r.time,r.duration);
   return `<div class="maint-card ${cls||s}">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
       <div>
         <div class="maint-product">${r.product}</div>
-        <div class="maint-meta">
-          <span>📅 ${formatDate(r.date)}</span>
-          <span>🕐 ${r.time} – ${formatTime(end)}</span>
-          <span>⏱ ${r.duration}</span>
-        </div>
-      </div>
-      ${statusBadge(s)}
+        <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time} – ${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
+      </div>${statusBadge(s)}
     </div>
     ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
   </div>`;
 }
 
-// ══ BOARD ══
-function switchBoardTab(t){
-  ['records','analytics','calendar'].forEach(id=>{document.getElementById('board-'+id).style.display=id===t?'':'none';});
-  document.querySelectorAll('#board-view .sub-tab').forEach((el,i)=>{el.classList.toggle('active',['records','analytics','calendar'][i]===t);});
-  if(t==='analytics') renderCharts();
+// ══ SUBSCRIBE ══
+function handleSubscribe(){
+  const email=document.getElementById('subscribe-email').value.trim();
+  if(!email||!email.includes('@')){toast('Please enter a valid email address.','error');return;}
+  if(!subscribers.includes(email)){
+    subscribers.push(email);localStorage.setItem('smh_subscribers',JSON.stringify(subscribers));
+    document.getElementById('subscribe-modal-title').textContent="You're subscribed!";
+    document.getElementById('subscribe-modal-body').innerHTML=`<strong>${email}</strong> has been added to the weekly maintenance digest.<br><br>You'll receive a summary of upcoming approved maintenance every <strong>Monday morning</strong>.`;
+    document.getElementById('subscribe-email').value='';
+  } else {
+    document.getElementById('subscribe-modal-title').textContent='Already subscribed!';
+    document.getElementById('subscribe-modal-body').textContent=`${email} is already on the weekly digest list.`;
+  }
+  document.getElementById('subscribe-modal').classList.add('open');
 }
-function handleAdminClick(){isAdmin?showView('admin'):showView('login');}
+
+// ══ PENDING APPROVALS ══
+function updatePendingBadge(){
+  const count=records.filter(r=>r.status==='pending').length;
+  const badge=document.getElementById('pending-count-badge');
+  badge.textContent=count;
+  badge.style.display=count>0?'':'none';
+}
+
+function renderPending(){
+  updatePendingBadge();
+  const pending=records.filter(r=>r.status==='pending').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  const el=document.getElementById('pending-cards');
+  if(!pending.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">🎉</div><p>No pending events — you're all caught up!</p></div>`;
+    return;
+  }
+  el.innerHTML=pending.map(r=>{
+    const end=getEndTime(r.date,r.time,r.duration);
+    return `<div class="approval-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <div class="maint-product">${r.product}</div>
+            ${r.fromCalendar?'<span class="from-cal-tag">📅 From Calendar</span>':''}
+          </div>
+          <div class="maint-meta">
+            <span>📅 ${formatDate(r.date)}</span>
+            <span>🕐 ${r.time} – ${formatTime(end)}</span>
+            <span>⏱ ${r.duration}</span>
+          </div>
+        </div>
+        ${statusBadge('pending')}
+      </div>
+      ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+      <div class="maint-actions">
+        <button class="btn btn-approve btn-sm" data-approve="${r.id}">✅ Approve</button>
+        <button class="btn btn-reject btn-sm" data-reject="${r.id}">✕ Reject</button>
+        <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // wire approve/reject buttons
+  el.querySelectorAll('[data-approve]').forEach(btn=>btn.addEventListener('click',()=>openApproveModal(btn.dataset.approve)));
+  el.querySelectorAll('[data-reject]').forEach(btn=>btn.addEventListener('click',()=>openRejectModal(btn.dataset.reject)));
+}
+
+// Approve flow
+function openApproveModal(id){
+  approvingId=id;
+  const r=records.find(x=>x.id===id);
+  document.getElementById('approve-modal-desc').textContent=`${r.product} · ${formatDate(r.date)} · ${r.time} · ${r.duration}`;
+  document.getElementById('approve-modal').classList.add('open');
+}
+function doApprove(announce){
+  const r=records.find(x=>x.id===approvingId);
+  if(!r) return;
+  r.status='auto'; // now auto-computed → upcoming/ongoing/completed
+  r.approvedAt=new Date().toISOString();
+  saveRecords();
+  document.getElementById('approve-modal').classList.remove('open');
+  if(announce) sendAnnouncement([r]);
+  renderPending();renderHome();renderAdminRecords();
+  toast(`${r.product} approved and set to Upcoming.`,'success');
+}
+
+// Reject flow
+function openRejectModal(id){
+  rejectingId=id;
+  document.getElementById('reject-reason').value='';
+  document.getElementById('reject-modal').classList.add('open');
+}
+function doReject(){
+  const r=records.find(x=>x.id===rejectingId);
+  if(!r) return;
+  r.status='rejected';
+  r.rejectedReason=document.getElementById('reject-reason').value.trim();
+  r.rejectedAt=new Date().toISOString();
+  saveRecords();
+  document.getElementById('reject-modal').classList.remove('open');
+  renderPending();renderAdminRecords();
+  toast(`${r.product} rejected and hidden from employees.`,'info');
+}
+
+// ══ BOARD (employees see only approved) ══
 function populateYearFilters(){
   const years=[...new Set(records.map(r=>new Date(r.date).getFullYear()))];
   const cur=new Date().getFullYear();
@@ -737,163 +865,41 @@ function populateYearFilters(){
     el.innerHTML=years.map(y=>`<option value="${y}"${y===cur?'selected':''}>${y}</option>`).join('');
   });
 }
-function resetFilters(){
-  ['filter-month','filter-year','filter-status'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('filter-search').value='';renderBoard();
-}
 function renderBoard(){
   const month=document.getElementById('filter-month')?.value;
   const year=document.getElementById('filter-year')?.value;
   const status=document.getElementById('filter-status')?.value;
   const search=document.getElementById('filter-search')?.value?.toLowerCase();
-  let list=records.map(r=>({...r,_s:computeStatus(r)}));
+
+  // Board only shows approved records (no pending/rejected)
+  let list=records
+    .filter(r=>!['pending','rejected'].includes(r.status))
+    .map(r=>({...r,_s:computeStatus(r)}));
+
   if(month) list=list.filter(r=>new Date(r.date).getMonth()+1===parseInt(month));
   if(year) list=list.filter(r=>new Date(r.date).getFullYear()===parseInt(year));
   if(status) list=list.filter(r=>r._s===status);
   if(search) list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
   list.sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time));
+
   document.getElementById('board-cards').innerHTML=list.length
-    ?list.map(r=>renderBoardCard(r)).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
-}
-function renderBoardCard(r){
-  const s=computeStatus(r);
-  const end=getEndTime(r.date,r.time,r.duration);
-  return `<div class="maint-card">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-      <div>
-        <div class="maint-product">${r.product}</div>
-        <div class="maint-meta">
-          <span>📅 ${formatDate(r.date)}</span>
-          <span>🕐 ${r.time} – ${formatTime(end)}</span>
-          <span>⏱ ${r.duration}</span>
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">Added ${new Date(r.createdAt).toLocaleDateString()}</div>
-      </div>
-      ${statusBadge(s)}
-    </div>
-    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
-  </div>`;
+    ?list.map(r=>{
+        const end=getEndTime(r.date,r.time,r.duration);
+        return `<div class="maint-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+            <div>
+              <div class="maint-product">${r.product}</div>
+              <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">Added ${new Date(r.createdAt).toLocaleDateString()}</div>
+            </div>${statusBadge(r._s)}
+          </div>
+          ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+        </div>`;
+      }).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No approved records found</p></div>`;
 }
 
-// ══ CHARTS ══
-function renderCharts(){
-  const year=parseInt(document.getElementById('chart-year')?.value||new Date().getFullYear());
-  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const counts=months.map((_,i)=>records.filter(r=>{const d=new Date(r.date);return d.getFullYear()===year&&d.getMonth()===i;}).length);
-  if(lineChart) lineChart.destroy();
-  lineChart=new Chart(document.getElementById('line-chart'),{
-    type:'line',
-    data:{labels:months,datasets:[{label:'Maintenance Count',data:counts,borderColor:'#32CE13',backgroundColor:'rgba(50,206,19,.08)',tension:.4,pointBackgroundColor:'#32CE13',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true}]},
-    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#5a6e50',font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'}},y:{ticks:{color:'#5a6e50',stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'},beginAtZero:true}}}
-  });
-  const prodMap={};
-  records.forEach(r=>{prodMap[r.product]=(prodMap[r.product]||0)+1;});
-  const labels=Object.keys(prodMap),data=Object.values(prodMap);
-  const colors=['#32CE13','#1679FA','#FF7F00','#8139EE','#D2F612','#00d4aa','#ff6b6b','#ffd93d'];
-  if(pieChart) pieChart.destroy();
-  pieChart=new Chart(document.getElementById('pie-chart'),{
-    type:'doughnut',
-    data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#fff',borderWidth:3,hoverOffset:6}]},
-    options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}
-  });
-}
-
-// ══ ADMIN – ADD ══
-let entryCount=0;
-function addProductEntry(){
-  entryCount++;
-  const id='entry-'+Date.now();
-  const div=document.createElement('div');
-  div.className='product-entry';div.id=id;
-  div.innerHTML=`
-    <div class="product-entry-label">🌱 Entry #${entryCount}
-      ${entryCount>1?`<button class="remove-entry" onclick="removeEntry('${id}')">✕ Remove</button>`:''}
-    </div>
-    <div class="form-row" style="margin-bottom:12px">
-      <div>
-        <div class="form-label">Product / System</div>
-        <select class="form-select entry-product" onchange="handleProductChange(this)">
-          ${allProducts().map(p=>`<option>${p}</option>`).join('')}
-          <option value="__custom__">+ Custom product…</option>
-        </select>
-        <input class="form-input entry-custom-product" placeholder="Enter custom product name" style="display:none;margin-top:8px">
-      </div>
-      <div>
-        <div class="form-label">Date</div>
-        <input class="form-input entry-date" type="date" value="${new Date().toISOString().split('T')[0]}">
-      </div>
-    </div>
-    <div class="form-row-3" style="margin-bottom:12px">
-      <div>
-        <div class="form-label">Start Time</div>
-        <input class="form-input entry-time" type="time" value="22:00" oninput="updateEndTime(this)">
-      </div>
-      <div>
-        <div class="form-label">Duration</div>
-        <div style="display:flex;gap:6px">
-          <input class="form-input entry-dur-h" type="number" min="0" placeholder="hrs" oninput="updateEndTime(this.closest('.product-entry').querySelector('.entry-time'))" style="width:70px">
-          <input class="form-input entry-dur-m" type="number" min="0" max="59" placeholder="min" oninput="updateEndTime(this.closest('.product-entry').querySelector('.entry-time'))" style="width:70px">
-        </div>
-      </div>
-      <div>
-        <div class="form-label">End Time <span style="color:var(--green);font-size:10px">(auto)</span></div>
-        <input class="form-input entry-endtime" readonly placeholder="–" style="background:var(--bg3);cursor:default">
-      </div>
-    </div>
-    <div>
-      <div class="form-label">Remarks</div>
-      <textarea class="form-textarea entry-remarks" rows="2" placeholder="Optional — describe the maintenance activity…"></textarea>
-    </div>
-  `;
-  document.getElementById('product-entries').appendChild(div);
-}
-function removeEntry(id){document.getElementById(id).remove();}
-function handleProductChange(sel){
-  const c=sel.closest('.product-entry').querySelector('.entry-custom-product');
-  c.style.display=sel.value==='__custom__'?'':'none';
-}
-function updateEndTime(ti){
-  const e=ti.closest('.product-entry');
-  const t=e.querySelector('.entry-time').value;
-  const h=parseInt(e.querySelector('.entry-dur-h').value)||0;
-  const m=parseInt(e.querySelector('.entry-dur-m').value)||0;
-  const ee=e.querySelector('.entry-endtime');
-  if(!t){ee.value='';return;}
-  const [hh,mm]=t.split(':').map(Number);
-  const total=hh*60+mm+h*60+m;
-  ee.value=String(Math.floor(total/60)%24).padStart(2,'0')+':'+String(total%60).padStart(2,'0');
-}
-function initAdminEntries(){document.getElementById('product-entries').innerHTML='';entryCount=0;addProductEntry();}
-function collectEntries(){
-  const out=[];
-  document.querySelectorAll('.product-entry').forEach(el=>{
-    const ps=el.querySelector('.entry-product').value;
-    const ci=el.querySelector('.entry-custom-product');
-    let product=ps==='__custom__'?ci.value.trim():ps;
-    if(!product) return;
-    if(ps==='__custom__'&&product&&!allProducts().includes(product)){customProducts.push(product);localStorage.setItem('smh_custom_products',JSON.stringify(customProducts));}
-    const date=el.querySelector('.entry-date').value;
-    const time=el.querySelector('.entry-time').value;
-    const h=parseInt(el.querySelector('.entry-dur-h').value)||0;
-    const m=parseInt(el.querySelector('.entry-dur-m').value)||0;
-    const duration=formatDuration(h,m);
-    const remarks=el.querySelector('.entry-remarks').value.trim();
-    if(!date||!time) return;
-    out.push({id:'smh_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),product,date,time,duration,status:'auto',remarks,createdAt:new Date().toISOString()});
-  });
-  return out;
-}
-function saveAll(announce){
-  const entries=collectEntries();
-  if(!entries.length){toast('No valid entries to save.','error');return;}
-  records.push(...entries);saveRecords();
-  toast(`${entries.length} record(s) saved.`,'success');
-  if(announce) sendAnnouncement(entries);
-  initAdminEntries();renderAdminRecords();populateAnnounceList();
-}
-
-// ══ ADMIN – RECORDS ══
+// ══ ADMIN ALL RECORDS ══
 function renderAdminRecords(){
   const search=(document.getElementById('admin-search')?.value||'').toLowerCase();
   const status=document.getElementById('admin-filter-status')?.value||'';
@@ -902,47 +908,78 @@ function renderAdminRecords(){
   if(status) list=list.filter(r=>r._s===status);
   list.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
   document.getElementById('admin-cards').innerHTML=list.length
-    ?list.map(r=>renderAdminCard(r)).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
-}
-function renderAdminCard(r){
-  const s=computeStatus(r);
-  const end=getEndTime(r.date,r.time,r.duration);
-  const cancelled=r.status==='cancelled';
-  return `<div class="maint-card">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-      <div>
-        <div class="maint-product">${r.product}</div>
-        <div class="maint-meta">
-          <span>📅 ${formatDate(r.date)}</span>
-          <span>🕐 ${r.time}–${formatTime(end)}</span>
-          <span>⏱ ${r.duration}</span>
+    ?list.map(r=>{
+      const end=getEndTime(r.date,r.time,r.duration);
+      const isPending=r.status==='pending',isRejected=r.status==='rejected';
+      return `<div class="maint-card ${isPending?'pending-card':isRejected?'rejected-card':''}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+          <div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+              <div class="maint-product">${r.product}</div>
+              ${r.fromCalendar?'<span class="from-cal-tag">📅 Calendar</span>':''}
+            </div>
+            <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
+            ${isRejected&&r.rejectedReason?`<div style="font-size:11px;color:#9b59b6;margin-top:4px">Reason: ${r.rejectedReason}</div>`:''}
+          </div>${statusBadge(r._s)}
         </div>
-      </div>
-      ${statusBadge(s)}
-    </div>
-    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
-    <div class="maint-actions">
-      <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
-      <button class="btn btn-ghost btn-sm" onclick="announceSingle('${r.id}')">💬 Announce</button>
-      <button class="btn btn-ghost btn-sm" onclick="toggleCancel('${r.id}')">${cancelled?'↩ Uncancel':'✕ Cancel'}</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 Delete</button>
-    </div>
-  </div>`;
+        ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+        <div class="maint-actions">
+          ${isPending?`<button class="btn btn-approve btn-sm" data-approve="${r.id}">✅ Approve</button><button class="btn btn-reject btn-sm" data-reject="${r.id}">✕ Reject</button>`:''}
+          ${isRejected?`<button class="btn btn-approve btn-sm" data-approve="${r.id}">↩ Re-approve</button>`:''}
+          <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
+          ${!isPending&&!isRejected?`<button class="btn btn-ghost btn-sm" onclick="announceSingle('${r.id}')">💬 Announce</button>`:''}
+          ${!isPending?`<button class="btn btn-ghost btn-sm" onclick="toggleCancel('${r.id}')">${r.status==='cancelled'?'↩ Uncancel':'✕ Cancel'}</button>`:''}
+          <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 Delete</button>
+        </div>
+      </div>`;
+    }).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
+
+  document.querySelectorAll('#admin-cards [data-approve]').forEach(btn=>btn.addEventListener('click',()=>openApproveModal(btn.dataset.approve)));
+  document.querySelectorAll('#admin-cards [data-reject]').forEach(btn=>btn.addEventListener('click',()=>openRejectModal(btn.dataset.reject)));
 }
+
 function toggleCancel(id){
   const r=records.find(x=>x.id===id);if(!r) return;
   r.status=r.status==='cancelled'?'auto':'cancelled';
   saveRecords();renderAdminRecords();renderHome();
 }
 function deleteRecord(id){
-  if(!confirm('Delete this record? This cannot be undone.')) return;
+  if(!confirm('Delete this record?')) return;
   records=records.filter(r=>r.id!==id);saveRecords();
-  renderAdminRecords();renderHome();populateAnnounceList();
-  toast('Record deleted.','info');
+  renderAdminRecords();renderPending();renderHome();populateAnnounceList();toast('Deleted.','info');
 }
-function announceSingle(id){
-  const r=records.find(x=>x.id===id);if(r) sendAnnouncement([r]);
+function announceSingle(id){const r=records.find(x=>x.id===id);if(r) sendAnnouncement([r]);}
+
+// ══ SIMULATE CALENDAR IMPORT ══
+const SAMPLE_EVENTS=[
+  {product:'Sprout HR',duration:'2 hours',remark:'Routine database maintenance for Q2 schema updates.'},
+  {product:'ReadyCash',duration:'1 hour',remark:'SSL certificate renewal — brief API interruption expected.'},
+  {product:'Sprout Payroll',duration:'3 hours',remark:'Payroll engine upgrade to v5.1.'},
+  {product:'API',duration:'45 mins',remark:'Rate limiter and API gateway configuration changes.'},
+  {product:'ReadyWage',duration:'1 hour 30 mins',remark:'Infrastructure migration to new cloud region.'},
+];
+function simulateCalendarImport(){
+  const sample=SAMPLE_EVENTS[Math.floor(Math.random()*SAMPLE_EVENTS.length)];
+  const now=new Date();
+  const daysAhead=Math.floor(Math.random()*14)+3;
+  const futureDate=new Date(now.getTime()+daysAhead*86400000);
+  const dateStr=futureDate.toISOString().split('T')[0];
+  const hours=[22,23,0,1,2,10,14][Math.floor(Math.random()*7)];
+  const timeStr=String(hours).padStart(2,'0')+':00';
+  const rec={
+    id:'cal_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),
+    product:sample.product,
+    date:dateStr,time:timeStr,
+    duration:sample.duration,
+    status:'pending', // KEY: pending by default
+    remarks:sample.remark,
+    createdAt:new Date().toISOString(),
+    fromCalendar:true
+  };
+  records.push(rec);saveRecords();
+  renderPending();updatePendingBadge();
+  toast(`New pending event imported: ${sample.product} on ${dateStr}`,'info');
 }
 
 // ══ EDIT MODAL ══
@@ -971,18 +1008,15 @@ function saveEdit(){
   r.product=document.getElementById('edit-product').value;
   r.date=document.getElementById('edit-date').value;
   r.time=document.getElementById('edit-time').value;
-  const h=parseInt(document.getElementById('edit-dur-h').value)||0;
-  const m=parseInt(document.getElementById('edit-dur-m').value)||0;
-  r.duration=formatDuration(h,m);
+  r.duration=formatDuration(parseInt(document.getElementById('edit-dur-h').value)||0,parseInt(document.getElementById('edit-dur-m').value)||0);
   r.remarks=document.getElementById('edit-remarks').value.trim();
-  saveRecords();closeModal('edit-modal');renderAdminRecords();renderHome();
-  toast('Record updated.','success');
+  saveRecords();document.getElementById('edit-modal').classList.remove('open');
+  renderPending();renderAdminRecords();renderHome();toast('Record updated.','success');
 }
-function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ══ ANNOUNCE ══
 function populateAnnounceList(){
-  const list=[...records].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  const list=records.filter(r=>!['pending','rejected'].includes(r.status)).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
   document.getElementById('announce-list').innerHTML=list.length
     ?list.map(r=>`<div class="announce-item">
         <input type="checkbox" id="ann-${r.id}" value="${r.id}">
@@ -992,13 +1026,7 @@ function populateAnnounceList(){
           ${r.remarks?`<div style="font-size:11px;color:var(--muted);margin-top:3px">${r.remarks.substring(0,80)}${r.remarks.length>80?'…':''}</div>`:''}
         </label>
       </div>`).join('')
-    :'<p style="color:var(--muted);font-size:13px">No records yet.</p>';
-}
-function selectAllAnnounce(val){document.querySelectorAll('#announce-list input[type=checkbox]').forEach(cb=>cb.checked=val);}
-function sendBatchAnnouncement(){
-  const ids=[...document.querySelectorAll('#announce-list input:checked')].map(cb=>cb.value);
-  if(!ids.length){toast('Select at least one record.','error');return;}
-  sendAnnouncement(ids.map(id=>records.find(r=>r.id===id)).filter(Boolean));
+    :'<p style="color:var(--muted);font-size:13px">No approved records yet.</p>';
 }
 function buildAnnouncementText(recs){
   const blocks=recs.map(r=>`🌱Date: ${formatDate(r.date)}\nTime: ${r.time}\nDuration: ${r.duration}\nAffected Product/s: ${r.product}\nRemarks: ${r.remarks||'N/A'}`).join('\n\n');
@@ -1006,231 +1034,259 @@ function buildAnnouncementText(recs){
 }
 function sendAnnouncement(recs){
   const text=buildAnnouncementText(recs);
-  if(!webhookUrl){toast('Webhook not configured. Check Settings.','error');alert('Preview:\n\n'+text);return;}
+  if(!webhookUrl){toast('Webhook not configured. Check Settings.','error');alert('Preview (webhook not configured):\n\n'+text);return;}
   fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})})
-    .then(r=>{r.ok?toast('Announcement sent to Google Chat! 🎉','success'):toast('Webhook error. Check the URL in Settings.','error');})
+    .then(r=>{r.ok?toast('Announced to Google Chat! 🎉','success'):toast('Webhook error.','error');})
     .catch(()=>toast('Failed to reach webhook.','error'));
+}
+
+// ══ ADD MAINTENANCE ══
+let entryCount=0;
+function addProductEntry(){
+  entryCount++;
+  const id='entry-'+Date.now();
+  const div=document.createElement('div');
+  div.className='product-entry';div.id=id;
+  div.innerHTML=`
+    <div class="product-entry-label">🌱 Entry #${entryCount}
+      ${entryCount>1?`<button class="remove-entry">✕ Remove</button>`:''}
+    </div>
+    <div class="form-row" style="margin-bottom:12px">
+      <div><div class="form-label">Product / System</div>
+        <select class="form-select entry-product">
+          ${allProducts().map(p=>`<option>${p}</option>`).join('')}
+          <option value="__custom__">+ Custom product…</option>
+        </select>
+        <input class="form-input entry-custom-product" placeholder="Custom product name" style="display:none;margin-top:8px">
+      </div>
+      <div><div class="form-label">Date</div><input class="form-input entry-date" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+    </div>
+    <div class="form-row-3" style="margin-bottom:12px">
+      <div><div class="form-label">Start Time</div><input class="form-input entry-time" type="time" value="22:00"></div>
+      <div><div class="form-label">Duration</div>
+        <div style="display:flex;gap:6px">
+          <input class="form-input entry-dur-h" type="number" min="0" placeholder="hrs" style="width:70px">
+          <input class="form-input entry-dur-m" type="number" min="0" max="59" placeholder="min" style="width:70px">
+        </div>
+      </div>
+      <div><div class="form-label">End Time <span style="color:var(--green);font-size:10px">(auto)</span></div>
+        <input class="form-input entry-endtime" readonly placeholder="–" style="background:var(--bg3);cursor:default">
+      </div>
+    </div>
+    <div><div class="form-label">Remarks</div><textarea class="form-textarea entry-remarks" rows="2" placeholder="Describe the maintenance activity…"></textarea></div>
+  `;
+  document.getElementById('product-entries').appendChild(div);
+  div.querySelector('.entry-product').addEventListener('change',function(){
+    div.querySelector('.entry-custom-product').style.display=this.value==='__custom__'?'':'none';
+  });
+  [div.querySelector('.entry-time'),div.querySelector('.entry-dur-h'),div.querySelector('.entry-dur-m')]
+    .forEach(inp=>inp.addEventListener('input',()=>updateEndTime(div)));
+  div.querySelector('.remove-entry')?.addEventListener('click',()=>div.remove());
+}
+function updateEndTime(entry){
+  const t=entry.querySelector('.entry-time').value;
+  const h=parseInt(entry.querySelector('.entry-dur-h').value)||0;
+  const m=parseInt(entry.querySelector('.entry-dur-m').value)||0;
+  const ee=entry.querySelector('.entry-endtime');
+  if(!t){ee.value='';return;}
+  const [hh,mm]=t.split(':').map(Number),total=hh*60+mm+h*60+m;
+  ee.value=String(Math.floor(total/60)%24).padStart(2,'0')+':'+String(total%60).padStart(2,'0');
+}
+function initAdminEntries(){document.getElementById('product-entries').innerHTML='';entryCount=0;addProductEntry();}
+function collectEntries(){
+  const out=[];
+  document.querySelectorAll('.product-entry').forEach(el=>{
+    const ps=el.querySelector('.entry-product').value;
+    const ci=el.querySelector('.entry-custom-product');
+    let product=ps==='__custom__'?ci.value.trim():ps;
+    if(!product) return;
+    if(ps==='__custom__'&&product&&!allProducts().includes(product)){customProducts.push(product);localStorage.setItem('smh_custom_products',JSON.stringify(customProducts));}
+    const date=el.querySelector('.entry-date').value;
+    const time=el.querySelector('.entry-time').value;
+    const h=parseInt(el.querySelector('.entry-dur-h').value)||0;
+    const m=parseInt(el.querySelector('.entry-dur-m').value)||0;
+    if(!date||!time) return;
+    out.push({id:'smh_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),product,date,time,duration:formatDuration(h,m),status:'auto',remarks:el.querySelector('.entry-remarks').value.trim(),createdAt:new Date().toISOString()});
+  });
+  return out;
+}
+function saveAll(announce){
+  const entries=collectEntries();
+  if(!entries.length){toast('No valid entries to save.','error');return;}
+  records.push(...entries);saveRecords();
+  toast(`${entries.length} record(s) saved as Upcoming.`,'success');
+  if(announce) sendAnnouncement(entries);
+  initAdminEntries();renderAdminRecords();populateAnnounceList();renderHome();
+}
+
+// ══ CHARTS ══
+function renderCharts(){
+  populateYearFilters();
+  const year=parseInt(document.getElementById('chart-year')?.value||new Date().getFullYear());
+  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const approved=records.filter(r=>!['pending','rejected'].includes(r.status));
+  const cd={responsive:true,plugins:{legend:{display:false}},scales:{
+    x:{ticks:{color:'#5a6e50',font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'}},
+    y:{ticks:{color:'#5a6e50',stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'},beginAtZero:true}
+  }};
+
+  const destroy=(k)=>{if(charts[k]){charts[k].destroy();delete charts[k];}};
+
+  destroy('line');
+  const counts=MONTHS.map((_,i)=>approved.filter(r=>{const d=new Date(r.date);return d.getFullYear()===year&&d.getMonth()===i;}).length);
+  charts.line=new Chart(document.getElementById('line-chart'),{type:'line',data:{labels:MONTHS,datasets:[{data:counts,borderColor:'#32CE13',backgroundColor:'rgba(50,206,19,.08)',tension:.4,pointBackgroundColor:'#32CE13',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true}]},options:{...cd}});
+
+  destroy('pie');
+  const prodMap={};approved.forEach(r=>{prodMap[r.product]=(prodMap[r.product]||0)+1;});
+  charts.pie=new Chart(document.getElementById('pie-chart'),{type:'doughnut',data:{labels:Object.keys(prodMap),datasets:[{data:Object.values(prodMap),backgroundColor:['#32CE13','#1679FA','#FF7F00','#8139EE','#D2F612','#00d4aa','#ff6b6b','#ffd93d'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}});
+
+  destroy('duration');
+  const durMap={},durCount={};
+  approved.forEach(r=>{const m=parseDuration(r.duration);if(m>0){durMap[r.product]=(durMap[r.product]||0)+m;durCount[r.product]=(durCount[r.product]||0)+1;}});
+  const durLabels=Object.keys(durMap);
+  charts.duration=new Chart(document.getElementById('duration-chart'),{type:'bar',data:{labels:durLabels,datasets:[{data:durLabels.map(p=>Math.round(durMap[p]/durCount[p])),backgroundColor:'rgba(22,121,250,.7)',borderRadius:6}]},options:{...cd,scales:{...cd.scales,y:{...cd.scales.y,title:{display:true,text:'Avg minutes',color:'#5a6e50',font:{size:11}}}}}});
+
+  destroy('dow');
+  const dowMap=Array(7).fill(0);approved.forEach(r=>{if(r.date) dowMap[new Date(r.date).getDay()]++;});
+  charts.dow=new Chart(document.getElementById('dow-chart'),{type:'bar',data:{labels:DAYS,datasets:[{data:dowMap,backgroundColor:DAYS.map((_,i)=>i===0||i===6?'rgba(255,127,0,.6)':'rgba(50,206,19,.6)'),borderRadius:6}]},options:{...cd}});
+
+  destroy('status');
+  const sc={completed:0,cancelled:0,upcoming:0,ongoing:0};
+  approved.forEach(r=>{const s=computeStatus(r);sc[s]=(sc[s]||0)+1;});
+  charts.status=new Chart(document.getElementById('status-chart'),{type:'doughnut',data:{labels:['Completed','Cancelled','Upcoming','Ongoing'],datasets:[{data:[sc.completed,sc.cancelled,sc.upcoming,sc.ongoing],backgroundColor:['#32CE13','#ff4444','#1679FA','#FF7F00'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'55%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:10,usePointStyle:true}}}}});
+
+  destroy('hour');
+  const hm=Array(24).fill(0);approved.forEach(r=>{if(r.time) hm[parseInt(r.time.split(':')[0])]++;});
+  const hl=Array.from({length:24},(_,i)=>`${i%12||12}${i<12?'AM':'PM'}`);
+  charts.hour=new Chart(document.getElementById('hour-chart'),{type:'bar',data:{labels:hl,datasets:[{data:hm,backgroundColor:'rgba(129,57,238,.6)',borderRadius:4}]},options:{...cd}});
+}
+
+// ══ DIGEST ══
+function getDigestRecords(){
+  const days=parseInt(document.getElementById('digest-range')?.value||14);
+  const now=new Date(),cutoff=new Date(now.getTime()+days*86400000);
+  return records.filter(r=>{
+    if(['pending','rejected','cancelled','completed'].includes(r.status)) return false;
+    const start=new Date(r.date+'T'+r.time);
+    return start>=now&&start<=cutoff;
+  }).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+}
+function buildDigestHTML(){
+  const recs=getDigestRecords();
+  const days=document.getElementById('digest-range')?.value||14;
+  const now=new Date();
+  const dateRange=`${now.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})} – ${new Date(now.getTime()+parseInt(days)*86400000).toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`;
+  const ff=`font-family:'Inter',Arial,sans-serif`;
+  const green='#32CE13',deep='#092903',muted='#5a6e50',border='#e0e8d0',bg='#F7F9ED',orange='#FF7F00',blue='#1679FA';
+  const rows=!recs.length
+    ?`<tr><td colspan="4" style="padding:32px;text-align:center;color:${muted};${ff};font-size:13px">No upcoming maintenance in this period.</td></tr>`
+    :recs.map(r=>{
+      const end=getEndTime(r.date,r.time,r.duration);
+      return `<tr style="border-bottom:1px solid ${border}">
+        <td style="padding:12px 14px;${ff};font-size:13px;font-weight:700;color:${deep}">${r.product}</td>
+        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${formatDate(r.date)}</td>
+        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.time} – ${formatTime(end)}<br><span style="font-size:11px">${r.duration}</span></td>
+        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.remarks||'—'}</td>
+      </tr>`;}).join('');
+  return `<div style="max-width:680px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid ${border}">
+    <div style="background:${deep};padding:28px 32px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="width:32px;height:32px;background:${green};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">🌱</div>
+        <span style="${ff};font-weight:800;font-size:16px;color:#fff">Sprout Maintenance Hub</span>
+      </div>
+      <div style="${ff};font-size:22px;font-weight:800;color:#fff;margin-bottom:4px">Weekly Maintenance Digest</div>
+      <div style="${ff};font-size:13px;color:rgba(255,255,255,.6)">${dateRange} · Asia/Manila (GMT+8)</div>
+    </div>
+    <div style="background:${bg};padding:16px 32px;display:flex;gap:24px;border-bottom:1px solid ${border}">
+      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${green}">${recs.length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Scheduled</div></div>
+      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${orange}">${recs.filter(r=>computeStatus(r)==='ongoing').length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Ongoing</div></div>
+      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${blue}">${recs.filter(r=>computeStatus(r)==='upcoming').length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Upcoming</div></div>
+    </div>
+    <div style="padding:24px 32px">
+      <div style="${ff};font-size:13px;font-weight:700;color:${deep};margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Approved Maintenance Windows</div>
+      <table style="width:100%;border-collapse:collapse;border:1px solid ${border};border-radius:8px;overflow:hidden">
+        <thead><tr style="background:${bg}">
+          ${['Product','Date','Time / Duration','Remarks'].map(h=>`<th style="padding:10px 14px;text-align:left;${ff};font-size:11px;font-weight:700;color:${muted};text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid ${border}">${h}</th>`).join('')}
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div style="background:${bg};padding:18px 32px;border-top:1px solid ${border};display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div style="${ff};font-size:11px;color:${muted}">Generated by Sprout Maintenance Hub · ${new Date().toLocaleString([],{dateStyle:'medium',timeStyle:'short'})}</div>
+      <div style="${ff};font-size:11px;color:${muted}">Questions? Contact CS Operations.</div>
+    </div>
+  </div>`;
+}
+function previewDigest(){
+  document.getElementById('digest-preview-inner').innerHTML=buildDigestHTML();
+  document.getElementById('digest-preview-wrap').style.display='block';
+  document.getElementById('digest-preview-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function copyDigest(){
+  const html=buildDigestHTML();
+  navigator.clipboard.writeText(html).then(()=>toast('HTML copied! Paste into Gmail or Outlook.','success')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=html;ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    toast('Copied to clipboard.','success');
+  });
+}
+async function sendDigest(){
+  const svc=localStorage.getItem('ejs_service'),tmpl=localStorage.getItem('ejs_template'),pub=localStorage.getItem('ejs_pubkey');
+  if(!svc||!tmpl||!pub){toast('Configure EmailJS in Settings first.','error');switchAdminTab('settings');return;}
+  const recipients=document.getElementById('digest-recipients').value.trim();
+  if(!recipients){toast('Enter at least one recipient.','error');return;}
+  const html=buildDigestHTML();
+  if(!window.emailjs){
+    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+    emailjs.init({publicKey:pub});
+  }
+  toast('Sending…','info');
+  try{
+    await emailjs.send(svc,tmpl,{to_email:recipients,subject:`Sprout Maintenance Digest — ${new Date().toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`,html_content:html,record_count:getDigestRecords().length,generated_at:new Date().toLocaleString()});
+    toast('Digest sent! 🎉','success');
+  }catch(err){toast('Send failed: '+(err.text||err),'error');}
 }
 
 // ══ SETTINGS ══
 function loadSettings(){
-  const url=localStorage.getItem('smh_webhook')||'';
-  document.getElementById('webhook-url').value=url;
-  setWebhookPill(url?'ok':'none');
-}
-function saveWebhook(){
-  webhookUrl=document.getElementById('webhook-url').value.trim();
-  localStorage.setItem('smh_webhook',webhookUrl);
-  setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');
-}
-function testWebhook(){
-  if(!webhookUrl){toast('Enter a webhook URL first.','error');return;}
-  fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🌱 Sprout Maintenance Hub — test message'})})
-    .then(r=>{if(r.ok){setWebhookPill('ok');toast('Test sent!','success');}else{setWebhookPill('err');toast('Webhook error.','error');}})
-    .catch(()=>{setWebhookPill('err');toast('Failed to reach webhook.','error');});
+  document.getElementById('webhook-url').value=webhookUrl;
+  setWebhookPill(webhookUrl?'ok':'none');
+  document.getElementById('ejs-service').value=localStorage.getItem('ejs_service')||'';
+  document.getElementById('ejs-template').value=localStorage.getItem('ejs_template')||'';
+  document.getElementById('ejs-pubkey').value=localStorage.getItem('ejs_pubkey')||'';
 }
 function setWebhookPill(s){
   const el=document.getElementById('webhook-status-pill');
-  const map={ok:'status-pill ok',err:'status-pill err',none:'status-pill none'};
-  const txt={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'};
-  el.className=map[s];el.textContent=txt[s];
-}
-function changePassword(){
-  const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
-  if(!np){toast('Enter a new password.','error');return;}
-  if(np!==cp){toast('Passwords do not match.','error');return;}
-  adminPw=np;localStorage.setItem('smh_pw',np);
-  document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
-  toast('Password updated.','success');
+  el.className='status-pill '+s;
+  el.textContent={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'}[s];
 }
 
-// ══ CALENDAR ══
-const CAL_ICS='https://calendar.google.com/calendar/ical/c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com/public/basic.ics';
-let calEvents=[],calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
-
-const MONTHS_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS_SHORT=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-async function loadCalendar(){
-  setCalState('loading');
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:8000,
-        system:'You are a calendar parser. Fetch and parse an ICS calendar feed. Return ONLY a JSON array, no markdown, no explanation. Each object: {summary, start, end, allDay, description, location}. start/end as ISO strings. allDay as boolean.',
-        messages:[{role:'user',content:`Fetch this ICS URL and return all events as a JSON array: ${CAL_ICS}`}],
-        tools:[{type:'web_search_20250305',name:'web_search'}]
-      })
-    });
-    if(!res.ok) throw new Error('API error '+res.status);
-    const data=await res.json();
-    const textBlock=data.content.find(b=>b.type==='text');
-    const raw=textBlock?.text||'[]';
-    const clean=raw.replace(/```json|```/g,'').trim();
-    calEvents=JSON.parse(clean).map(e=>({...e,start:new Date(e.start),end:e.end?new Date(e.end):null}));
-    calEvents.sort((a,b)=>a.start-b.start);
-    renderCal();
-    setCalState('content');
-  }catch(err){
-    // fallback: try direct ICS parse via API as text fetch
-    try{
-      const res2=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:8000,
-          system:'Fetch the given URL and parse the ICS content. Return ONLY a valid JSON array (no markdown, no backticks) of calendar events. Each event must have: summary (string), start (ISO datetime string), end (ISO datetime string or null), allDay (boolean), description (string), location (string). Dates should be in local ISO format.',
-          messages:[{role:'user',content:`URL: ${CAL_ICS}\n\nFetch it and parse all VEVENT blocks into JSON.`}],
-          tools:[{type:'web_search_20250305',name:'web_search'}]
-        })
-      });
-      const data2=await res2.json();
-      const tb=data2.content.find(b=>b.type==='text');
-      const raw2=(tb?.text||'[]').replace(/```json|```/g,'').trim();
-      const parsed=JSON.parse(raw2);
-      calEvents=parsed.map(e=>({...e,start:new Date(e.start),end:e.end?new Date(e.end):null}));
-      calEvents.sort((a,b)=>a.start-b.start);
-      renderCal();
-      setCalState('content');
-    }catch(err2){
-      setCalState('error',`Failed to load calendar: ${err2.message}`);
-    }
-  }
-}
-
-function setCalState(s,msg){
-  document.getElementById('cal-loading').style.display=s==='loading'?'block':'none';
-  document.getElementById('cal-error').style.display=s==='error'?'block':'none';
-  document.getElementById('cal-content').style.display=s==='content'?'block':'none';
-  if(msg) document.getElementById('cal-err-msg').textContent=msg;
-}
-
-function calNav(dir){
-  calMonth+=dir;
-  if(calMonth>11){calMonth=0;calYear++;}
-  if(calMonth<0){calMonth=11;calYear--;}
-  renderCal();
-}
-
-function evColor(e){
-  const t=(e.summary||'').toLowerCase();
-  if(t.includes('cancel')) return '#c0392b';
-  if(t.includes('urgent')||t.includes('emergency')||t.includes('hotfix')) return '#FF7F00';
-  if(t.includes('downtime')||t.includes('maintenance')||t.includes('deploy')) return '#1679FA';
-  return '#8139EE';
-}
-
-function renderCal(){
-  document.getElementById('cal-heading').textContent=`${MONTHS_LONG[calMonth]} ${calYear}`;
-  const firstDay=new Date(calYear,calMonth,1).getDay();
-  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
-  const today=new Date();
-
-  // build day→events
-  const dayMap={};
-  calEvents.forEach(ev=>{
-    const s=ev.start,end=ev.end||ev.start;
-    // span multi-day events
-    const cur=new Date(s); cur.setHours(0,0,0,0);
-    const endD=new Date(end); endD.setHours(0,0,0,0);
-    while(cur<=endD){
-      if(cur.getMonth()===calMonth&&cur.getFullYear()===calYear){
-        const d=cur.getDate();
-        if(!dayMap[d]) dayMap[d]=[];
-        if(!dayMap[d].find(x=>x.summary===ev.summary)) dayMap[d].push(ev);
-      }
-      cur.setDate(cur.getDate()+1);
-    }
-  });
-
-  // render grid
-  let g=`<div style="display:grid;grid-template-columns:repeat(7,1fr)">`;
-  DAYS_SHORT.forEach(d=>{g+=`<div style="padding:8px 6px;text-align:center;font-size:11px;font-weight:700;font-family:'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);background:var(--bg)">${d}</div>`;});
-
-  for(let i=0;i<firstDay;i++) g+=`<div style="min-height:72px;background:var(--bg2);border-right:1px solid var(--border);border-bottom:1px solid var(--border)"></div>`;
-
-  for(let d=1;d<=daysInMonth;d++){
-    const isToday=today.getDate()===d&&today.getMonth()===calMonth&&today.getFullYear()===calYear;
-    const evs=dayMap[d]||[];
-    const hasEvs=evs.length>0;
-    const dots=evs.slice(0,3).map(e=>`<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${evColor(e)};margin-right:2px"></span>`).join('');
-    const extra=evs.length>3?`<span style="font-size:9px;color:var(--muted)">+${evs.length-3}</span>`:'';
-    g+=`<div onclick="${hasEvs?`showDayEvents(${d})`:'void(0)'}"
-      style="min-height:72px;padding:7px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:${hasEvs?'pointer':'default'};background:var(--surface);transition:.1s;position:relative"
-      onmouseover="if(${hasEvs?1:0})this.style.background='var(--bg3)'"
-      onmouseout="this.style.background='var(--surface)'">
-      <div style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'Inter',sans-serif;font-weight:${isToday?700:400};background:${isToday?'var(--green)':'transparent'};color:${isToday?'var(--deep)':'var(--text)'};margin-bottom:4px">${d}</div>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:1px">${dots}${extra}</div>
-      ${evs.slice(0,2).map(e=>`<div style="font-size:10px;color:var(--deep);background:${evColor(e)}22;border-left:2px solid ${evColor(e)};padding:1px 4px;border-radius:2px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">${e.summary}</div>`).join('')}
-    </div>`;
-  }
-  g+='</div>';
-  document.getElementById('cal-grid').innerHTML=g;
-
-  // event list for month
-  const monthEvs=calEvents.filter(e=>{
-    const s=e.start;
-    return s.getMonth()===calMonth&&s.getFullYear()===calYear;
-  });
-  document.getElementById('cal-list-label').textContent=`Events in ${MONTHS_LONG[calMonth]} ${calYear} (${monthEvs.length})`;
-  renderCalList(monthEvs);
-}
-
-function showDayEvents(d){
-  const evs=calEvents.filter(e=>{
-    const s=e.start;
-    return s.getDate()===d&&s.getMonth()===calMonth&&s.getFullYear()===calYear;
-  });
-  const lbl=document.getElementById('cal-list-label');
-  lbl.innerHTML=`<span style="cursor:pointer;color:var(--blue);font-weight:400" onclick="renderCal()">← Back to ${MONTHS_LONG[calMonth]}</span> &nbsp;·&nbsp; ${MONTHS_LONG[calMonth]} ${d}, ${calYear} (${evs.length} event${evs.length!==1?'s':''})`;
-  renderCalList(evs);
-}
-
-function renderCalList(evs){
-  const el=document.getElementById('cal-list');
-  if(!evs.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>No events this period</p></div>`;return;}
-  el.innerHTML=evs.map(e=>{
-    const c=evColor(e);
-    const timeStr=e.allDay?'All day':`${formatTime(e.start)}${e.end&&e.end>e.start?' – '+formatTime(e.end):''}`;
-    const desc=(e.description||'').replace(/\\n/g,'\n').replace(/\\,/g,',').replace(/https?:\/\/\S+/g,u=>`<a href="${u}" target="_blank" style="color:var(--blue)">${u}</a>`).replace(/\n/g,'<br>').trim();
-    return `<div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid ${c};border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);transition:.12s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow)'">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
-        <div style="flex:1">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:5px">${e.summary}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)">
-            <span>📅 ${e.start.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:'numeric'})}</span>
-            <span>🕐 ${timeStr}</span>
-            ${e.location?`<span>📍 ${e.location}</span>`:''}
-          </div>
-        </div>
-        <span style="width:10px;height:10px;border-radius:50%;background:${c};flex-shrink:0;margin-top:3px"></span>
-      </div>
-      ${desc?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.7">${desc}</div>`:''}
-    </div>`;
-  }).join('');
-}
-
-// ══ ADMIN SUB TABS ══
+// ══ ADMIN SUB TAB SWITCH ══
 function switchAdminTab(t){
-  ['add','records','announce','settings'].forEach(id=>{document.getElementById('admin-'+id).style.display=id===t?'':'none';});
-  document.querySelectorAll('#admin-view .sub-tab').forEach((el,i)=>{el.classList.toggle('active',['add','records','announce','settings'][i]===t);});
+  ['pending','records','announce','add','digest','settings'].forEach(id=>{
+    const el=document.getElementById('admin-'+id);if(el) el.style.display=id===t?'':'none';
+  });
+  document.querySelectorAll('#admin-subtabs .sub-tab').forEach((el,i)=>{
+    el.classList.toggle('active',['pending','records','announce','add','digest','settings'][i]===t);
+  });
   if(t==='records') renderAdminRecords();
   if(t==='announce') populateAnnounceList();
   if(t==='settings') loadSettings();
+  if(t==='add') initAdminEntries();
+  if(t==='pending') renderPending();
 }
 
-// ══ SAVE / TOAST ══
-function saveRecords(){localStorage.setItem('smh_records',JSON.stringify(records));renderBoard();}
-function toast(msg,type='info'){
-  const el=document.createElement('div');el.className=`toast ${type}`;
-  const icons={success:'✅',error:'❌',info:'ℹ️'};
-  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
-  document.getElementById('toasts').appendChild(el);
-  setTimeout(()=>el.remove(),3500);
+// ══ CALENDAR ══
+function switchCalView(mode){
+  const base='https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=';
+  document.getElementById('gcal-iframe').src=base+mode;
+  document.getElementById('cal-btn-month').classList.toggle('active',mode==='MONTH');
+  document.getElementById('cal-btn-week').classList.toggle('active',mode==='WEEK');
+}
+function showCalFallback(){
+  document.getElementById('gcal-iframe').style.display='none';
+  document.getElementById('cal-fallback').style.display='block';
 }
 
 // ══ SEED ══
@@ -1246,12 +1302,142 @@ function seedIfEmpty(){
     {id:'s4',product:'API',date:fmt(sub(10)),time:'02:00',duration:'45 mins',status:'auto',remarks:'Rate limiter configuration update.',createdAt:new Date().toISOString()},
     {id:'s5',product:'Sandbox',date:fmt(sub(20)),time:'10:00',duration:'1 hour',status:'cancelled',remarks:'Cancelled due to deployment freeze.',createdAt:new Date().toISOString()},
     {id:'s6',product:'ReadyWage',date:fmt(sub(5)),time:'23:00',duration:'2 hours 30 mins',status:'auto',remarks:'Infrastructure upgrade for new cloud region.',createdAt:new Date().toISOString()},
+    // Simulate two pending events from calendar
+    {id:'p1',product:'Sprout HR',date:fmt(add(4)),time:'23:00',duration:'1 hour',status:'pending',remarks:'Monthly index rebuild for performance.',createdAt:new Date().toISOString(),fromCalendar:true},
+    {id:'p2',product:'ReadyCash',date:fmt(add(7)),time:'22:30',duration:'2 hours',status:'pending',remarks:'Payment gateway upgrade to v3.5.',createdAt:new Date().toISOString(),fromCalendar:true},
   ];
   saveRecords();
 }
 
 // ══ INIT ══
-seedIfEmpty();populateYearFilters();renderHome();
+seedIfEmpty();
+
+document.addEventListener('DOMContentLoaded',()=>{
+  // Logo / nav
+  document.getElementById('logo-btn').addEventListener('click',()=>showView('home'));
+  document.getElementById('nav-home').addEventListener('click',()=>showView('home'));
+  document.getElementById('nav-board').addEventListener('click',()=>showView('board'));
+  document.getElementById('admin-link-btn').addEventListener('click',openAdminModal);
+  document.getElementById('signout-btn').addEventListener('click',signOut);
+
+  // Login modal
+  document.getElementById('login-btn').addEventListener('click',doLogin);
+  document.getElementById('login-modal-close').addEventListener('click',()=>document.getElementById('login-modal').classList.remove('open'));
+  document.getElementById('login-pw').addEventListener('keydown',e=>{if(e.key==='Enter') doLogin();});
+
+  // Edit modal
+  document.getElementById('save-edit-btn').addEventListener('click',saveEdit);
+  document.getElementById('edit-modal-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
+  document.getElementById('cancel-edit-btn').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
+
+  // Reject modal
+  document.getElementById('reject-modal-close').addEventListener('click',()=>document.getElementById('reject-modal').classList.remove('open'));
+  document.getElementById('cancel-reject-btn').addEventListener('click',()=>document.getElementById('reject-modal').classList.remove('open'));
+  document.getElementById('confirm-reject-btn').addEventListener('click',doReject);
+
+  // Approve modal
+  document.getElementById('approve-modal-close').addEventListener('click',()=>document.getElementById('approve-modal').classList.remove('open'));
+  document.getElementById('cancel-approve-btn').addEventListener('click',()=>document.getElementById('approve-modal').classList.remove('open'));
+  document.getElementById('confirm-approve-btn').addEventListener('click',()=>doApprove(false));
+  document.getElementById('confirm-approve-announce-btn').addEventListener('click',()=>doApprove(true));
+
+  // Subscribe
+  document.getElementById('subscribe-btn').addEventListener('click',handleSubscribe);
+  document.getElementById('subscribe-modal-close').addEventListener('click',()=>document.getElementById('subscribe-modal').classList.remove('open'));
+  document.getElementById('subscribe-modal-ok').addEventListener('click',()=>document.getElementById('subscribe-modal').classList.remove('open'));
+
+  // Board sub-tabs
+  document.querySelectorAll('#board-subtabs .sub-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const t=btn.dataset.tab;
+      document.querySelectorAll('#board-subtabs .sub-tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      ['records','analytics','calendar'].forEach(id=>document.getElementById('board-'+id).style.display=id===t?'':'none');
+      if(t==='analytics'){populateYearFilters();renderCharts();}
+    });
+  });
+
+  // Admin sub-tabs
+  document.querySelectorAll('#admin-subtabs .sub-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>switchAdminTab(btn.dataset.tab));
+  });
+
+  // Board filters
+  ['filter-month','filter-year','filter-status'].forEach(id=>document.getElementById(id).addEventListener('change',renderBoard));
+  document.getElementById('filter-search').addEventListener('input',renderBoard);
+  document.getElementById('reset-filters-btn').addEventListener('click',()=>{
+    ['filter-month','filter-year','filter-status'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('filter-search').value='';renderBoard();
+  });
+
+  // Admin records filters
+  document.getElementById('admin-search').addEventListener('input',renderAdminRecords);
+  document.getElementById('admin-filter-status').addEventListener('change',renderAdminRecords);
+
+  // Add entry
+  document.getElementById('add-entry-btn').addEventListener('click',addProductEntry);
+  document.getElementById('save-all-btn').addEventListener('click',()=>saveAll(false));
+  document.getElementById('save-announce-btn').addEventListener('click',()=>saveAll(true));
+
+  // Announce
+  document.getElementById('sel-all-btn').addEventListener('click',()=>document.querySelectorAll('#announce-list input[type=checkbox]').forEach(c=>c.checked=true));
+  document.getElementById('desel-all-btn').addEventListener('click',()=>document.querySelectorAll('#announce-list input[type=checkbox]').forEach(c=>c.checked=false));
+  document.getElementById('send-batch-btn').addEventListener('click',()=>{
+    const ids=[...document.querySelectorAll('#announce-list input:checked')].map(c=>c.value);
+    if(!ids.length){toast('Select at least one record.','error');return;}
+    sendAnnouncement(ids.map(id=>records.find(r=>r.id===id)).filter(Boolean));
+  });
+
+  // Digest
+  document.getElementById('preview-digest-btn').addEventListener('click',previewDigest);
+  document.getElementById('copy-digest-btn').addEventListener('click',copyDigest);
+  document.getElementById('send-digest-btn').addEventListener('click',sendDigest);
+  document.getElementById('close-preview-btn').addEventListener('click',()=>document.getElementById('digest-preview-wrap').style.display='none');
+
+  // Settings
+  document.getElementById('save-webhook-btn').addEventListener('click',()=>{
+    webhookUrl=document.getElementById('webhook-url').value.trim();
+    localStorage.setItem('smh_webhook',webhookUrl);setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');
+  });
+  document.getElementById('test-webhook-btn').addEventListener('click',()=>{
+    if(!webhookUrl){toast('Enter a webhook URL first.','error');return;}
+    fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🌱 Sprout Maintenance Hub — test message'})})
+      .then(r=>{if(r.ok){setWebhookPill('ok');toast('Test sent!','success');}else{setWebhookPill('err');toast('Webhook error.','error');}})
+      .catch(()=>{setWebhookPill('err');toast('Failed to reach webhook.','error');});
+  });
+  document.getElementById('save-emailjs-btn').addEventListener('click',()=>{
+    localStorage.setItem('ejs_service',document.getElementById('ejs-service').value.trim());
+    localStorage.setItem('ejs_template',document.getElementById('ejs-template').value.trim());
+    localStorage.setItem('ejs_pubkey',document.getElementById('ejs-pubkey').value.trim());
+    toast('EmailJS config saved.','success');
+  });
+  document.getElementById('change-pw-btn').addEventListener('click',()=>{
+    const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
+    if(!np){toast('Enter a new password.','error');return;}
+    if(np!==cp){toast('Passwords do not match.','error');return;}
+    adminPw=np;localStorage.setItem('smh_pw',np);
+    document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
+    toast('Password updated.','success');
+  });
+  document.getElementById('chart-year').addEventListener('change',renderCharts);
+
+  // Simulate import
+  document.getElementById('sim-import-btn').addEventListener('click',simulateCalendarImport);
+
+  // Calendar toggle
+  document.getElementById('cal-btn-month').addEventListener('click',()=>switchCalView('MONTH'));
+  document.getElementById('cal-btn-week').addEventListener('click',()=>switchCalView('WEEK'));
+
+  // Calendar iframe fallback
+  const iframe=document.getElementById('gcal-iframe');
+  iframe.addEventListener('load',()=>{try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='') showCalFallback();}catch(e){}});
+  iframe.addEventListener('error',()=>showCalFallback());
+  setTimeout(()=>{if(iframe.style.display!=='none'){try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='') showCalFallback();}catch(e){}}},5000);
+
+  populateYearFilters();
+  renderHome();
+  setInterval(()=>{renderHome();if(document.getElementById('board-view').classList.contains('active')) renderBoard();},60000);
+});
 </script>
 </body>
 </html>
