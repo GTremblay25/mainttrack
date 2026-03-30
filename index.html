@@ -19,12 +19,14 @@
 }
 body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
 h1,h2,h3,h4{font-family:'Inter',sans-serif}
-*{box-sizing:border-box}
-
-/* NAV */
+#system-banner{padding:10px 28px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;transition:.3s}
+#system-banner.all-good{background:#EDFAE5;color:#1a7a06;border-bottom:1px solid #b8eea5}
+#system-banner.disruption{background:#FFF3E8;color:#c05800;border-bottom:1px solid #ffd5a8}
+#system-banner.scheduled{background:#EBF2FF;color:#1558c0;border-bottom:1px solid #c5d9ff}
+.banner-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
 nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(9,41,3,.06)}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 8px rgba(50,206,19,.3)}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
 .logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:var(--deep);line-height:1.1}
 .logo-sub{font-size:10px;color:var(--muted);letter-spacing:.3px}
 .nav-tabs{display:flex;gap:2px;background:var(--bg);padding:4px;border-radius:10px}
@@ -32,125 +34,105 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
 .nav-tab:hover{color:var(--text);background:var(--surface)}
 .nav-tab.active{color:var(--deep);background:var(--surface);box-shadow:var(--shadow);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:10px}
-
-/* BUTTONS */
 .btn{padding:8px 18px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;font-weight:500;transition:.15s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--green);color:var(--deep);box-shadow:0 2px 8px rgba(50,206,19,.25)}
+.btn-primary{background:var(--green);color:var(--deep)}
 .btn-primary:hover{filter:brightness(1.05)}
 .btn-outline{background:transparent;color:var(--deep);border:1.5px solid var(--border)}
-.btn-outline:hover{border-color:var(--green);color:var(--green);background:rgba(50,206,19,.05)}
-.btn-approve{background:linear-gradient(135deg,var(--green),#28b010);color:var(--deep);box-shadow:0 2px 8px rgba(50,206,19,.25)}
-.btn-approve:hover{filter:brightness(1.05)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-approve{background:var(--green);color:var(--deep)}
 .btn-reject{background:#fff0f0;color:#c0392b;border:1.5px solid #ffd5d5}
-.btn-reject:hover{background:#ffe0e0}
 .btn-danger{background:#fff0f0;color:#c0392b;border:1.5px solid #ffd5d5}
-.btn-warn{background:linear-gradient(135deg,var(--carrot),#ffaa40);color:#fff;box-shadow:0 2px 8px rgba(255,127,0,.25)}
-.btn-ubas{background:linear-gradient(135deg,var(--ubas),#a060f0);color:#fff;box-shadow:0 2px 8px rgba(129,57,238,.25)}
+.btn-warn{background:linear-gradient(135deg,var(--carrot),#ffaa40);color:#fff}
+.btn-ubas{background:linear-gradient(135deg,var(--ubas),#a060f0);color:#fff}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--text);border-color:var(--muted)}
 .btn-sm{padding:5px 12px;font-size:12px}
 .badge-admin{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
-
-/* VIEWS */
 .view{display:none;padding:28px;max-width:1140px;margin:0 auto}
 .view.active{display:block}
-
-/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:16px}
 .grid-2{grid-template-columns:repeat(2,1fr)}
-.grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-4{grid-template-columns:repeat(4,1fr)}
-
-/* STATUS BADGES */
-.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.2px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
 .badge-pending{background:#FFF8E8;color:#a06000;border:1px solid #ffe0a0}
 .badge-upcoming{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
 .badge-ongoing{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
 .badge-completed{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
 .badge-cancelled{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
 .badge-rejected{background:#f5f0ff;color:#6a30b0;border:1px solid #d4b8f5}
+.cbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
+.cbadge-active{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
+.cbadge-scheduled{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
+.cbadge-resolved{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
+.cbadge-withdrawn{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
+.cbadge-monitoring{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--carrot);animation:pulse 1.4s ease-in-out infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.35)}}
-@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* MAINT CARDS */
 .maint-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);transition:.15s;animation:fadeIn .2s ease}
 .maint-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.maint-card.ongoing{border-left:4px solid var(--carrot);background:linear-gradient(to right,#fffaf5,var(--surface))}
-.maint-card.upcoming{border-left:4px solid var(--blue);background:linear-gradient(to right,#f5f8ff,var(--surface))}
+.maint-card.downtime{border-left:4px solid var(--carrot);background:linear-gradient(to right,#fffaf5,var(--surface))}
+.maint-card.no-downtime{border-left:4px solid var(--ubas);background:linear-gradient(to right,#fdf9ff,var(--surface))}
+.maint-card.ongoing-card{border-left:4px solid var(--carrot)}
 .maint-card.pending-card{border-left:4px solid #f0a500;background:linear-gradient(to right,#fffdf0,var(--surface))}
-.maint-card.rejected-card{border-left:4px solid #9b59b6;background:linear-gradient(to right,#fdf5ff,var(--surface));opacity:.85}
+.maint-card.rejected-card{border-left:4px solid #9b59b6;opacity:.85}
 .maint-product{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep)}
 .maint-meta{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:8px}
 .maint-remarks{font-size:12px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.6}
+.maint-client-msg{font-size:12px;color:var(--deep);margin-top:8px;padding:8px 12px;background:var(--bg);border-radius:6px;border-left:3px solid var(--blue);line-height:1.6}
 .maint-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-
-/* PENDING COUNT BADGE */
+.downtime-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;font-family:'Inter',sans-serif}
+.downtime-tag.yes{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
+.downtime-tag.no{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7}
+.from-cal-tag{display:inline-flex;align-items:center;gap:4px;background:#FFF8E8;color:#a06000;border:1px solid #ffe0a0;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;font-family:'Inter',sans-serif}
 .tab-badge{display:inline-flex;align-items:center;justify-content:center;background:#f0a500;color:#fff;border-radius:10px;font-size:10px;font-weight:700;min-width:18px;height:18px;padding:0 5px;margin-left:5px;font-family:'Inter',sans-serif}
-
-/* STAT CARDS */
+.section-divider{display:flex;align-items:center;gap:12px;margin:24px 0 14px}
+.section-divider-line{flex:1;height:1px;background:var(--border)}
+.section-divider-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;padding:4px 12px;border-radius:20px}
+.section-divider-label.downtime{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
+.section-divider-label.no-downtime{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
 .stat-num{font-family:'Inter',sans-serif;font-weight:800;font-size:30px;line-height:1}
 .stat-label{font-size:12px;color:var(--muted);font-weight:500}
 .stat-icon{font-size:22px;margin-bottom:4px}
-
-/* FORMS */
 .form-group{margin-bottom:14px}
 .form-label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500;font-family:'Inter',sans-serif}
 .form-input,.form-select,.form-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;color:var(--text);font-family:'Rubik',sans-serif;font-size:13px;outline:none;transition:.15s}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(50,206,19,.1);background:var(--surface)}
-.form-select option{background:var(--surface)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-
-/* PRODUCT ENTRY */
+.toggle-wrap{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);border:1.5px solid var(--border);cursor:pointer;transition:.15s;user-select:none}
+.toggle-wrap.on{border-color:var(--carrot);background:#FFF3E8}
+.toggle-switch{width:38px;height:22px;border-radius:11px;background:#ccc;position:relative;transition:.2s;flex-shrink:0}
+.toggle-switch.on{background:var(--carrot)}
+.toggle-knob{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-switch.on .toggle-knob{left:19px}
 .product-entry{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;position:relative;box-shadow:var(--shadow)}
 .product-entry-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
-.remove-entry{position:absolute;top:14px;right:14px;background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px;transition:.15s}
-.remove-entry:hover{background:#fff0f0;border-color:#ffc8c8;color:#c0392b}
-
-/* FILTER BAR */
+.remove-entry{position:absolute;top:14px;right:14px;background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px}
+.remove-entry:hover{background:#fff0f0;color:#c0392b}
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;padding:14px 18px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
 .filter-bar .form-select,.filter-bar .form-input{width:auto;min-width:130px;background:var(--bg)}
-
-/* SUB TABS */
 .sub-tabs{display:flex;gap:2px;background:var(--surface);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;border:1px solid var(--border);box-shadow:var(--shadow);flex-wrap:wrap}
 .sub-tab{padding:7px 18px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--muted);border:none;background:transparent;font-family:'Rubik',sans-serif;font-weight:500;display:inline-flex;align-items:center}
 .sub-tab.active{background:var(--deep);color:#fff;font-weight:600}
-
-/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(9,41,3,.35);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(9,41,3,.18)}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;width:90%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(9,41,3,.18)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .modal-title{font-family:'Inter',sans-serif;font-weight:700;font-size:16px}
 .modal-close{background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:18px;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center}
-.modal-close:hover{background:#fff0f0;color:#c0392b}
-
-.login-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;box-shadow:0 4px 14px rgba(50,206,19,.3)}
+.login-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px}
 .login-error{color:#c0392b;font-size:12px;margin-top:10px;background:#fff0f0;padding:8px 12px;border-radius:7px;border:1px solid #ffc8c8;display:none}
 .login-error.show{display:block}
-
-/* HERO */
 .home-hero{background:linear-gradient(135deg,var(--deep) 0%,#1a3d10 50%,#0f2a30 100%);border-radius:18px;padding:32px 36px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(9,41,3,.2);flex-wrap:wrap;gap:20px}
 .home-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(50,206,19,.15),transparent 70%)}
 .home-hero::after{content:'';position:absolute;left:40%;bottom:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(129,57,238,.12),transparent 70%)}
-.hero-month{font-size:12px;color:var(--lime);font-weight:600;font-family:'Inter',sans-serif;margin-bottom:6px;letter-spacing:.4px}
-.hero-title{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:6px}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
-
-/* MISC */
 .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--green);font-family:'Inter',sans-serif;margin-bottom:4px}
 .section-title{font-family:'Inter',sans-serif;font-weight:700;font-size:18px;color:var(--deep)}
 .section-sub{color:var(--muted);font-size:13px;margin-top:3px}
 .section-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-.group-label{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.group-label-text{font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
-.group-label-text.ongoing{color:var(--carrot)}
-.group-label-text.upcoming{color:var(--blue)}
 .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 .chart-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--deep);margin-bottom:14px}
 .empty{text-align:center;padding:48px 0;color:var(--muted)}
@@ -164,12 +146,10 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
 .status-pill.ok{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
 .status-pill.err{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
 .status-pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-.announce-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border);margin-bottom:8px;transition:.1s}
+.announce-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border);margin-bottom:8px}
 .announce-item:hover{border-color:var(--green);background:#f5fdf0}
-.announce-item input[type=checkbox]{accent-color:var(--green);margin-top:2px;width:15px;height:15px;cursor:pointer}
 .chip{display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
 .chip-green{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
-.chip-orange{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
 .divider{height:1px;background:var(--border);margin:20px 0}
 .gradient-strip{height:3px;background:linear-gradient(90deg,var(--green),var(--ubas),var(--blue));border-radius:2px;margin-bottom:18px}
 .toast-container{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:300}
@@ -178,323 +158,234 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
 .toast.error{border-color:#ffc8c8;background:#fff5f5}
 .toast.info{border-color:#c5d9ff;background:#f0f6ff}
 .subscribe-card{background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #c5d9ff;border-radius:var(--radius);padding:22px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:28px;box-shadow:var(--shadow)}
-.subscribe-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--ubas));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-
-/* PENDING APPROVAL card special styling */
-.approval-card{background:var(--surface);border:1px solid #ffe0a0;border-left:4px solid #f0a500;border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);animation:fadeIn .2s ease;transition:.15s}
-.approval-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.from-cal-tag{display:inline-flex;align-items:center;gap:4px;background:#FFF8E8;color:#a06000;border:1px solid #ffe0a0;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.3px}
 </style>
 </head>
 <body>
 
+<div id="system-banner" class="all-good">
+  <span class="banner-dot" id="banner-dot" style="background:#1a7a06"></span>
+  <span id="banner-text"><strong>All systems operational</strong> — no active maintenance or disruptions.</span>
+</div>
+
 <nav>
-  <div class="logo" id="logo-btn">
+  <div class="logo" onclick="showView('home')">
     <div class="logo-mark">🌱</div>
-    <div>
-      <div class="logo-text">Sprout Maintenance Hub</div>
-      <div class="logo-sub">System Status · CS Operations</div>
-    </div>
+    <div><div class="logo-text">Sprout Maintenance Hub</div><div class="logo-sub">System Status · CS Operations</div></div>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" id="nav-home">Home</button>
-    <button class="nav-tab" id="nav-board">Maintenance Board</button>
+    <button class="nav-tab active" id="nav-home" onclick="showView('home')">Home</button>
+    <button class="nav-tab" id="nav-board" onclick="showView('board')">Maintenance Board</button>
   </div>
   <div class="nav-right">
     <span id="admin-badge" style="display:none" class="badge-admin">⚙ Admin</span>
-    <button id="admin-link-btn" class="btn btn-outline btn-sm">Admin</button>
-    <button id="signout-btn" style="display:none" class="btn btn-outline btn-sm">Sign out</button>
+    <button id="admin-link-btn" class="btn btn-outline btn-sm" onclick="openAdminModal()">Admin</button>
+    <button id="signout-btn" style="display:none" class="btn btn-outline btn-sm" onclick="signOut()">Sign out</button>
   </div>
 </nav>
 
 <div class="toast-container" id="toasts"></div>
 
-<!-- ══ HOME ══ -->
+<!-- HOME -->
 <div class="view active" id="home-view">
   <div class="home-hero">
     <div style="position:relative;z-index:1">
-      <div class="hero-month" id="hero-month"></div>
-      <div class="hero-title">System Status Overview</div>
-      <div class="hero-sub" style="max-width:420px">Real-time visibility into all <strong style="color:var(--lime)">approved</strong> Sprout maintenance windows. Stay informed, plan ahead.</div>
+      <div style="font-size:12px;color:var(--lime);font-weight:600;font-family:'Inter',sans-serif;margin-bottom:6px;letter-spacing:.4px" id="hero-month"></div>
+      <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:6px">System Status Overview</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.65);max-width:420px;line-height:1.6">Real-time visibility into all <strong style="color:var(--lime)">approved</strong> Sprout maintenance windows.</div>
     </div>
     <div style="position:relative;z-index:1">
-      <button class="btn btn-primary" id="hero-board-btn">View All Records →</button>
+      <button class="btn btn-primary" onclick="showView('board')">View All Records →</button>
       <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.45)">Auto-refreshes every 60s</div>
     </div>
   </div>
-
-  <!-- Subscribe -->
   <div class="subscribe-card">
-    <div class="subscribe-icon">✉</div>
+    <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--ubas));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">✉</div>
     <div style="flex:1;min-width:200px">
       <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:3px">Subscribe to Weekly Digest</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6">Get a summary of upcoming approved maintenance delivered to your inbox every Monday morning.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Get a summary of upcoming approved maintenance every Monday morning.</div>
     </div>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input class="form-input" id="subscribe-email" placeholder="your@email.com" style="width:220px;background:#fff">
-      <button class="btn btn-primary btn-sm" id="subscribe-btn">Subscribe</button>
+      <button class="btn btn-primary btn-sm" onclick="handleSubscribe()">Subscribe</button>
     </div>
   </div>
-
   <div class="grid grid-4" style="margin-bottom:28px" id="home-stats"></div>
-
-  <div id="ongoing-section" style="margin-bottom:28px;display:none">
-    <div class="group-label">
-      <span class="pulse"></span>
-      <span class="group-label-text ongoing">Ongoing Maintenance</span>
-    </div>
+  <div id="ongoing-section" style="display:none;margin-bottom:28px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span class="pulse"></span><span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--carrot)">Active Maintenance</span></div>
     <div id="ongoing-cards" class="grid grid-2"></div>
   </div>
-
-  <div id="upcoming-section">
-    <div class="group-label">
-      <span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block"></span>
-      <span class="group-label-text upcoming">Upcoming Maintenance</span>
-    </div>
-    <div id="upcoming-cards" class="grid grid-2"></div>
+  <div id="downtime-section">
+    <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label downtime">⚡ Service Impact · Scheduled Downtime</span><div class="section-divider-line"></div></div>
+    <div id="downtime-cards" class="grid grid-2"></div>
+  </div>
+  <div id="nodowntime-section" style="margin-top:24px">
+    <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label no-downtime">🔧 Background Maintenance · No Downtime Expected</span><div class="section-divider-line"></div></div>
+    <div id="nodowntime-cards" class="grid grid-2"></div>
   </div>
 </div>
 
-<!-- ══ BOARD ══ -->
+<!-- BOARD -->
 <div class="view" id="board-view">
   <div class="section-header">
-    <div>
-      <div class="section-eyebrow">Maintenance Records</div>
-      <h2 class="section-title">Maintenance Board</h2>
-      <div class="section-sub">All approved and completed maintenance announcements</div>
-    </div>
+    <div><div class="section-eyebrow">Maintenance Records</div><h2 class="section-title">Maintenance Board</h2><div class="section-sub">All approved and completed maintenance announcements</div></div>
   </div>
-  <div class="sub-tabs" id="board-subtabs">
-    <button class="sub-tab active" data-tab="records">Records</button>
-    <button class="sub-tab" data-tab="analytics">Analytics</button>
-    <button class="sub-tab" data-tab="calendar">Calendar</button>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchBoardTab('records',this)">Records</button>
+    <button class="sub-tab" onclick="switchBoardTab('analytics',this)">Analytics</button>
+    <button class="sub-tab" onclick="switchBoardTab('calendar',this)">Calendar</button>
   </div>
-
-  <!-- Records -->
   <div id="board-records">
     <div class="filter-bar">
-      <select class="form-select" id="filter-month">
+      <select class="form-select" id="filter-month" onchange="renderBoard()">
         <option value="">All Months</option>
         <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
       </select>
-      <select class="form-select" id="filter-year"></select>
-      <select class="form-select" id="filter-status">
-        <option value="">All Statuses</option>
-        <option value="upcoming">Upcoming</option>
-        <option value="ongoing">Ongoing</option>
-        <option value="completed">Completed</option>
-        <option value="cancelled">Cancelled</option>
+      <select class="form-select" id="filter-year" onchange="renderBoard()"></select>
+      <select class="form-select" id="filter-status" onchange="renderBoard()">
+        <option value="">All Statuses</option><option value="upcoming">Scheduled</option><option value="ongoing">Active</option><option value="completed">Resolved</option><option value="cancelled">Withdrawn</option>
       </select>
-      <input class="form-input" id="filter-search" placeholder="🔍  Search product or remarks…" style="min-width:220px;flex:1">
-      <button class="btn btn-outline btn-sm" id="reset-filters-btn">Reset</button>
+      <select class="form-select" id="filter-downtime" onchange="renderBoard()">
+        <option value="">All Types</option><option value="true">Service Impact</option><option value="false">No Downtime</option>
+      </select>
+      <input class="form-input" id="filter-search" placeholder="🔍 Search…" oninput="renderBoard()" style="min-width:200px;flex:1">
+      <button class="btn btn-outline btn-sm" onclick="resetFilters()">Reset</button>
     </div>
     <div id="board-cards" class="grid"></div>
   </div>
-
-  <!-- Analytics -->
   <div id="board-analytics" style="display:none">
     <div class="grid grid-2" style="gap:20px;margin-bottom:20px">
-      <div class="chart-wrap">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div><div class="section-eyebrow" style="margin-bottom:2px">Trends</div><div class="chart-label" style="margin-bottom:0">Maintenance Count MoM</div></div>
-          <select class="form-select" id="chart-year" style="width:100px"></select>
-        </div>
-        <canvas id="line-chart" height="220"></canvas>
-      </div>
-      <div class="chart-wrap">
-        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Distribution</div><div class="chart-label" style="margin-bottom:0">Per Product · All-time</div></div>
-        <canvas id="pie-chart" height="220"></canvas>
-      </div>
+      <div class="chart-wrap"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div><div class="section-eyebrow" style="margin-bottom:2px">Trends</div><div class="chart-label" style="margin-bottom:0">Maintenance Count MoM</div></div><select class="form-select" id="chart-year" onchange="renderCharts()" style="width:100px"></select></div><canvas id="line-chart" height="220"></canvas></div>
+      <div class="chart-wrap"><div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Distribution</div><div class="chart-label" style="margin-bottom:0">Per Product · All-time</div></div><canvas id="pie-chart" height="220"></canvas></div>
     </div>
     <div class="grid grid-2" style="gap:20px;margin-bottom:20px">
-      <div class="chart-wrap">
-        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Duration</div><div class="chart-label" style="margin-bottom:0">Avg. Downtime per Product</div></div>
-        <canvas id="duration-chart" height="220"></canvas>
-      </div>
-      <div class="chart-wrap">
-        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">Maintenance by Day of Week</div></div>
-        <canvas id="dow-chart" height="220"></canvas>
-      </div>
+      <div class="chart-wrap"><div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Impact</div><div class="chart-label" style="margin-bottom:0">Downtime vs No-Downtime Split</div></div><canvas id="downtime-split-chart" height="220"></canvas></div>
+      <div class="chart-wrap"><div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Duration</div><div class="chart-label" style="margin-bottom:0">Avg. Downtime per Product</div></div><canvas id="duration-chart" height="220"></canvas></div>
     </div>
     <div class="grid grid-2" style="gap:20px">
-      <div class="chart-wrap">
-        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Status</div><div class="chart-label" style="margin-bottom:0">Completion vs. Cancellation Rate</div></div>
-        <canvas id="status-chart" height="220"></canvas>
-      </div>
-      <div class="chart-wrap">
-        <div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">Maintenance by Hour of Day</div></div>
-        <canvas id="hour-chart" height="220"></canvas>
-      </div>
+      <div class="chart-wrap"><div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">By Day of Week</div></div><canvas id="dow-chart" height="220"></canvas></div>
+      <div class="chart-wrap"><div style="margin-bottom:16px"><div class="section-eyebrow" style="margin-bottom:2px">Timing</div><div class="chart-label" style="margin-bottom:0">By Hour of Day</div></div><canvas id="hour-chart" height="220"></canvas></div>
     </div>
   </div>
-
-  <!-- Calendar -->
   <div id="board-calendar" style="display:none">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
-      <div style="display:flex;gap:2px;background:var(--surface);padding:4px;border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow)">
-        <button id="cal-btn-month" class="sub-tab active">Month</button>
-        <button id="cal-btn-week" class="sub-tab">Week</button>
+      <div style="display:flex;gap:2px;background:var(--surface);padding:4px;border-radius:10px;border:1px solid var(--border)">
+        <button id="cal-btn-month" class="sub-tab active" onclick="switchCalView('MONTH',this)">Month</button>
+        <button id="cal-btn-week" class="sub-tab" onclick="switchCalView('WEEK',this)">Week</button>
       </div>
       <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
     </div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
-      <iframe id="gcal-iframe" src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH" style="width:100%;height:640px;border:none;display:block" title="Sprout Maintenance Schedule"></iframe>
+      <iframe id="gcal-iframe" src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH" style="width:100%;height:640px;border:none;display:block" onload="handleIframeLoad(this)" onerror="showCalFallback()"></iframe>
     </div>
     <div id="cal-fallback" style="display:none;margin-top:12px">
-      <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px;align-items:flex-start">
+      <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px">
         <div style="font-size:36px">📅</div>
-        <div>
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:6px">Calendar preview unavailable in this sandbox</div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.7">The calendar displays correctly once deployed to Vercel.</p>
-          <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
-        </div>
+        <div><div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:6px">Calendar preview unavailable in this sandbox</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.7">Displays correctly once deployed.</p><a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a></div>
       </div>
     </div>
-    <div style="margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;gap:14px;align-items:flex-start">
-      <span style="font-size:16px;flex-shrink:0;margin-top:1px">ℹ️</span>
-      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin:0">This calendar reflects <strong>all</strong> scheduled maintenance activities across Sprout products — including windows that may or may not result in <span style="color:var(--carrot);font-weight:600">service interruptions or downtime</span> for users. Events shown here are from the developer schedule and may not yet be formally approved. We publish all windows here so your team can plan with confidence.</p>
+    <div style="margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;gap:14px">
+      <span style="font-size:16px;flex-shrink:0">ℹ️</span>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin:0">This calendar reflects <strong>all</strong> scheduled maintenance activities — including windows that may or may not result in <span style="color:var(--carrot);font-weight:600">service interruptions or downtime</span>. Events shown here are from the developer schedule and may not yet be formally approved.</p>
     </div>
   </div>
 </div>
 
-<!-- ══ ADMIN ══ -->
+<!-- ADMIN -->
 <div class="view" id="admin-view">
   <div class="section-header" style="margin-bottom:10px">
-    <div>
-      <div class="section-eyebrow">CS Operations</div>
-      <h2 class="section-title">Admin Panel</h2>
-      <div class="section-sub">Review pending events, manage records, and announce to Google Chat</div>
-    </div>
+    <div><div class="section-eyebrow">CS Operations</div><h2 class="section-title">Admin Panel</h2><div class="section-sub">Review pending events, set downtime flags, announce to Google Chat</div></div>
   </div>
   <div class="gradient-strip"></div>
-
-  <div class="sub-tabs" id="admin-subtabs">
-    <button class="sub-tab active" data-tab="pending">Pending Approvals <span class="tab-badge" id="pending-count-badge" style="display:none">0</span></button>
-    <button class="sub-tab" data-tab="records">All Records</button>
-    <button class="sub-tab" data-tab="announce">Announce</button>
-    <button class="sub-tab" data-tab="add">Add Maintenance</button>
-    <button class="sub-tab" data-tab="digest">Email Digest</button>
-    <button class="sub-tab" data-tab="settings">Settings</button>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchAdminTab('pending',this)">Pending Approvals <span class="tab-badge" id="pending-count-badge" style="display:none">0</span></button>
+    <button class="sub-tab" onclick="switchAdminTab('records',this)">All Records</button>
+    <button class="sub-tab" onclick="switchAdminTab('announce',this)">Announce</button>
+    <button class="sub-tab" onclick="switchAdminTab('add',this)">Add Maintenance</button>
+    <button class="sub-tab" onclick="switchAdminTab('digest',this)">Email Digest</button>
+    <button class="sub-tab" onclick="switchAdminTab('settings',this)">Settings</button>
   </div>
 
-  <!-- ── PENDING APPROVALS ── -->
+  <!-- PENDING -->
   <div id="admin-pending">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-      <div>
-        <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:4px">Pending Approvals</div>
-        <p style="font-size:12px;color:var(--muted);line-height:1.6">These are calendar-imported events awaiting your review. Only approved events are visible to employees.</p>
-      </div>
-      <button class="btn btn-outline btn-sm" id="sim-import-btn">+ Simulate Calendar Import</button>
+      <div><div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:4px">Pending Approvals</div><p style="font-size:12px;color:var(--muted)">Review calendar-imported events. Set downtime flag and client message before approving.</p></div>
+      <button class="btn btn-outline btn-sm" onclick="simulateCalendarImport()">+ Simulate Calendar Import</button>
     </div>
-    <!-- Flow diagram -->
-    <div style="background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #ddd6f7;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;flex-wrap:wrap">
-        <span style="background:#FFF8E8;border:1px solid #ffe0a0;padding:4px 10px;border-radius:6px;font-weight:600;color:#a06000;font-family:'Inter',sans-serif">📅 Calendar Import</span>
-        <span style="color:var(--muted)">→</span>
-        <span style="background:#FFF8E8;border:1px solid #ffe0a0;padding:4px 10px;border-radius:6px;font-weight:600;color:#a06000;font-family:'Inter',sans-serif">⏳ Pending</span>
-        <span style="color:var(--muted)">→ you review →</span>
-        <span style="background:#EDFAE5;border:1px solid #b8eea5;padding:4px 10px;border-radius:6px;font-weight:600;color:#1a7a06;font-family:'Inter',sans-serif">✅ Approved → Upcoming</span>
-        <span style="color:var(--muted)">or</span>
-        <span style="background:#f5f0ff;border:1px solid #d4b8f5;padding:4px 10px;border-radius:6px;font-weight:600;color:#6a30b0;font-family:'Inter',sans-serif">✕ Rejected → Hidden</span>
-      </div>
+    <div style="background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #ddd6f7;border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--muted2);line-height:1.7">
+      <strong style="color:var(--deep);font-family:'Inter',sans-serif">Approval sets the <code style="background:var(--bg);padding:1px 5px;border-radius:3px">hasDowntime</code> flag.</strong> Auto-detected from duration — confirm before approving.
     </div>
     <div id="pending-cards" class="grid"></div>
   </div>
 
-  <!-- ── ALL RECORDS ── -->
+  <!-- ALL RECORDS -->
   <div id="admin-records" style="display:none">
     <div class="filter-bar">
-      <input class="form-input" id="admin-search" placeholder="🔍  Search…" style="min-width:200px;flex:1">
-      <select class="form-select" id="admin-filter-status">
-        <option value="">All Statuses</option>
-        <option value="pending">Pending</option>
-        <option value="upcoming">Upcoming</option>
-        <option value="ongoing">Ongoing</option>
-        <option value="completed">Completed</option>
-        <option value="cancelled">Cancelled</option>
-        <option value="rejected">Rejected</option>
+      <input class="form-input" id="admin-search" placeholder="🔍 Search…" oninput="renderAdminRecords()" style="min-width:200px;flex:1">
+      <select class="form-select" id="admin-filter-status" onchange="renderAdminRecords()">
+        <option value="">All Statuses</option><option value="pending">Pending</option><option value="upcoming">Upcoming</option><option value="ongoing">Ongoing</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option><option value="rejected">Rejected</option>
+      </select>
+      <select class="form-select" id="admin-filter-downtime" onchange="renderAdminRecords()">
+        <option value="">All Types</option><option value="true">Has Downtime</option><option value="false">No Downtime</option>
       </select>
     </div>
     <div id="admin-cards" class="grid"></div>
   </div>
 
-  <!-- ── ANNOUNCE ── -->
+  <!-- ANNOUNCE -->
   <div id="admin-announce" style="display:none">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px">
-        <div>
-          <div class="chart-label" style="margin-bottom:2px">Batch Announcement</div>
-          <p style="font-size:12px;color:var(--muted)">Select approved records to send as one combined Google Chat message to CS General.</p>
-        </div>
+        <div><div class="chart-label" style="margin-bottom:2px">Batch Announcement</div><p style="font-size:12px;color:var(--muted)">Select approved records to announce to CS General via Google Chat.</p></div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-outline btn-sm" id="sel-all-btn">Select all</button>
-          <button class="btn btn-outline btn-sm" id="desel-all-btn">Deselect all</button>
+          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(true)">Select all</button>
+          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(false)">Deselect all</button>
         </div>
       </div>
       <div id="announce-list"></div>
-      <div style="margin-top:16px">
-        <button class="btn btn-warn" id="send-batch-btn">💬 Send to Google Chat</button>
-      </div>
+      <div style="margin-top:16px"><button class="btn btn-warn" onclick="sendBatchAnnouncement()">💬 Send to Google Chat</button></div>
     </div>
   </div>
 
-  <!-- ── ADD MAINTENANCE ── -->
+  <!-- ADD -->
   <div id="admin-add" style="display:none">
     <div style="background:linear-gradient(135deg,#EDFAE5,var(--bg));border:1px solid #b8eea5;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px;font-size:12px;color:var(--muted);line-height:1.6">
-      <strong style="color:#1a7a06;font-family:'Inter',sans-serif">CS-initiated maintenance</strong> — these records skip the Pending stage and go directly to Upcoming since you're adding them yourself as the approver.
+      <strong style="color:#1a7a06;font-family:'Inter',sans-serif">CS-initiated records</strong> skip Pending and go directly to Upcoming.
     </div>
     <div id="product-entries"></div>
-    <button class="btn btn-outline btn-sm" id="add-entry-btn" style="margin-bottom:18px">+ Add another product</button>
+    <button class="btn btn-outline btn-sm" onclick="addProductEntry()" style="margin-bottom:18px">+ Add another product</button>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-primary" id="save-all-btn">Save all</button>
-      <button class="btn btn-warn" id="save-announce-btn">💬 Save &amp; Announce to Google Chat</button>
+      <button class="btn btn-primary" onclick="saveAll(false)">Save all</button>
+      <button class="btn btn-warn" onclick="saveAll(true)">💬 Save &amp; Announce to Google Chat</button>
     </div>
   </div>
 
-  <!-- ── EMAIL DIGEST ── -->
+  <!-- DIGEST -->
   <div id="admin-digest" style="display:none">
     <div class="card" style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
-        <div>
-          <div class="chart-label" style="margin-bottom:2px">Weekly Email Digest</div>
-          <p style="font-size:12px;color:var(--muted)">Generate and send a summary of upcoming approved maintenance to your team.</p>
-        </div>
+        <div><div class="chart-label" style="margin-bottom:2px">Weekly Email Digest</div><p style="font-size:12px;color:var(--muted)">Generate a summary of upcoming approved maintenance.</p></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-outline btn-sm" id="preview-digest-btn">👁 Preview</button>
-          <button class="btn btn-ghost btn-sm" id="copy-digest-btn">📋 Copy HTML</button>
-          <button class="btn btn-primary" id="send-digest-btn">✉ Send Digest</button>
+          <button class="btn btn-outline btn-sm" onclick="previewDigest()">👁 Preview</button>
+          <button class="btn btn-ghost btn-sm" onclick="copyDigest()">📋 Copy HTML</button>
+          <button class="btn btn-primary" onclick="sendDigest()">✉ Send Digest</button>
         </div>
       </div>
       <div class="form-row" style="margin-bottom:14px">
-        <div>
-          <div class="form-label">Digest covers next</div>
-          <select class="form-select" id="digest-range">
-            <option value="7">7 days</option>
-            <option value="14" selected>14 days</option>
-            <option value="30">30 days</option>
-          </select>
-        </div>
-        <div>
-          <div class="form-label">Recipients <span style="color:var(--muted);font-weight:400">(comma-separated)</span></div>
-          <input class="form-input" id="digest-recipients" placeholder="team@sprout.ph, ops@sprout.ph">
-        </div>
+        <div><div class="form-label">Covers next</div><select class="form-select" id="digest-range"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option></select></div>
+        <div><div class="form-label">Recipients</div><input class="form-input" id="digest-recipients" placeholder="team@sprout.ph"></div>
       </div>
-      <div style="background:var(--bg4);border:1px solid #ddd6f7;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:var(--muted2);line-height:1.7">
-        <strong style="color:var(--ubas);font-family:'Inter',sans-serif">EmailJS required for sending.</strong> Configure in Settings. No EmailJS? Use <strong>Copy HTML</strong> to paste into Gmail or Outlook.
-      </div>
+      <div style="background:var(--bg4);border:1px solid #ddd6f7;border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:var(--muted2)"><strong style="color:var(--ubas)">EmailJS required for sending.</strong> Configure in Settings, or use Copy HTML.</div>
     </div>
     <div id="digest-preview-wrap" style="display:none">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--deep)">Digest Preview</div>
-        <button class="btn btn-ghost btn-sm" id="close-preview-btn">✕ Close</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('digest-preview-wrap').style.display='none'">✕ Close</button>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden">
-        <div id="digest-preview-inner"></div>
-      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden"><div id="digest-preview-inner"></div></div>
     </div>
   </div>
 
-  <!-- ── SETTINGS ── -->
+  <!-- SETTINGS -->
   <div id="admin-settings" style="display:none">
     <div class="card">
       <div class="setting-row">
@@ -504,195 +395,193 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
       <div style="margin-top:14px;margin-bottom:6px">
         <input class="form-input" id="webhook-url" placeholder="https://chat.googleapis.com/v1/spaces/…" style="margin-bottom:10px">
         <div style="display:flex;gap:8px">
-          <button class="btn btn-primary btn-sm" id="save-webhook-btn">Save</button>
-          <button class="btn btn-outline btn-sm" id="test-webhook-btn">Test message</button>
+          <button class="btn btn-primary btn-sm" onclick="saveWebhook()">Save</button>
+          <button class="btn btn-outline btn-sm" onclick="testWebhook()">Test message</button>
         </div>
       </div>
       <div class="divider"></div>
-      <div class="setting-row">
-        <div class="setting-info"><h4>Email Digest — EmailJS</h4><p>Required to send digest emails from the browser. <a href="https://www.emailjs.com" target="_blank" style="color:var(--blue)">Get a free account ↗</a></p></div>
-      </div>
+      <div class="setting-row"><div class="setting-info"><h4>Email Digest — EmailJS</h4><p><a href="https://www.emailjs.com" target="_blank" style="color:var(--blue)">Get a free EmailJS account ↗</a></p></div></div>
       <div style="margin-top:14px">
         <div class="form-row" style="margin-bottom:10px">
           <div><div class="form-label">Service ID</div><input class="form-input" id="ejs-service" placeholder="service_xxxxxxx"></div>
           <div><div class="form-label">Template ID</div><input class="form-input" id="ejs-template" placeholder="template_xxxxxxx"></div>
         </div>
         <div style="margin-bottom:10px"><div class="form-label">Public Key</div><input class="form-input" id="ejs-pubkey" placeholder="your_public_key"></div>
-        <button class="btn btn-primary btn-sm" id="save-emailjs-btn">Save EmailJS Config</button>
+        <button class="btn btn-primary btn-sm" onclick="saveEmailJS()">Save EmailJS Config</button>
       </div>
       <div class="divider"></div>
-      <div class="setting-row">
-        <div class="setting-info"><h4>Change Admin Password</h4><p>Update the password used to access this admin panel</p></div>
-      </div>
+      <div class="setting-row"><div class="setting-info"><h4>Change Admin Password</h4></div></div>
       <div style="margin-top:14px">
         <div class="form-row" style="margin-bottom:10px">
           <div><div class="form-label">New Password</div><input class="form-input" type="password" id="new-pw" placeholder="New password"></div>
-          <div><div class="form-label">Confirm Password</div><input class="form-input" type="password" id="confirm-pw" placeholder="Confirm password"></div>
+          <div><div class="form-label">Confirm</div><input class="form-input" type="password" id="confirm-pw" placeholder="Confirm password"></div>
         </div>
-        <button class="btn btn-primary btn-sm" id="change-pw-btn">Update Password</button>
+        <button class="btn btn-primary btn-sm" onclick="changePassword()">Update Password</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ MODALS ══ -->
-<!-- Login -->
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="login-modal">
   <div class="modal" style="max-width:400px;text-align:center">
-    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
-      <button class="modal-close" id="login-modal-close">✕</button>
-    </div>
+    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0"><button class="modal-close" onclick="closeModal('login-modal')">✕</button></div>
     <div class="login-logo">🌱</div>
     <h2 style="font-size:20px;color:var(--deep);margin-bottom:6px">Admin Access</h2>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6">Sign in to review pending approvals and announce to Google Chat.</p>
-    <div class="form-group" style="text-align:left">
-      <input class="form-input" type="password" id="login-pw" placeholder="Enter admin password">
-    </div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center" id="login-btn">Sign In</button>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6">Sign in to review pending approvals and manage maintenance records.</p>
+    <div class="form-group" style="text-align:left"><input class="form-input" type="password" id="login-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
   </div>
 </div>
 
-<!-- Edit -->
+<!-- EDIT MODAL -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
-    <div class="modal-header">
-      <span class="modal-title">Edit Maintenance Record</span>
-      <button class="modal-close" id="edit-modal-close">✕</button>
-    </div>
+    <div class="modal-header"><span class="modal-title">Edit Maintenance Record</span><button class="modal-close" onclick="closeModal('edit-modal')">✕</button></div>
     <div id="edit-modal-body"></div>
     <div style="display:flex;gap:8px;margin-top:18px">
-      <button class="btn btn-primary" id="save-edit-btn">Save changes</button>
-      <button class="btn btn-outline" id="cancel-edit-btn">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Save changes</button>
+      <button class="btn btn-outline" onclick="closeModal('edit-modal')">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- Reject reason -->
+<!-- APPROVE MODAL -->
+<div class="modal-overlay" id="approve-modal">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header"><span class="modal-title">Approve Maintenance Event</span><button class="modal-close" onclick="closeModal('approve-modal')">✕</button></div>
+    <div style="background:var(--bg);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:18px;font-size:13px;color:var(--deep)" id="approve-event-summary"></div>
+    <div class="form-group">
+      <div class="form-label">Does this involve user-facing downtime?</div>
+      <div class="toggle-wrap" id="downtime-toggle-wrap" onclick="toggleDowntime()">
+        <div class="toggle-switch" id="downtime-toggle-switch"><div class="toggle-knob"></div></div>
+        <div><div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600" id="downtime-toggle-label">No downtime expected</div><div style="font-size:11px;color:var(--muted)" id="downtime-toggle-sub">Background maintenance — users not affected</div></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">Client-facing message <span style="color:var(--muted);font-weight:400">(shown to employees)</span></div>
+      <textarea class="form-textarea" id="approve-client-msg" rows="3" placeholder="e.g. Sprout HR will be temporarily unavailable from 10 PM to 12 AM for scheduled maintenance."></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-approve" onclick="doApprove(false)">✅ Approve only</button>
+      <button class="btn btn-warn" onclick="doApprove(true)">✅ Approve + 💬 Announce</button>
+      <button class="btn btn-outline btn-sm" onclick="closeModal('approve-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- REJECT MODAL -->
 <div class="modal-overlay" id="reject-modal">
   <div class="modal" style="max-width:420px">
-    <div class="modal-header">
-      <span class="modal-title">Reject Maintenance Event</span>
-      <button class="modal-close" id="reject-modal-close">✕</button>
-    </div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">This event will be hidden from employees. Optionally provide a reason so your team knows why it was rejected.</p>
-    <div class="form-group">
-      <div class="form-label">Reason for rejection <span style="color:var(--muted);font-weight:400">(optional)</span></div>
-      <textarea class="form-textarea" id="reject-reason" rows="3" placeholder="e.g. Reschedule needed, conflicting deployment window…"></textarea>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:4px">
-      <button class="btn btn-reject" id="confirm-reject-btn">Confirm Rejection</button>
-      <button class="btn btn-outline" id="cancel-reject-btn">Cancel</button>
+    <div class="modal-header"><span class="modal-title">Reject Maintenance Event</span><button class="modal-close" onclick="closeModal('reject-modal')">✕</button></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">This event will be hidden from employees.</p>
+    <div class="form-group"><div class="form-label">Reason <span style="color:var(--muted);font-weight:400">(optional)</span></div><textarea class="form-textarea" id="reject-reason" rows="3" placeholder="e.g. Reschedule needed…"></textarea></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-reject" onclick="doReject()">Confirm Rejection</button>
+      <button class="btn btn-outline" onclick="closeModal('reject-modal')">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- Approve + announce -->
-<div class="modal-overlay" id="approve-modal">
-  <div class="modal" style="max-width:440px;text-align:center">
-    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
-      <button class="modal-close" id="approve-modal-close">✕</button>
-    </div>
-    <div style="font-size:40px;margin-bottom:12px">✅</div>
-    <h2 style="font-size:18px;color:var(--deep);margin-bottom:8px">Approve Maintenance?</h2>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:6px;line-height:1.6" id="approve-modal-desc"></p>
-    <p style="color:var(--muted);font-size:12px;margin-bottom:22px">This will make the event visible to all employees as <strong>Upcoming</strong>.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-approve" id="confirm-approve-btn">✅ Approve only</button>
-      <button class="btn btn-warn" id="confirm-approve-announce-btn">✅ Approve + 💬 Announce</button>
-      <button class="btn btn-outline btn-sm" id="cancel-approve-btn">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- Subscribe confirmation -->
+<!-- SUBSCRIBE MODAL -->
 <div class="modal-overlay" id="subscribe-modal">
   <div class="modal" style="max-width:420px;text-align:center">
-    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0">
-      <button class="modal-close" id="subscribe-modal-close">✕</button>
-    </div>
+    <div class="modal-header" style="justify-content:flex-end;margin-bottom:0"><button class="modal-close" onclick="closeModal('subscribe-modal')">✕</button></div>
     <div style="font-size:40px;margin-bottom:12px">✉️</div>
     <h2 style="font-size:18px;color:var(--deep);margin-bottom:8px" id="subscribe-modal-title">You're subscribed!</h2>
     <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px" id="subscribe-modal-body"></p>
-    <button class="btn btn-primary" style="justify-content:center" id="subscribe-modal-ok">Got it</button>
+    <button class="btn btn-primary" style="justify-content:center" onclick="closeModal('subscribe-modal')">Got it</button>
   </div>
 </div>
 
 <script>
-// ══ DATA ══
 const PRODUCTS=['ReadyCash','ReadyWage','Sprout HR','Sprout Payroll','Sandbox','API'];
-let records = JSON.parse(localStorage.getItem('smh_records')||'[]');
-let adminPw = localStorage.getItem('smh_pw')||'admin123';
-let webhookUrl = localStorage.getItem('smh_webhook')||'';
-let customProducts = JSON.parse(localStorage.getItem('smh_custom_products')||'[]');
-let subscribers = JSON.parse(localStorage.getItem('smh_subscribers')||'[]');
-let isAdmin = false, editingId = null, rejectingId = null, approvingId = null;
-let charts = {};
+let records=JSON.parse(localStorage.getItem('smh_records')||'[]');
+let adminPw=localStorage.getItem('smh_pw')||'admin123';
+let webhookUrl=localStorage.getItem('smh_webhook')||'';
+let customProducts=JSON.parse(localStorage.getItem('smh_custom_products')||'[]');
+let subscribers=JSON.parse(localStorage.getItem('smh_subscribers')||'[]');
+let isAdmin=false,editingId=null,rejectingId=null,approvingId=null,approveDowntime=false;
+let charts={};
 
 function allProducts(){return [...PRODUCTS,...customProducts];}
 function saveRecords(){localStorage.setItem('smh_records',JSON.stringify(records));}
-
 function toast(msg,type='info'){
-  const el=document.createElement('div');
-  el.className=`toast ${type}`;
-  const icons={success:'✅',error:'❌',info:'ℹ️'};
-  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
-  document.getElementById('toasts').appendChild(el);
-  setTimeout(()=>el.remove(),3500);
+  const el=document.createElement('div');el.className=`toast ${type}`;
+  el.innerHTML=`<span>${{success:'✅',error:'❌',info:'ℹ️'}[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);setTimeout(()=>el.remove(),3500);
 }
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function openModal(id){document.getElementById(id).classList.add('open');}
 
-// ══ STATUS ══
 function computeStatus(r){
-  if(r.status==='cancelled') return 'cancelled';
-  if(r.status==='rejected') return 'rejected';
-  if(r.status==='pending') return 'pending';
-  const now=new Date(),start=new Date(r.date+'T'+r.time),end=new Date(start.getTime()+parseDuration(r.duration)*60000);
-  if(now<start) return 'upcoming';
-  if(now>=start&&now<end) return 'ongoing';
-  return 'completed';
+  if(['cancelled','rejected','pending'].includes(r.status)) return r.status;
+  const now=new Date(),s=new Date(r.date+'T'+r.time),e=new Date(s.getTime()+parseDuration(r.duration)*60000);
+  if(now<s) return 'upcoming';if(now>=s&&now<e) return 'ongoing';return 'completed';
 }
 function parseDuration(d){
-  if(!d) return 0; let m=0;
+  if(!d) return 0;let m=0;
   const h=d.match(/(\d+)\s*h/i),mn=d.match(/(\d+)\s*m/i);
-  if(h) m+=parseInt(h[1])*60; if(mn) m+=parseInt(mn[1]);
-  if(!h&&!mn) m=parseFloat(d)*60||0; return m;
+  if(h)m+=parseInt(h[1])*60;if(mn)m+=parseInt(mn[1]);if(!h&&!mn)m=parseFloat(d)*60||0;return m;
 }
-function formatDuration(h,m){
-  if(!h&&!m) return '0 minutes';
-  let p=[]; if(h) p.push(h+' hour'+(h>1?'s':'')); if(m) p.push(m+' min'+(m>1?'s':'')); return p.join(' ');
-}
+function formatDuration(h,m){if(!h&&!m) return '0 minutes';let p=[];if(h)p.push(h+' hour'+(h>1?'s':''));if(m)p.push(m+' min'+(m>1?'s':''));return p.join(' ');}
 function getEndTime(d,t,dur){const s=new Date(d+'T'+t);return new Date(s.getTime()+parseDuration(dur)*60000);}
 function formatTime(d){return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function formatDate(d){return new Date(d).toLocaleDateString([],{weekday:'short',year:'numeric',month:'short',day:'numeric'});}
-function weekOf(d){
-  const dt=new Date(d);
-  const mon=new Date(dt);mon.setDate(dt.getDate()-dt.getDay()+(dt.getDay()===0?-6:1));
-  return mon.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'});
-}
+function weekOf(d){const dt=new Date(d);const m=new Date(dt);m.setDate(dt.getDate()-dt.getDay()+(dt.getDay()===0?-6:1));return m.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'});}
+function autoDetectDowntime(r){return /\d+\s*(hour|hr|hours|hrs|minute|min|mins)/i.test(`${r.duration||''} ${r.remarks||''}`);}
 
-function statusBadge(s){
+const CLIENT_STATUS={upcoming:'Scheduled',ongoing:'Active',completed:'Resolved',cancelled:'Withdrawn',pending:'Pending',rejected:'Rejected'};
+function clientBadge(status,hasDowntime){
+  if(status==='ongoing'&&!hasDowntime) return `<span class="cbadge cbadge-monitoring">🔍 Monitoring</span>`;
+  const map={upcoming:'cbadge-scheduled',ongoing:'cbadge-active',completed:'cbadge-resolved',cancelled:'cbadge-withdrawn'};
+  const inner=status==='ongoing'?`<span class="pulse"></span> Active`:CLIENT_STATUS[status]||status;
+  return `<span class="cbadge ${map[status]||'badge-pending'}">${inner}</span>`;
+}
+function internalBadge(s){
   const map={pending:'badge-pending',upcoming:'badge-upcoming',ongoing:'badge-ongoing',completed:'badge-completed',cancelled:'badge-cancelled',rejected:'badge-rejected'};
   const labels={pending:'⏳ Pending',upcoming:'● Upcoming',ongoing:'● Ongoing',completed:'✓ Completed',cancelled:'✕ Cancelled',rejected:'✕ Rejected'};
   const inner=s==='ongoing'?`<span class="pulse"></span> Ongoing`:labels[s]||s;
   return `<span class="badge ${map[s]||''}">${inner}</span>`;
 }
+function dtTag(hasDowntime){return hasDowntime?`<span class="downtime-tag yes">⚡ Service Impact</span>`:`<span class="downtime-tag no">🔧 No Downtime</span>`;}
 
-// ══ NAV ══
+function updateBanner(){
+  const approved=records.filter(r=>!['pending','rejected'].includes(r.status));
+  const active=approved.filter(r=>computeStatus(r)==='ongoing');
+  const withDT=active.filter(r=>r.hasDowntime);
+  const upcoming=approved.filter(r=>computeStatus(r)==='upcoming');
+  const banner=document.getElementById('system-banner');
+  const dot=document.getElementById('banner-dot');
+  const text=document.getElementById('banner-text');
+  if(withDT.length>0){
+    banner.className='disruption';dot.style.background='var(--carrot)';
+    text.innerHTML=`<strong>Service disruption in progress</strong> — ${withDT.map(r=>r.product).join(', ')} currently undergoing maintenance with expected downtime.`;
+  }else if(active.length>0){
+    banner.className='all-good';dot.style.background='#1a7a06';
+    text.innerHTML=`<strong>Maintenance in progress</strong> — ${active.map(r=>r.product).join(', ')} undergoing background maintenance with no user impact.`;
+  }else if(upcoming.filter(r=>r.hasDowntime).length>0){
+    const next=upcoming.filter(r=>r.hasDowntime).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time))[0];
+    banner.className='scheduled';dot.style.background='var(--blue)';
+    text.innerHTML=`<strong>Upcoming service impact:</strong> ${next.product} on ${formatDate(next.date)} at ${next.time}.`;
+  }else{
+    banner.className='all-good';dot.style.background='#1a7a06';
+    text.innerHTML='<strong>All systems operational</strong> — no active maintenance or disruptions.';
+  }
+}
+
 function showView(v){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.getElementById(v+'-view').classList.add('active');
-  ['home','board'].forEach(n=>document.getElementById('nav-'+n)?.classList.remove('active'));
-  if(v==='home'||v==='board') document.getElementById('nav-'+v)?.classList.add('active');
-  if(v==='home') renderHome();
+  document.getElementById('nav-home').classList.toggle('active',v==='home');
+  document.getElementById('nav-board').classList.toggle('active',v==='board');
+  if(v==='home'){renderHome();updateBanner();}
   if(v==='board'){populateYearFilters();renderBoard();}
   if(v==='admin'){renderPending();renderAdminRecords();populateAnnounceList();initAdminEntries();}
 }
 
-// ══ AUTH ══
-function openAdminModal(){
-  if(isAdmin){showView('admin');}
-  else{document.getElementById('login-modal').classList.add('open');}
-}
+function openAdminModal(){if(isAdmin)showView('admin');else openModal('login-modal');}
 function doLogin(){
   const pw=document.getElementById('login-pw').value;
   if(pw===adminPw){
@@ -702,9 +591,8 @@ function doLogin(){
     document.getElementById('admin-link-btn').style.display='none';
     document.getElementById('login-pw').value='';
     document.getElementById('login-error').classList.remove('show');
-    document.getElementById('login-modal').classList.remove('open');
-    showView('admin');
-  } else {document.getElementById('login-error').classList.add('show');}
+    closeModal('login-modal');showView('admin');
+  }else{document.getElementById('login-error').classList.add('show');}
 }
 function signOut(){
   isAdmin=false;
@@ -714,374 +602,271 @@ function signOut(){
   showView('home');
 }
 
-// ══ HOME — only shows approved (upcoming/ongoing) ══
 function renderHome(){
   const now=new Date(),month=now.getMonth()+1,year=now.getFullYear();
   document.getElementById('hero-month').textContent=now.toLocaleDateString([],{month:'long',year:'numeric'}).toUpperCase();
-
-  // Only approved records (not pending/rejected)
   const approved=records.filter(r=>!['pending','rejected'].includes(r.status));
   const thisMonth=approved.filter(r=>{const d=new Date(r.date);return d.getMonth()+1===month&&d.getFullYear()===year;});
-  const statuses=thisMonth.map(r=>computeStatus(r));
-  const total=thisMonth.length,ongoing=statuses.filter(s=>s==='ongoing').length,upcoming=statuses.filter(s=>s==='upcoming').length,completed=statuses.filter(s=>s==='completed').length;
-
+  const ss=thisMonth.map(r=>computeStatus(r));
   document.getElementById('home-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-num">${total}</div><div class="stat-label">Total this month</div></div>
-    <div class="stat-card" style="border-left:3px solid var(--carrot)"><div class="stat-icon">⚡</div><div class="stat-num" style="color:var(--carrot)">${ongoing}</div><div class="stat-label">Ongoing now</div></div>
-    <div class="stat-card" style="border-left:3px solid var(--blue)"><div class="stat-icon">🗓</div><div class="stat-num" style="color:var(--blue)">${upcoming}</div><div class="stat-label">Upcoming</div></div>
-    <div class="stat-card" style="border-left:3px solid var(--green)"><div class="stat-icon">✅</div><div class="stat-num" style="color:#1a7a06">${completed}</div><div class="stat-label">Completed</div></div>
+    <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-num">${thisMonth.length}</div><div class="stat-label">Total this month</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--carrot)"><div class="stat-icon">⚡</div><div class="stat-num" style="color:var(--carrot)">${ss.filter(s=>s==='ongoing').length}</div><div class="stat-label">Active now</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--blue)"><div class="stat-icon">🗓</div><div class="stat-num" style="color:var(--blue)">${ss.filter(s=>s==='upcoming').length}</div><div class="stat-label">Scheduled</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--green)"><div class="stat-icon">✅</div><div class="stat-num" style="color:#1a7a06">${ss.filter(s=>s==='completed').length}</div><div class="stat-label">Resolved</div></div>
   `;
-
-  const ongoingRecs=approved.filter(r=>computeStatus(r)==='ongoing');
-  const upcomingRecs=approved.filter(r=>computeStatus(r)==='upcoming').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
-
-  document.getElementById('ongoing-section').style.display=ongoingRecs.length?'':'none';
-  document.getElementById('ongoing-cards').innerHTML=ongoingRecs.map(r=>maintCard(r,'ongoing')).join('');
-  document.getElementById('upcoming-cards').innerHTML=upcomingRecs.length
-    ?upcomingRecs.map(r=>maintCard(r,'upcoming')).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">✅</div><p>No upcoming approved maintenance scheduled</p></div>`;
+  const active=approved.filter(r=>computeStatus(r)==='ongoing');
+  const upcoming=approved.filter(r=>computeStatus(r)==='upcoming').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  document.getElementById('ongoing-section').style.display=active.length?'':'none';
+  document.getElementById('ongoing-cards').innerHTML=active.map(r=>clientCard(r,'ongoing-card')).join('');
+  const dt=upcoming.filter(r=>r.hasDowntime),ndt=upcoming.filter(r=>!r.hasDowntime);
+  document.getElementById('downtime-cards').innerHTML=dt.length?dt.map(r=>clientCard(r,'downtime')).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">✅</div><p>No service-impacting maintenance scheduled</p></div>`;
+  document.getElementById('nodowntime-cards').innerHTML=ndt.length?ndt.map(r=>clientCard(r,'no-downtime')).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🌿</div><p>No background maintenance scheduled</p></div>`;
+  updateBanner();
 }
-function maintCard(r,cls){
+
+function clientCard(r,cls){
   const s=computeStatus(r),end=getEndTime(r.date,r.time,r.duration);
-  return `<div class="maint-card ${cls||s}">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+  return `<div class="maint-card ${cls}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
       <div>
-        <div class="maint-product">${r.product}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="maint-product">${r.product}</div>${dtTag(!!r.hasDowntime)}</div>
         <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time} – ${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
-      </div>${statusBadge(s)}
+      </div>${clientBadge(s,r.hasDowntime)}
     </div>
-    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+    ${r.clientMessage?`<div class="maint-client-msg">💬 ${r.clientMessage}</div>`:r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
   </div>`;
 }
 
-// ══ SUBSCRIBE ══
 function handleSubscribe(){
   const email=document.getElementById('subscribe-email').value.trim();
   if(!email||!email.includes('@')){toast('Please enter a valid email address.','error');return;}
-  if(!subscribers.includes(email)){
-    subscribers.push(email);localStorage.setItem('smh_subscribers',JSON.stringify(subscribers));
-    document.getElementById('subscribe-modal-title').textContent="You're subscribed!";
-    document.getElementById('subscribe-modal-body').innerHTML=`<strong>${email}</strong> has been added to the weekly maintenance digest.<br><br>You'll receive a summary of upcoming approved maintenance every <strong>Monday morning</strong>.`;
-    document.getElementById('subscribe-email').value='';
-  } else {
-    document.getElementById('subscribe-modal-title').textContent='Already subscribed!';
-    document.getElementById('subscribe-modal-body').textContent=`${email} is already on the weekly digest list.`;
-  }
-  document.getElementById('subscribe-modal').classList.add('open');
+  if(!subscribers.includes(email)){subscribers.push(email);localStorage.setItem('smh_subscribers',JSON.stringify(subscribers));document.getElementById('subscribe-modal-title').textContent="You're subscribed!";document.getElementById('subscribe-modal-body').innerHTML=`<strong>${email}</strong> will receive upcoming maintenance summaries every <strong>Monday morning</strong>.`;document.getElementById('subscribe-email').value='';}
+  else{document.getElementById('subscribe-modal-title').textContent='Already subscribed!';document.getElementById('subscribe-modal-body').textContent=`${email} is already on the list.`;}
+  openModal('subscribe-modal');
 }
 
-// ══ PENDING APPROVALS ══
-function updatePendingBadge(){
-  const count=records.filter(r=>r.status==='pending').length;
-  const badge=document.getElementById('pending-count-badge');
-  badge.textContent=count;
-  badge.style.display=count>0?'':'none';
-}
+function updatePendingBadge(){const c=records.filter(r=>r.status==='pending').length;const b=document.getElementById('pending-count-badge');b.textContent=c;b.style.display=c?'':'none';}
 
 function renderPending(){
   updatePendingBadge();
   const pending=records.filter(r=>r.status==='pending').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
   const el=document.getElementById('pending-cards');
-  if(!pending.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">🎉</div><p>No pending events — you're all caught up!</p></div>`;
-    return;
-  }
+  if(!pending.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🎉</div><p>No pending events — you're all caught up!</p></div>`;return;}
   el.innerHTML=pending.map(r=>{
     const end=getEndTime(r.date,r.time,r.duration);
-    return `<div class="approval-card">
+    const auto=autoDetectDowntime(r);
+    return `<div class="maint-card pending-card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px">
         <div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">
             <div class="maint-product">${r.product}</div>
             ${r.fromCalendar?'<span class="from-cal-tag">📅 From Calendar</span>':''}
+            ${dtTag(auto)}<span style="font-size:10px;color:var(--muted);font-style:italic">(auto-detected)</span>
           </div>
-          <div class="maint-meta">
-            <span>📅 ${formatDate(r.date)}</span>
-            <span>🕐 ${r.time} – ${formatTime(end)}</span>
-            <span>⏱ ${r.duration}</span>
-          </div>
-        </div>
-        ${statusBadge('pending')}
+          <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time} – ${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
+        </div>${internalBadge('pending')}
       </div>
       ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
       <div class="maint-actions">
-        <button class="btn btn-approve btn-sm" data-approve="${r.id}">✅ Approve</button>
-        <button class="btn btn-reject btn-sm" data-reject="${r.id}">✕ Reject</button>
+        <button class="btn btn-approve btn-sm" onclick="openApproveModal('${r.id}')">✅ Review &amp; Approve</button>
+        <button class="btn btn-reject btn-sm" onclick="openRejectModal('${r.id}')">✕ Reject</button>
         <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
       </div>
     </div>`;
   }).join('');
-
-  // wire approve/reject buttons
-  el.querySelectorAll('[data-approve]').forEach(btn=>btn.addEventListener('click',()=>openApproveModal(btn.dataset.approve)));
-  el.querySelectorAll('[data-reject]').forEach(btn=>btn.addEventListener('click',()=>openRejectModal(btn.dataset.reject)));
 }
 
-// Approve flow
 function openApproveModal(id){
   approvingId=id;
   const r=records.find(x=>x.id===id);
-  document.getElementById('approve-modal-desc').textContent=`${r.product} · ${formatDate(r.date)} · ${r.time} · ${r.duration}`;
-  document.getElementById('approve-modal').classList.add('open');
+  document.getElementById('approve-event-summary').innerHTML=`<strong>${r.product}</strong> &nbsp;·&nbsp; ${formatDate(r.date)} &nbsp;·&nbsp; ${r.time} &nbsp;·&nbsp; ${r.duration}`;
+  approveDowntime=autoDetectDowntime(r);
+  updateDowntimeToggleUI();
+  document.getElementById('approve-client-msg').value=r.clientMessage||r.remarks||'';
+  openModal('approve-modal');
+}
+function toggleDowntime(){approveDowntime=!approveDowntime;updateDowntimeToggleUI();}
+function updateDowntimeToggleUI(){
+  const sw=document.getElementById('downtime-toggle-switch');
+  const wrap=document.getElementById('downtime-toggle-wrap');
+  const lbl=document.getElementById('downtime-toggle-label');
+  const sub=document.getElementById('downtime-toggle-sub');
+  sw.classList.toggle('on',approveDowntime);wrap.classList.toggle('on',approveDowntime);
+  lbl.textContent=approveDowntime?'Service impact expected':'No downtime expected';
+  lbl.style.color=approveDowntime?'var(--carrot)':'var(--deep)';
+  sub.textContent=approveDowntime?'Users may experience downtime during this window':'Background maintenance — users not affected';
 }
 function doApprove(announce){
-  const r=records.find(x=>x.id===approvingId);
-  if(!r) return;
-  r.status='auto'; // now auto-computed → upcoming/ongoing/completed
-  r.approvedAt=new Date().toISOString();
-  saveRecords();
-  document.getElementById('approve-modal').classList.remove('open');
+  const r=records.find(x=>x.id===approvingId);if(!r) return;
+  r.status='auto';r.hasDowntime=approveDowntime;r.clientMessage=document.getElementById('approve-client-msg').value.trim();r.approvedAt=new Date().toISOString();
+  saveRecords();closeModal('approve-modal');
   if(announce) sendAnnouncement([r]);
-  renderPending();renderHome();renderAdminRecords();
-  toast(`${r.product} approved and set to Upcoming.`,'success');
+  renderPending();renderHome();renderAdminRecords();updateBanner();
+  toast(`${r.product} approved — ${approveDowntime?'⚡ Service impact':'🔧 No downtime'}.`,'success');
 }
-
-// Reject flow
-function openRejectModal(id){
-  rejectingId=id;
-  document.getElementById('reject-reason').value='';
-  document.getElementById('reject-modal').classList.add('open');
-}
+function openRejectModal(id){rejectingId=id;document.getElementById('reject-reason').value='';openModal('reject-modal');}
 function doReject(){
-  const r=records.find(x=>x.id===rejectingId);
-  if(!r) return;
-  r.status='rejected';
-  r.rejectedReason=document.getElementById('reject-reason').value.trim();
-  r.rejectedAt=new Date().toISOString();
-  saveRecords();
-  document.getElementById('reject-modal').classList.remove('open');
-  renderPending();renderAdminRecords();
-  toast(`${r.product} rejected and hidden from employees.`,'info');
+  const r=records.find(x=>x.id===rejectingId);if(!r) return;
+  r.status='rejected';r.rejectedReason=document.getElementById('reject-reason').value.trim();r.rejectedAt=new Date().toISOString();
+  saveRecords();closeModal('reject-modal');renderPending();renderAdminRecords();
+  toast(`${r.product} rejected.`,'info');
 }
 
-// ══ BOARD (employees see only approved) ══
 function populateYearFilters(){
   const years=[...new Set(records.map(r=>new Date(r.date).getFullYear()))];
-  const cur=new Date().getFullYear();
-  if(!years.includes(cur)) years.push(cur);
-  years.sort((a,b)=>b-a);
-  ['filter-year','chart-year'].forEach(id=>{
-    const el=document.getElementById(id);if(!el) return;
-    el.innerHTML=years.map(y=>`<option value="${y}"${y===cur?'selected':''}>${y}</option>`).join('');
-  });
+  const cur=new Date().getFullYear();if(!years.includes(cur))years.push(cur);years.sort((a,b)=>b-a);
+  ['filter-year','chart-year'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=years.map(y=>`<option value="${y}"${y===cur?'selected':''}>${y}</option>`).join('');});
 }
+function resetFilters(){['filter-month','filter-year','filter-status','filter-downtime'].forEach(id=>document.getElementById(id).value='');document.getElementById('filter-search').value='';renderBoard();}
 function renderBoard(){
-  const month=document.getElementById('filter-month')?.value;
-  const year=document.getElementById('filter-year')?.value;
-  const status=document.getElementById('filter-status')?.value;
+  const month=document.getElementById('filter-month')?.value,year=document.getElementById('filter-year')?.value;
+  const status=document.getElementById('filter-status')?.value,downtime=document.getElementById('filter-downtime')?.value;
   const search=document.getElementById('filter-search')?.value?.toLowerCase();
-
-  // Board only shows approved records (no pending/rejected)
-  let list=records
-    .filter(r=>!['pending','rejected'].includes(r.status))
-    .map(r=>({...r,_s:computeStatus(r)}));
-
-  if(month) list=list.filter(r=>new Date(r.date).getMonth()+1===parseInt(month));
-  if(year) list=list.filter(r=>new Date(r.date).getFullYear()===parseInt(year));
-  if(status) list=list.filter(r=>r._s===status);
-  if(search) list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
+  let list=records.filter(r=>!['pending','rejected'].includes(r.status)).map(r=>({...r,_s:computeStatus(r)}));
+  if(month)list=list.filter(r=>new Date(r.date).getMonth()+1===parseInt(month));
+  if(year)list=list.filter(r=>new Date(r.date).getFullYear()===parseInt(year));
+  if(status)list=list.filter(r=>r._s===status);
+  if(downtime!=='')list=list.filter(r=>(r.hasDowntime===true)===(downtime==='true'));
+  if(search)list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
   list.sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time));
-
-  document.getElementById('board-cards').innerHTML=list.length
-    ?list.map(r=>{
-        const end=getEndTime(r.date,r.time,r.duration);
-        return `<div class="maint-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-            <div>
-              <div class="maint-product">${r.product}</div>
-              <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
-              <div style="font-size:11px;color:var(--muted);margin-top:4px">Added ${new Date(r.createdAt).toLocaleDateString()}</div>
-            </div>${statusBadge(r._s)}
-          </div>
-          ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
-        </div>`;
-      }).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No approved records found</p></div>`;
+  document.getElementById('board-cards').innerHTML=list.length?list.map(r=>{
+    const end=getEndTime(r.date,r.time,r.duration);
+    return `<div class="maint-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+        <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="maint-product">${r.product}</div>${dtTag(!!r.hasDowntime)}</div>
+        <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div></div>
+        ${clientBadge(r._s,r.hasDowntime)}
+      </div>
+      ${r.clientMessage?`<div class="maint-client-msg">💬 ${r.clientMessage}</div>`:r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+    </div>`;
+  }).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
 }
 
-// ══ ADMIN ALL RECORDS ══
+function switchBoardTab(t,btn){
+  ['records','analytics','calendar'].forEach(id=>document.getElementById('board-'+id).style.display=id===t?'':'none');
+  btn.closest('.sub-tabs').querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(t==='analytics'){populateYearFilters();renderCharts();}
+}
+
 function renderAdminRecords(){
   const search=(document.getElementById('admin-search')?.value||'').toLowerCase();
   const status=document.getElementById('admin-filter-status')?.value||'';
+  const downtime=document.getElementById('admin-filter-downtime')?.value||'';
   let list=records.map(r=>({...r,_s:computeStatus(r)}));
-  if(search) list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
-  if(status) list=list.filter(r=>r._s===status);
+  if(search)list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
+  if(status)list=list.filter(r=>r._s===status);
+  if(downtime!=='')list=list.filter(r=>(r.hasDowntime===true)===(downtime==='true'));
   list.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
-  document.getElementById('admin-cards').innerHTML=list.length
-    ?list.map(r=>{
-      const end=getEndTime(r.date,r.time,r.duration);
-      const isPending=r.status==='pending',isRejected=r.status==='rejected';
-      return `<div class="maint-card ${isPending?'pending-card':isRejected?'rejected-card':''}">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-          <div>
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-              <div class="maint-product">${r.product}</div>
-              ${r.fromCalendar?'<span class="from-cal-tag">📅 Calendar</span>':''}
-            </div>
-            <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
-            ${isRejected&&r.rejectedReason?`<div style="font-size:11px;color:#9b59b6;margin-top:4px">Reason: ${r.rejectedReason}</div>`:''}
-          </div>${statusBadge(r._s)}
-        </div>
-        ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
-        <div class="maint-actions">
-          ${isPending?`<button class="btn btn-approve btn-sm" data-approve="${r.id}">✅ Approve</button><button class="btn btn-reject btn-sm" data-reject="${r.id}">✕ Reject</button>`:''}
-          ${isRejected?`<button class="btn btn-approve btn-sm" data-approve="${r.id}">↩ Re-approve</button>`:''}
-          <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
-          ${!isPending&&!isRejected?`<button class="btn btn-ghost btn-sm" onclick="announceSingle('${r.id}')">💬 Announce</button>`:''}
-          ${!isPending?`<button class="btn btn-ghost btn-sm" onclick="toggleCancel('${r.id}')">${r.status==='cancelled'?'↩ Uncancel':'✕ Cancel'}</button>`:''}
-          <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 Delete</button>
-        </div>
-      </div>`;
-    }).join('')
-    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
-
-  document.querySelectorAll('#admin-cards [data-approve]').forEach(btn=>btn.addEventListener('click',()=>openApproveModal(btn.dataset.approve)));
-  document.querySelectorAll('#admin-cards [data-reject]').forEach(btn=>btn.addEventListener('click',()=>openRejectModal(btn.dataset.reject)));
+  document.getElementById('admin-cards').innerHTML=list.length?list.map(r=>{
+    const end=getEndTime(r.date,r.time,r.duration);
+    const isPending=r.status==='pending',isRejected=r.status==='rejected';
+    return `<div class="maint-card ${isPending?'pending-card':isRejected?'rejected-card':''}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap">
+            <div class="maint-product">${r.product}</div>
+            ${r.fromCalendar?'<span class="from-cal-tag">📅 Calendar</span>':''}
+            ${!isPending?dtTag(!!r.hasDowntime):''}
+          </div>
+          <div class="maint-meta"><span>📅 ${formatDate(r.date)}</span><span>🕐 ${r.time}–${formatTime(end)}</span><span>⏱ ${r.duration}</span></div>
+          ${isRejected&&r.rejectedReason?`<div style="font-size:11px;color:#9b59b6;margin-top:4px">Reason: ${r.rejectedReason}</div>`:''}
+        </div>${internalBadge(r._s)}
+      </div>
+      ${r.clientMessage?`<div class="maint-client-msg">💬 ${r.clientMessage}</div>`:r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+      <div class="maint-actions">
+        ${isPending?`<button class="btn btn-approve btn-sm" onclick="openApproveModal('${r.id}')">✅ Approve</button><button class="btn btn-reject btn-sm" onclick="openRejectModal('${r.id}')">✕ Reject</button>`:''}
+        ${isRejected?`<button class="btn btn-approve btn-sm" onclick="openApproveModal('${r.id}')">↩ Re-approve</button>`:''}
+        <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
+        ${!isPending&&!isRejected?`<button class="btn btn-ghost btn-sm" onclick="announceSingle('${r.id}')">💬 Announce</button><button class="btn btn-ghost btn-sm" onclick="toggleCancel('${r.id}')">${r.status==='cancelled'?'↩ Uncancel':'✕ Cancel'}</button>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 Delete</button>
+      </div>
+    </div>`;
+  }).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
 }
+function toggleCancel(id){const r=records.find(x=>x.id===id);if(!r)return;r.status=r.status==='cancelled'?'auto':'cancelled';saveRecords();renderAdminRecords();renderHome();}
+function deleteRecord(id){if(!confirm('Delete this record?'))return;records=records.filter(r=>r.id!==id);saveRecords();renderAdminRecords();renderPending();renderHome();populateAnnounceList();toast('Deleted.','info');}
+function announceSingle(id){const r=records.find(x=>x.id===id);if(r)sendAnnouncement([r]);}
 
-function toggleCancel(id){
-  const r=records.find(x=>x.id===id);if(!r) return;
-  r.status=r.status==='cancelled'?'auto':'cancelled';
-  saveRecords();renderAdminRecords();renderHome();
-}
-function deleteRecord(id){
-  if(!confirm('Delete this record?')) return;
-  records=records.filter(r=>r.id!==id);saveRecords();
-  renderAdminRecords();renderPending();renderHome();populateAnnounceList();toast('Deleted.','info');
-}
-function announceSingle(id){const r=records.find(x=>x.id===id);if(r) sendAnnouncement([r]);}
-
-// ══ SIMULATE CALENDAR IMPORT ══
-const SAMPLE_EVENTS=[
-  {product:'Sprout HR',duration:'2 hours',remark:'Routine database maintenance for Q2 schema updates.'},
-  {product:'ReadyCash',duration:'1 hour',remark:'SSL certificate renewal — brief API interruption expected.'},
-  {product:'Sprout Payroll',duration:'3 hours',remark:'Payroll engine upgrade to v5.1.'},
-  {product:'API',duration:'45 mins',remark:'Rate limiter and API gateway configuration changes.'},
-  {product:'ReadyWage',duration:'1 hour 30 mins',remark:'Infrastructure migration to new cloud region.'},
-];
-function simulateCalendarImport(){
-  const sample=SAMPLE_EVENTS[Math.floor(Math.random()*SAMPLE_EVENTS.length)];
-  const now=new Date();
-  const daysAhead=Math.floor(Math.random()*14)+3;
-  const futureDate=new Date(now.getTime()+daysAhead*86400000);
-  const dateStr=futureDate.toISOString().split('T')[0];
-  const hours=[22,23,0,1,2,10,14][Math.floor(Math.random()*7)];
-  const timeStr=String(hours).padStart(2,'0')+':00';
-  const rec={
-    id:'cal_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),
-    product:sample.product,
-    date:dateStr,time:timeStr,
-    duration:sample.duration,
-    status:'pending', // KEY: pending by default
-    remarks:sample.remark,
-    createdAt:new Date().toISOString(),
-    fromCalendar:true
-  };
-  records.push(rec);saveRecords();
-  renderPending();updatePendingBadge();
-  toast(`New pending event imported: ${sample.product} on ${dateStr}`,'info');
-}
-
-// ══ EDIT MODAL ══
 function openEdit(id){
-  editingId=id;const r=records.find(x=>x.id===id);if(!r) return;
+  editingId=id;const r=records.find(x=>x.id===id);if(!r)return;
   const dh=r.duration.match(/(\d+)\s*hour/i)?.[1]||'';
   const dm=r.duration.match(/(\d+)\s*min/i)?.[1]||'';
   document.getElementById('edit-modal-body').innerHTML=`
-    <div class="form-group"><div class="form-label">Product</div>
-      <select class="form-select" id="edit-product">${allProducts().map(p=>`<option${p===r.product?' selected':''}>${p}</option>`).join('')}</select>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><div class="form-label">Date</div><input class="form-input" id="edit-date" type="date" value="${r.date}"></div>
-      <div class="form-group"><div class="form-label">Start Time</div><input class="form-input" id="edit-time" type="time" value="${r.time}"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><div class="form-label">Hours</div><input class="form-input" id="edit-dur-h" type="number" min="0" value="${dh}" placeholder="hrs"></div>
-      <div class="form-group"><div class="form-label">Minutes</div><input class="form-input" id="edit-dur-m" type="number" min="0" max="59" value="${dm}" placeholder="min"></div>
-    </div>
-    <div class="form-group"><div class="form-label">Remarks</div><textarea class="form-textarea" id="edit-remarks" rows="2">${r.remarks||''}</textarea></div>
+    <div class="form-group"><div class="form-label">Product</div><select class="form-select" id="edit-product">${allProducts().map(p=>`<option${p===r.product?' selected':''}>${p}</option>`).join('')}</select></div>
+    <div class="form-row"><div class="form-group"><div class="form-label">Date</div><input class="form-input" id="edit-date" type="date" value="${r.date}"></div><div class="form-group"><div class="form-label">Start Time</div><input class="form-input" id="edit-time" type="time" value="${r.time}"></div></div>
+    <div class="form-row"><div class="form-group"><div class="form-label">Hours</div><input class="form-input" id="edit-dur-h" type="number" min="0" value="${dh}" placeholder="hrs"></div><div class="form-group"><div class="form-label">Minutes</div><input class="form-input" id="edit-dur-m" type="number" min="0" max="59" value="${dm}" placeholder="min"></div></div>
+    <div class="form-group"><div class="form-label">Has Downtime?</div><select class="form-select" id="edit-has-downtime"><option value="true"${r.hasDowntime?' selected':''}>⚡ Yes — Service Impact</option><option value="false"${!r.hasDowntime?' selected':''}>🔧 No — Background</option></select></div>
+    <div class="form-group"><div class="form-label">Client-facing Message</div><textarea class="form-textarea" id="edit-client-msg" rows="2">${r.clientMessage||''}</textarea></div>
+    <div class="form-group"><div class="form-label">Internal Remarks</div><textarea class="form-textarea" id="edit-remarks" rows="2">${r.remarks||''}</textarea></div>
   `;
-  document.getElementById('edit-modal').classList.add('open');
+  openModal('edit-modal');
 }
 function saveEdit(){
-  const r=records.find(x=>x.id===editingId);if(!r) return;
+  const r=records.find(x=>x.id===editingId);if(!r)return;
   r.product=document.getElementById('edit-product').value;
   r.date=document.getElementById('edit-date').value;
   r.time=document.getElementById('edit-time').value;
   r.duration=formatDuration(parseInt(document.getElementById('edit-dur-h').value)||0,parseInt(document.getElementById('edit-dur-m').value)||0);
+  r.hasDowntime=document.getElementById('edit-has-downtime').value==='true';
+  r.clientMessage=document.getElementById('edit-client-msg').value.trim();
   r.remarks=document.getElementById('edit-remarks').value.trim();
-  saveRecords();document.getElementById('edit-modal').classList.remove('open');
-  renderPending();renderAdminRecords();renderHome();toast('Record updated.','success');
+  saveRecords();closeModal('edit-modal');renderPending();renderAdminRecords();renderHome();updateBanner();toast('Record updated.','success');
 }
 
-// ══ ANNOUNCE ══
+function switchAdminTab(t,btn){
+  ['pending','records','announce','add','digest','settings'].forEach(id=>{const el=document.getElementById('admin-'+id);if(el)el.style.display=id===t?'':'none';});
+  btn.closest('.sub-tabs').querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  if(t==='records')renderAdminRecords();
+  if(t==='announce')populateAnnounceList();
+  if(t==='settings')loadSettings();
+  if(t==='add')initAdminEntries();
+  if(t==='pending')renderPending();
+}
+
 function populateAnnounceList(){
   const list=records.filter(r=>!['pending','rejected'].includes(r.status)).sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
-  document.getElementById('announce-list').innerHTML=list.length
-    ?list.map(r=>`<div class="announce-item">
-        <input type="checkbox" id="ann-${r.id}" value="${r.id}">
-        <label for="ann-${r.id}" style="cursor:pointer;flex:1">
-          <span class="chip chip-green" style="margin-right:6px">${r.product}</span>
-          <span style="font-size:12px;color:var(--muted)">${r.date} · ${r.time} · ${r.duration}</span>
-          ${r.remarks?`<div style="font-size:11px;color:var(--muted);margin-top:3px">${r.remarks.substring(0,80)}${r.remarks.length>80?'…':''}</div>`:''}
-        </label>
-      </div>`).join('')
-    :'<p style="color:var(--muted);font-size:13px">No approved records yet.</p>';
+  document.getElementById('announce-list').innerHTML=list.length?list.map(r=>`<div class="announce-item"><input type="checkbox" id="ann-${r.id}" value="${r.id}" style="accent-color:var(--green);width:15px;height:15px;cursor:pointer;margin-top:2px"><label for="ann-${r.id}" style="cursor:pointer;flex:1"><span class="chip chip-green" style="margin-right:6px">${r.product}</span>${dtTag(!!r.hasDowntime)}<span style="font-size:12px;color:var(--muted);margin-left:6px">${r.date} · ${r.time} · ${r.duration}</span></label></div>`).join(''):'<p style="color:var(--muted);font-size:13px">No approved records yet.</p>';
+}
+function selectAllAnnounce(val){document.querySelectorAll('#announce-list input[type=checkbox]').forEach(c=>c.checked=val);}
+function sendBatchAnnouncement(){
+  const ids=[...document.querySelectorAll('#announce-list input:checked')].map(c=>c.value);
+  if(!ids.length){toast('Select at least one record.','error');return;}
+  sendAnnouncement(ids.map(id=>records.find(r=>r.id===id)).filter(Boolean));
 }
 function buildAnnouncementText(recs){
-  const blocks=recs.map(r=>`🌱Date: ${formatDate(r.date)}\nTime: ${r.time}\nDuration: ${r.duration}\nAffected Product/s: ${r.product}\nRemarks: ${r.remarks||'N/A'}`).join('\n\n');
+  const blocks=recs.map(r=>`🌱${r.hasDowntime?'⚡ SERVICE IMPACT':'🔧 No Downtime'}\nDate: ${formatDate(r.date)}\nTime: ${r.time}\nDuration: ${r.duration}\nProduct/s: ${r.product}\n${r.clientMessage?`Message: ${r.clientMessage}\n`:''}Remarks: ${r.remarks||'N/A'}`).join('\n\n');
   return `👩‍💻 Upcoming system maintenance on the week of ${weekOf(recs[0].date)}\n\n${blocks}`;
 }
 function sendAnnouncement(recs){
   const text=buildAnnouncementText(recs);
-  if(!webhookUrl){toast('Webhook not configured. Check Settings.','error');alert('Preview (webhook not configured):\n\n'+text);return;}
+  if(!webhookUrl){toast('Webhook not configured. Check Settings.','error');alert('Preview:\n\n'+text);return;}
   fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})})
     .then(r=>{r.ok?toast('Announced to Google Chat! 🎉','success'):toast('Webhook error.','error');})
     .catch(()=>toast('Failed to reach webhook.','error'));
 }
 
-// ══ ADD MAINTENANCE ══
 let entryCount=0;
 function addProductEntry(){
   entryCount++;
   const id='entry-'+Date.now();
-  const div=document.createElement('div');
-  div.className='product-entry';div.id=id;
+  const div=document.createElement('div');div.className='product-entry';div.id=id;
   div.innerHTML=`
-    <div class="product-entry-label">🌱 Entry #${entryCount}
-      ${entryCount>1?`<button class="remove-entry">✕ Remove</button>`:''}
-    </div>
+    <div class="product-entry-label">🌱 Entry #${entryCount}${entryCount>1?`<button class="remove-entry" onclick="document.getElementById('${id}').remove()">✕ Remove</button>`:''}</div>
     <div class="form-row" style="margin-bottom:12px">
-      <div><div class="form-label">Product / System</div>
-        <select class="form-select entry-product">
-          ${allProducts().map(p=>`<option>${p}</option>`).join('')}
-          <option value="__custom__">+ Custom product…</option>
-        </select>
-        <input class="form-input entry-custom-product" placeholder="Custom product name" style="display:none;margin-top:8px">
-      </div>
+      <div><div class="form-label">Product</div><select class="form-select entry-product" onchange="this.closest('.product-entry').querySelector('.entry-custom-product').style.display=this.value==='__custom__'?'':'none'">${allProducts().map(p=>`<option>${p}</option>`).join('')}<option value="__custom__">+ Custom…</option></select><input class="form-input entry-custom-product" placeholder="Custom name" style="display:none;margin-top:8px"></div>
       <div><div class="form-label">Date</div><input class="form-input entry-date" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
     </div>
     <div class="form-row-3" style="margin-bottom:12px">
-      <div><div class="form-label">Start Time</div><input class="form-input entry-time" type="time" value="22:00"></div>
-      <div><div class="form-label">Duration</div>
-        <div style="display:flex;gap:6px">
-          <input class="form-input entry-dur-h" type="number" min="0" placeholder="hrs" style="width:70px">
-          <input class="form-input entry-dur-m" type="number" min="0" max="59" placeholder="min" style="width:70px">
-        </div>
-      </div>
-      <div><div class="form-label">End Time <span style="color:var(--green);font-size:10px">(auto)</span></div>
-        <input class="form-input entry-endtime" readonly placeholder="–" style="background:var(--bg3);cursor:default">
-      </div>
+      <div><div class="form-label">Start Time</div><input class="form-input entry-time" type="time" value="22:00" oninput="updateEndTime(this.closest('.product-entry'))"></div>
+      <div><div class="form-label">Duration</div><div style="display:flex;gap:6px"><input class="form-input entry-dur-h" type="number" min="0" placeholder="hrs" style="width:70px" oninput="updateEndTime(this.closest('.product-entry'))"><input class="form-input entry-dur-m" type="number" min="0" max="59" placeholder="min" style="width:70px" oninput="updateEndTime(this.closest('.product-entry'))"></div></div>
+      <div><div class="form-label">End Time <span style="color:var(--green);font-size:10px">(auto)</span></div><input class="form-input entry-endtime" readonly style="background:var(--bg3);cursor:default"></div>
     </div>
-    <div><div class="form-label">Remarks</div><textarea class="form-textarea entry-remarks" rows="2" placeholder="Describe the maintenance activity…"></textarea></div>
+    <div class="form-group"><div class="form-label">Has Downtime?</div><select class="form-select entry-has-downtime"><option value="false">🔧 No — Background</option><option value="true">⚡ Yes — Service Impact</option></select></div>
+    <div class="form-group"><div class="form-label">Client-facing Message</div><textarea class="form-textarea entry-client-msg" rows="2" placeholder="Message shown to employees…"></textarea></div>
+    <div class="form-group"><div class="form-label">Internal Remarks</div><textarea class="form-textarea entry-remarks" rows="2" placeholder="Internal notes…"></textarea></div>
   `;
   document.getElementById('product-entries').appendChild(div);
-  div.querySelector('.entry-product').addEventListener('change',function(){
-    div.querySelector('.entry-custom-product').style.display=this.value==='__custom__'?'':'none';
-  });
-  [div.querySelector('.entry-time'),div.querySelector('.entry-dur-h'),div.querySelector('.entry-dur-m')]
-    .forEach(inp=>inp.addEventListener('input',()=>updateEndTime(div)));
-  div.querySelector('.remove-entry')?.addEventListener('click',()=>div.remove());
 }
 function updateEndTime(entry){
   const t=entry.querySelector('.entry-time').value;
@@ -1089,166 +874,92 @@ function updateEndTime(entry){
   const m=parseInt(entry.querySelector('.entry-dur-m').value)||0;
   const ee=entry.querySelector('.entry-endtime');
   if(!t){ee.value='';return;}
-  const [hh,mm]=t.split(':').map(Number),total=hh*60+mm+h*60+m;
+  const[hh,mm]=t.split(':').map(Number),total=hh*60+mm+h*60+m;
   ee.value=String(Math.floor(total/60)%24).padStart(2,'0')+':'+String(total%60).padStart(2,'0');
 }
 function initAdminEntries(){document.getElementById('product-entries').innerHTML='';entryCount=0;addProductEntry();}
 function collectEntries(){
   const out=[];
   document.querySelectorAll('.product-entry').forEach(el=>{
-    const ps=el.querySelector('.entry-product').value;
-    const ci=el.querySelector('.entry-custom-product');
-    let product=ps==='__custom__'?ci.value.trim():ps;
-    if(!product) return;
+    const ps=el.querySelector('.entry-product').value,ci=el.querySelector('.entry-custom-product');
+    let product=ps==='__custom__'?ci.value.trim():ps;if(!product)return;
     if(ps==='__custom__'&&product&&!allProducts().includes(product)){customProducts.push(product);localStorage.setItem('smh_custom_products',JSON.stringify(customProducts));}
-    const date=el.querySelector('.entry-date').value;
-    const time=el.querySelector('.entry-time').value;
-    const h=parseInt(el.querySelector('.entry-dur-h').value)||0;
-    const m=parseInt(el.querySelector('.entry-dur-m').value)||0;
-    if(!date||!time) return;
-    out.push({id:'smh_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),product,date,time,duration:formatDuration(h,m),status:'auto',remarks:el.querySelector('.entry-remarks').value.trim(),createdAt:new Date().toISOString()});
+    const date=el.querySelector('.entry-date').value,time=el.querySelector('.entry-time').value;if(!date||!time)return;
+    const h=parseInt(el.querySelector('.entry-dur-h').value)||0,m=parseInt(el.querySelector('.entry-dur-m').value)||0;
+    out.push({id:'smh_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),product,date,time,duration:formatDuration(h,m),status:'auto',hasDowntime:el.querySelector('.entry-has-downtime').value==='true',clientMessage:el.querySelector('.entry-client-msg').value.trim(),remarks:el.querySelector('.entry-remarks').value.trim(),createdAt:new Date().toISOString()});
   });
   return out;
 }
 function saveAll(announce){
-  const entries=collectEntries();
-  if(!entries.length){toast('No valid entries to save.','error');return;}
-  records.push(...entries);saveRecords();
-  toast(`${entries.length} record(s) saved as Upcoming.`,'success');
-  if(announce) sendAnnouncement(entries);
-  initAdminEntries();renderAdminRecords();populateAnnounceList();renderHome();
+  const entries=collectEntries();if(!entries.length){toast('No valid entries.','error');return;}
+  records.push(...entries);saveRecords();toast(`${entries.length} record(s) saved.`,'success');
+  if(announce)sendAnnouncement(entries);
+  initAdminEntries();renderAdminRecords();populateAnnounceList();renderHome();updateBanner();
 }
 
-// ══ CHARTS ══
+const SAMPLE_EVENTS=[
+  {product:'Sprout HR',duration:'2 hours',remark:'Monthly database index rebuild.'},
+  {product:'ReadyCash',duration:'1 hour',remark:'SSL certificate renewal.'},
+  {product:'Sprout Payroll',duration:'3 hours',remark:'Payroll engine upgrade to v5.2.'},
+  {product:'API',duration:'45 mins',remark:'Rate limiter config changes.'},
+  {product:'ReadyWage',duration:'1 hour 30 mins',remark:'Infrastructure migration.'},
+];
+function simulateCalendarImport(){
+  const s=SAMPLE_EVENTS[Math.floor(Math.random()*SAMPLE_EVENTS.length)];
+  const d=new Date();d.setDate(d.getDate()+Math.floor(Math.random()*14)+3);
+  const dateStr=d.toISOString().split('T')[0];
+  const timeStr=String([22,23,0,2,10][Math.floor(Math.random()*5)]).padStart(2,'0')+':00';
+  records.push({id:'cal_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),product:s.product,date:dateStr,time:timeStr,duration:s.duration,status:'pending',hasDowntime:null,clientMessage:'',remarks:s.remark,createdAt:new Date().toISOString(),fromCalendar:true});
+  saveRecords();renderPending();updatePendingBadge();
+  toast(`Imported: ${s.product} on ${dateStr}`,'info');
+}
+
 function renderCharts(){
   populateYearFilters();
   const year=parseInt(document.getElementById('chart-year')?.value||new Date().getFullYear());
   const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const approved=records.filter(r=>!['pending','rejected'].includes(r.status));
-  const cd={responsive:true,plugins:{legend:{display:false}},scales:{
-    x:{ticks:{color:'#5a6e50',font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'}},
-    y:{ticks:{color:'#5a6e50',stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'},beginAtZero:true}
-  }};
-
-  const destroy=(k)=>{if(charts[k]){charts[k].destroy();delete charts[k];}};
-
-  destroy('line');
-  const counts=MONTHS.map((_,i)=>approved.filter(r=>{const d=new Date(r.date);return d.getFullYear()===year&&d.getMonth()===i;}).length);
-  charts.line=new Chart(document.getElementById('line-chart'),{type:'line',data:{labels:MONTHS,datasets:[{data:counts,borderColor:'#32CE13',backgroundColor:'rgba(50,206,19,.08)',tension:.4,pointBackgroundColor:'#32CE13',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true}]},options:{...cd}});
-
-  destroy('pie');
-  const prodMap={};approved.forEach(r=>{prodMap[r.product]=(prodMap[r.product]||0)+1;});
-  charts.pie=new Chart(document.getElementById('pie-chart'),{type:'doughnut',data:{labels:Object.keys(prodMap),datasets:[{data:Object.values(prodMap),backgroundColor:['#32CE13','#1679FA','#FF7F00','#8139EE','#D2F612','#00d4aa','#ff6b6b','#ffd93d'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}});
-
-  destroy('duration');
-  const durMap={},durCount={};
-  approved.forEach(r=>{const m=parseDuration(r.duration);if(m>0){durMap[r.product]=(durMap[r.product]||0)+m;durCount[r.product]=(durCount[r.product]||0)+1;}});
-  const durLabels=Object.keys(durMap);
-  charts.duration=new Chart(document.getElementById('duration-chart'),{type:'bar',data:{labels:durLabels,datasets:[{data:durLabels.map(p=>Math.round(durMap[p]/durCount[p])),backgroundColor:'rgba(22,121,250,.7)',borderRadius:6}]},options:{...cd,scales:{...cd.scales,y:{...cd.scales.y,title:{display:true,text:'Avg minutes',color:'#5a6e50',font:{size:11}}}}}});
-
-  destroy('dow');
-  const dowMap=Array(7).fill(0);approved.forEach(r=>{if(r.date) dowMap[new Date(r.date).getDay()]++;});
-  charts.dow=new Chart(document.getElementById('dow-chart'),{type:'bar',data:{labels:DAYS,datasets:[{data:dowMap,backgroundColor:DAYS.map((_,i)=>i===0||i===6?'rgba(255,127,0,.6)':'rgba(50,206,19,.6)'),borderRadius:6}]},options:{...cd}});
-
-  destroy('status');
-  const sc={completed:0,cancelled:0,upcoming:0,ongoing:0};
-  approved.forEach(r=>{const s=computeStatus(r);sc[s]=(sc[s]||0)+1;});
-  charts.status=new Chart(document.getElementById('status-chart'),{type:'doughnut',data:{labels:['Completed','Cancelled','Upcoming','Ongoing'],datasets:[{data:[sc.completed,sc.cancelled,sc.upcoming,sc.ongoing],backgroundColor:['#32CE13','#ff4444','#1679FA','#FF7F00'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'55%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:10,usePointStyle:true}}}}});
-
-  destroy('hour');
-  const hm=Array(24).fill(0);approved.forEach(r=>{if(r.time) hm[parseInt(r.time.split(':')[0])]++;});
-  const hl=Array.from({length:24},(_,i)=>`${i%12||12}${i<12?'AM':'PM'}`);
-  charts.hour=new Chart(document.getElementById('hour-chart'),{type:'bar',data:{labels:hl,datasets:[{data:hm,backgroundColor:'rgba(129,57,238,.6)',borderRadius:4}]},options:{...cd}});
+  const cd={responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#5a6e50',font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'}},y:{ticks:{color:'#5a6e50',stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'},beginAtZero:true}}};
+  const D=(k)=>{if(charts[k]){charts[k].destroy();delete charts[k];}};
+  D('line');charts.line=new Chart(document.getElementById('line-chart'),{type:'line',data:{labels:MONTHS,datasets:[{data:MONTHS.map((_,i)=>approved.filter(r=>{const dt=new Date(r.date);return dt.getFullYear()===year&&dt.getMonth()===i;}).length),borderColor:'#32CE13',backgroundColor:'rgba(50,206,19,.08)',tension:.4,pointBackgroundColor:'#32CE13',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true}]},options:cd});
+  D('pie');const pm={};approved.forEach(r=>{pm[r.product]=(pm[r.product]||0)+1;});
+  charts.pie=new Chart(document.getElementById('pie-chart'),{type:'doughnut',data:{labels:Object.keys(pm),datasets:[{data:Object.values(pm),backgroundColor:['#32CE13','#1679FA','#FF7F00','#8139EE','#D2F612','#00d4aa','#ff6b6b','#ffd93d'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}});
+  D('downtime-split');charts['downtime-split']=new Chart(document.getElementById('downtime-split-chart'),{type:'doughnut',data:{labels:['Service Impact','No Downtime'],datasets:[{data:[approved.filter(r=>r.hasDowntime).length,approved.filter(r=>!r.hasDowntime).length],backgroundColor:['#FF7F00','#8139EE'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}});
+  D('duration');const dm={},dc={};approved.forEach(r=>{const m=parseDuration(r.duration);if(m>0){dm[r.product]=(dm[r.product]||0)+m;dc[r.product]=(dc[r.product]||0)+1;}});
+  const dl=Object.keys(dm);D('duration');charts.duration=new Chart(document.getElementById('duration-chart'),{type:'bar',data:{labels:dl,datasets:[{data:dl.map(p=>Math.round(dm[p]/dc[p])),backgroundColor:'rgba(22,121,250,.7)',borderRadius:6}]},options:{...cd,scales:{...cd.scales,y:{...cd.scales.y,title:{display:true,text:'Avg minutes',color:'#5a6e50',font:{size:11}}}}}});
+  D('dow');const dow=Array(7).fill(0);approved.forEach(r=>{if(r.date)dow[new Date(r.date).getDay()]++;});
+  charts.dow=new Chart(document.getElementById('dow-chart'),{type:'bar',data:{labels:DAYS,datasets:[{data:dow,backgroundColor:DAYS.map((_,i)=>i===0||i===6?'rgba(255,127,0,.6)':'rgba(50,206,19,.6)'),borderRadius:6}]},options:cd});
+  D('hour');const hm=Array(24).fill(0);approved.forEach(r=>{if(r.time)hm[parseInt(r.time.split(':')[0])]++;});
+  charts.hour=new Chart(document.getElementById('hour-chart'),{type:'bar',data:{labels:Array.from({length:24},(_,i)=>`${i%12||12}${i<12?'AM':'PM'}`),datasets:[{data:hm,backgroundColor:'rgba(129,57,238,.6)',borderRadius:4}]},options:cd});
 }
 
-// ══ DIGEST ══
 function getDigestRecords(){
   const days=parseInt(document.getElementById('digest-range')?.value||14);
   const now=new Date(),cutoff=new Date(now.getTime()+days*86400000);
-  return records.filter(r=>{
-    if(['pending','rejected','cancelled','completed'].includes(r.status)) return false;
-    const start=new Date(r.date+'T'+r.time);
-    return start>=now&&start<=cutoff;
-  }).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  return records.filter(r=>{if(['pending','rejected','cancelled','completed'].includes(r.status))return false;const s=new Date(r.date+'T'+r.time);return s>=now&&s<=cutoff;}).sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
 }
 function buildDigestHTML(){
-  const recs=getDigestRecords();
-  const days=document.getElementById('digest-range')?.value||14;
-  const now=new Date();
-  const dateRange=`${now.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})} – ${new Date(now.getTime()+parseInt(days)*86400000).toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`;
-  const ff=`font-family:'Inter',Arial,sans-serif`;
-  const green='#32CE13',deep='#092903',muted='#5a6e50',border='#e0e8d0',bg='#F7F9ED',orange='#FF7F00',blue='#1679FA';
-  const rows=!recs.length
-    ?`<tr><td colspan="4" style="padding:32px;text-align:center;color:${muted};${ff};font-size:13px">No upcoming maintenance in this period.</td></tr>`
-    :recs.map(r=>{
-      const end=getEndTime(r.date,r.time,r.duration);
-      return `<tr style="border-bottom:1px solid ${border}">
-        <td style="padding:12px 14px;${ff};font-size:13px;font-weight:700;color:${deep}">${r.product}</td>
-        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${formatDate(r.date)}</td>
-        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.time} – ${formatTime(end)}<br><span style="font-size:11px">${r.duration}</span></td>
-        <td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.remarks||'—'}</td>
-      </tr>`;}).join('');
-  return `<div style="max-width:680px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid ${border}">
-    <div style="background:${deep};padding:28px 32px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="width:32px;height:32px;background:${green};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">🌱</div>
-        <span style="${ff};font-weight:800;font-size:16px;color:#fff">Sprout Maintenance Hub</span>
-      </div>
-      <div style="${ff};font-size:22px;font-weight:800;color:#fff;margin-bottom:4px">Weekly Maintenance Digest</div>
-      <div style="${ff};font-size:13px;color:rgba(255,255,255,.6)">${dateRange} · Asia/Manila (GMT+8)</div>
-    </div>
-    <div style="background:${bg};padding:16px 32px;display:flex;gap:24px;border-bottom:1px solid ${border}">
-      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${green}">${recs.length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Scheduled</div></div>
-      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${orange}">${recs.filter(r=>computeStatus(r)==='ongoing').length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Ongoing</div></div>
-      <div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${blue}">${recs.filter(r=>computeStatus(r)==='upcoming').length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Upcoming</div></div>
-    </div>
-    <div style="padding:24px 32px">
-      <div style="${ff};font-size:13px;font-weight:700;color:${deep};margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Approved Maintenance Windows</div>
-      <table style="width:100%;border-collapse:collapse;border:1px solid ${border};border-radius:8px;overflow:hidden">
-        <thead><tr style="background:${bg}">
-          ${['Product','Date','Time / Duration','Remarks'].map(h=>`<th style="padding:10px 14px;text-align:left;${ff};font-size:11px;font-weight:700;color:${muted};text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid ${border}">${h}</th>`).join('')}
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>
-    <div style="background:${bg};padding:18px 32px;border-top:1px solid ${border};display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-      <div style="${ff};font-size:11px;color:${muted}">Generated by Sprout Maintenance Hub · ${new Date().toLocaleString([],{dateStyle:'medium',timeStyle:'short'})}</div>
-      <div style="${ff};font-size:11px;color:${muted}">Questions? Contact CS Operations.</div>
-    </div>
-  </div>`;
+  const recs=getDigestRecords(),days=document.getElementById('digest-range')?.value||14,now=new Date();
+  const range=`${now.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})} – ${new Date(now.getTime()+parseInt(days)*86400000).toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`;
+  const ff=`font-family:'Inter',Arial,sans-serif`,green='#32CE13',deep='#092903',muted='#5a6e50',border='#e0e8d0',bg='#F7F9ED',orange='#FF7F00',ubas='#8139EE',blue='#1679FA';
+  const rows=!recs.length?`<tr><td colspan="5" style="padding:32px;text-align:center;color:${muted};${ff};font-size:13px">No upcoming maintenance.</td></tr>`
+    :recs.map(r=>{const end=getEndTime(r.date,r.time,r.duration);const imp=r.hasDowntime?`<span style="background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700">⚡ Service Impact</span>`:`<span style="background:#f5f0ff;color:${ubas};border:1px solid #ddd6f7;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700">🔧 No Downtime</span>`;
+    return `<tr style="border-bottom:1px solid ${border}"><td style="padding:12px 14px;${ff};font-size:13px;font-weight:700;color:${deep}">${r.product}</td><td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${formatDate(r.date)}</td><td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.time}–${formatTime(end)}<br><span style="font-size:11px">${r.duration}</span></td><td style="padding:12px 14px">${imp}</td><td style="padding:12px 14px;${ff};font-size:12px;color:${muted}">${r.clientMessage||r.remarks||'—'}</td></tr>`;}).join('');
+  return `<div style="max-width:700px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid ${border}"><div style="background:${deep};padding:28px 32px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="width:32px;height:32px;background:${green};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">🌱</div><span style="${ff};font-weight:800;font-size:16px;color:#fff">Sprout Maintenance Hub</span></div><div style="${ff};font-size:22px;font-weight:800;color:#fff;margin-bottom:4px">Weekly Maintenance Digest</div><div style="${ff};font-size:13px;color:rgba(255,255,255,.6)">${range} · Asia/Manila (GMT+8)</div></div><div style="background:${bg};padding:16px 32px;display:flex;gap:24px;border-bottom:1px solid ${border}"><div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${green}">${recs.length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">Scheduled</div></div><div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${orange}">${recs.filter(r=>r.hasDowntime).length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">With Downtime</div></div><div style="text-align:center"><div style="${ff};font-size:24px;font-weight:800;color:${ubas}">${recs.filter(r=>!r.hasDowntime).length}</div><div style="${ff};font-size:11px;color:${muted};text-transform:uppercase;letter-spacing:.4px">No Downtime</div></div></div><div style="padding:24px 32px"><div style="${ff};font-size:13px;font-weight:700;color:${deep};margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Approved Maintenance Windows</div><table style="width:100%;border-collapse:collapse;border:1px solid ${border}"><thead><tr style="background:${bg}">${['Product','Date','Time','Impact','Message'].map(h=>`<th style="padding:10px 14px;text-align:left;${ff};font-size:11px;font-weight:700;color:${muted};text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid ${border}">${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div><div style="background:${bg};padding:18px 32px;border-top:1px solid ${border};display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="${ff};font-size:11px;color:${muted}">Generated by Sprout Maintenance Hub · ${new Date().toLocaleString([],{dateStyle:'medium',timeStyle:'short'})}</div><div style="${ff};font-size:11px;color:${muted}">Questions? Contact CS Operations.</div></div></div>`;
 }
-function previewDigest(){
-  document.getElementById('digest-preview-inner').innerHTML=buildDigestHTML();
-  document.getElementById('digest-preview-wrap').style.display='block';
-  document.getElementById('digest-preview-wrap').scrollIntoView({behavior:'smooth',block:'start'});
-}
-function copyDigest(){
-  const html=buildDigestHTML();
-  navigator.clipboard.writeText(html).then(()=>toast('HTML copied! Paste into Gmail or Outlook.','success')).catch(()=>{
-    const ta=document.createElement('textarea');ta.value=html;ta.style.cssText='position:fixed;opacity:0';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    toast('Copied to clipboard.','success');
-  });
-}
+function previewDigest(){document.getElementById('digest-preview-inner').innerHTML=buildDigestHTML();document.getElementById('digest-preview-wrap').style.display='block';document.getElementById('digest-preview-wrap').scrollIntoView({behavior:'smooth',block:'start'});}
+function copyDigest(){navigator.clipboard.writeText(buildDigestHTML()).then(()=>toast('HTML copied!','success')).catch(()=>{const ta=document.createElement('textarea');ta.value=buildDigestHTML();ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied.','success');});}
 async function sendDigest(){
   const svc=localStorage.getItem('ejs_service'),tmpl=localStorage.getItem('ejs_template'),pub=localStorage.getItem('ejs_pubkey');
-  if(!svc||!tmpl||!pub){toast('Configure EmailJS in Settings first.','error');switchAdminTab('settings');return;}
-  const recipients=document.getElementById('digest-recipients').value.trim();
-  if(!recipients){toast('Enter at least one recipient.','error');return;}
-  const html=buildDigestHTML();
-  if(!window.emailjs){
-    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
-    emailjs.init({publicKey:pub});
-  }
+  if(!svc||!tmpl||!pub){toast('Configure EmailJS in Settings first.','error');return;}
+  const rec=document.getElementById('digest-recipients').value.trim();if(!rec){toast('Enter at least one recipient.','error');return;}
+  if(!window.emailjs){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});emailjs.init({publicKey:pub});}
   toast('Sending…','info');
-  try{
-    await emailjs.send(svc,tmpl,{to_email:recipients,subject:`Sprout Maintenance Digest — ${new Date().toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`,html_content:html,record_count:getDigestRecords().length,generated_at:new Date().toLocaleString()});
-    toast('Digest sent! 🎉','success');
-  }catch(err){toast('Send failed: '+(err.text||err),'error');}
+  try{await emailjs.send(svc,tmpl,{to_email:rec,subject:`Sprout Maintenance Digest — ${new Date().toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})}`,html_content:buildDigestHTML(),record_count:getDigestRecords().length,generated_at:new Date().toLocaleString()});toast('Digest sent! 🎉','success');}
+  catch(err){toast('Send failed: '+(err.text||err),'error');}
 }
 
-// ══ SETTINGS ══
 function loadSettings(){
   document.getElementById('webhook-url').value=webhookUrl;
   setWebhookPill(webhookUrl?'ok':'none');
@@ -1256,188 +967,42 @@ function loadSettings(){
   document.getElementById('ejs-template').value=localStorage.getItem('ejs_template')||'';
   document.getElementById('ejs-pubkey').value=localStorage.getItem('ejs_pubkey')||'';
 }
-function setWebhookPill(s){
-  const el=document.getElementById('webhook-status-pill');
-  el.className='status-pill '+s;
-  el.textContent={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'}[s];
-}
+function setWebhookPill(s){const el=document.getElementById('webhook-status-pill');el.className='status-pill '+s;el.textContent={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'}[s];}
+function saveWebhook(){webhookUrl=document.getElementById('webhook-url').value.trim();localStorage.setItem('smh_webhook',webhookUrl);setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');}
+function testWebhook(){if(!webhookUrl){toast('Enter a webhook URL first.','error');return;}fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🌱 Sprout Maintenance Hub — test message'})}).then(r=>{if(r.ok){setWebhookPill('ok');toast('Test sent!','success');}else{setWebhookPill('err');toast('Error.','error');}}).catch(()=>{setWebhookPill('err');toast('Failed.','error');});}
+function saveEmailJS(){localStorage.setItem('ejs_service',document.getElementById('ejs-service').value.trim());localStorage.setItem('ejs_template',document.getElementById('ejs-template').value.trim());localStorage.setItem('ejs_pubkey',document.getElementById('ejs-pubkey').value.trim());toast('EmailJS saved.','success');}
+function changePassword(){const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;if(!np){toast('Enter a new password.','error');return;}if(np!==cp){toast('Passwords do not match.','error');return;}adminPw=np;localStorage.setItem('smh_pw',np);document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';toast('Password updated.','success');}
 
-// ══ ADMIN SUB TAB SWITCH ══
-function switchAdminTab(t){
-  ['pending','records','announce','add','digest','settings'].forEach(id=>{
-    const el=document.getElementById('admin-'+id);if(el) el.style.display=id===t?'':'none';
-  });
-  document.querySelectorAll('#admin-subtabs .sub-tab').forEach((el,i)=>{
-    el.classList.toggle('active',['pending','records','announce','add','digest','settings'][i]===t);
-  });
-  if(t==='records') renderAdminRecords();
-  if(t==='announce') populateAnnounceList();
-  if(t==='settings') loadSettings();
-  if(t==='add') initAdminEntries();
-  if(t==='pending') renderPending();
+function switchCalView(mode,btn){
+  document.getElementById('gcal-iframe').src='https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode='+mode;
+  btn.closest('.sub-tabs').querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
 }
+function handleIframeLoad(iframe){try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='')showCalFallback();}catch(e){}}
+function showCalFallback(){document.getElementById('gcal-iframe').style.display='none';document.getElementById('cal-fallback').style.display='block';}
 
-// ══ CALENDAR ══
-function switchCalView(mode){
-  const base='https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=';
-  document.getElementById('gcal-iframe').src=base+mode;
-  document.getElementById('cal-btn-month').classList.toggle('active',mode==='MONTH');
-  document.getElementById('cal-btn-week').classList.toggle('active',mode==='WEEK');
-}
-function showCalFallback(){
-  document.getElementById('gcal-iframe').style.display='none';
-  document.getElementById('cal-fallback').style.display='block';
-}
-
-// ══ SEED ══
 function seedIfEmpty(){
-  if(records.length>0) return;
+  if(records.length>0)return;
   const now=new Date(),fmt=d=>d.toISOString().split('T')[0];
   const add=n=>{const d=new Date(now);d.setDate(d.getDate()+n);return d;};
   const sub=n=>{const d=new Date(now);d.setDate(d.getDate()-n);return d;};
   records=[
-    {id:'s1',product:'Sprout HR',date:fmt(add(2)),time:'22:00',duration:'2 hours',status:'auto',remarks:'Database schema migration for v4.2 rollout.',createdAt:new Date().toISOString()},
-    {id:'s2',product:'ReadyCash',date:fmt(add(5)),time:'00:00',duration:'1 hour 30 mins',status:'auto',remarks:'Scheduled SSL certificate renewal.',createdAt:new Date().toISOString()},
-    {id:'s3',product:'Sprout Payroll',date:fmt(sub(3)),time:'21:00',duration:'3 hours',status:'auto',remarks:'Emergency patch for payroll computation bug.',createdAt:new Date().toISOString()},
-    {id:'s4',product:'API',date:fmt(sub(10)),time:'02:00',duration:'45 mins',status:'auto',remarks:'Rate limiter configuration update.',createdAt:new Date().toISOString()},
-    {id:'s5',product:'Sandbox',date:fmt(sub(20)),time:'10:00',duration:'1 hour',status:'cancelled',remarks:'Cancelled due to deployment freeze.',createdAt:new Date().toISOString()},
-    {id:'s6',product:'ReadyWage',date:fmt(sub(5)),time:'23:00',duration:'2 hours 30 mins',status:'auto',remarks:'Infrastructure upgrade for new cloud region.',createdAt:new Date().toISOString()},
-    // Simulate two pending events from calendar
-    {id:'p1',product:'Sprout HR',date:fmt(add(4)),time:'23:00',duration:'1 hour',status:'pending',remarks:'Monthly index rebuild for performance.',createdAt:new Date().toISOString(),fromCalendar:true},
-    {id:'p2',product:'ReadyCash',date:fmt(add(7)),time:'22:30',duration:'2 hours',status:'pending',remarks:'Payment gateway upgrade to v3.5.',createdAt:new Date().toISOString(),fromCalendar:true},
+    {id:'s1',product:'Sprout HR',date:fmt(add(2)),time:'22:00',duration:'2 hours',status:'auto',hasDowntime:true,clientMessage:'Sprout HR will be temporarily unavailable on this date from 10:00 PM to 12:00 AM for a scheduled database migration. Please save your work beforehand.',remarks:'DB schema migration v4.2.',createdAt:new Date().toISOString()},
+    {id:'s2',product:'ReadyCash',date:fmt(add(5)),time:'00:00',duration:'1 hour 30 mins',status:'auto',hasDowntime:true,clientMessage:'ReadyCash payment services will experience a brief interruption for SSL certificate renewal.',remarks:'SSL cert renewal.',createdAt:new Date().toISOString()},
+    {id:'s3',product:'Sprout Payroll',date:fmt(sub(3)),time:'21:00',duration:'3 hours',status:'auto',hasDowntime:true,clientMessage:'',remarks:'Emergency patch for payroll computation bug.',createdAt:new Date().toISOString()},
+    {id:'s4',product:'API',date:fmt(sub(10)),time:'02:00',duration:'45 mins',status:'auto',hasDowntime:false,clientMessage:'',remarks:'Rate limiter config update — no service impact.',createdAt:new Date().toISOString()},
+    {id:'s5',product:'Sandbox',date:fmt(sub(20)),time:'10:00',duration:'1 hour',status:'cancelled',hasDowntime:false,clientMessage:'',remarks:'Cancelled due to deployment freeze.',createdAt:new Date().toISOString()},
+    {id:'s6',product:'ReadyWage',date:fmt(sub(5)),time:'23:00',duration:'2 hours 30 mins',status:'auto',hasDowntime:false,clientMessage:'',remarks:'Infrastructure migration — background only.',createdAt:new Date().toISOString()},
+    {id:'p1',product:'Sprout HR',date:fmt(add(4)),time:'23:00',duration:'1 hour',status:'pending',hasDowntime:null,clientMessage:'',remarks:'Monthly index rebuild.',createdAt:new Date().toISOString(),fromCalendar:true},
+    {id:'p2',product:'ReadyCash',date:fmt(add(7)),time:'22:30',duration:'2 hours',status:'pending',hasDowntime:null,clientMessage:'',remarks:'Payment gateway upgrade to v3.5.',createdAt:new Date().toISOString(),fromCalendar:true},
   ];
   saveRecords();
 }
 
-// ══ INIT ══
+// ══ BOOT ══
 seedIfEmpty();
-
-document.addEventListener('DOMContentLoaded',()=>{
-  // Logo / nav
-  document.getElementById('logo-btn').addEventListener('click',()=>showView('home'));
-  document.getElementById('nav-home').addEventListener('click',()=>showView('home'));
-  document.getElementById('nav-board').addEventListener('click',()=>showView('board'));
-  document.getElementById('admin-link-btn').addEventListener('click',openAdminModal);
-  document.getElementById('signout-btn').addEventListener('click',signOut);
-
-  // Login modal
-  document.getElementById('login-btn').addEventListener('click',doLogin);
-  document.getElementById('login-modal-close').addEventListener('click',()=>document.getElementById('login-modal').classList.remove('open'));
-  document.getElementById('login-pw').addEventListener('keydown',e=>{if(e.key==='Enter') doLogin();});
-
-  // Edit modal
-  document.getElementById('save-edit-btn').addEventListener('click',saveEdit);
-  document.getElementById('edit-modal-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
-  document.getElementById('cancel-edit-btn').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
-
-  // Reject modal
-  document.getElementById('reject-modal-close').addEventListener('click',()=>document.getElementById('reject-modal').classList.remove('open'));
-  document.getElementById('cancel-reject-btn').addEventListener('click',()=>document.getElementById('reject-modal').classList.remove('open'));
-  document.getElementById('confirm-reject-btn').addEventListener('click',doReject);
-
-  // Approve modal
-  document.getElementById('approve-modal-close').addEventListener('click',()=>document.getElementById('approve-modal').classList.remove('open'));
-  document.getElementById('cancel-approve-btn').addEventListener('click',()=>document.getElementById('approve-modal').classList.remove('open'));
-  document.getElementById('confirm-approve-btn').addEventListener('click',()=>doApprove(false));
-  document.getElementById('confirm-approve-announce-btn').addEventListener('click',()=>doApprove(true));
-
-  // Subscribe
-  document.getElementById('subscribe-btn').addEventListener('click',handleSubscribe);
-  document.getElementById('subscribe-modal-close').addEventListener('click',()=>document.getElementById('subscribe-modal').classList.remove('open'));
-  document.getElementById('subscribe-modal-ok').addEventListener('click',()=>document.getElementById('subscribe-modal').classList.remove('open'));
-
-  // Board sub-tabs
-  document.querySelectorAll('#board-subtabs .sub-tab').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const t=btn.dataset.tab;
-      document.querySelectorAll('#board-subtabs .sub-tab').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      ['records','analytics','calendar'].forEach(id=>document.getElementById('board-'+id).style.display=id===t?'':'none');
-      if(t==='analytics'){populateYearFilters();renderCharts();}
-    });
-  });
-
-  // Admin sub-tabs
-  document.querySelectorAll('#admin-subtabs .sub-tab').forEach(btn=>{
-    btn.addEventListener('click',()=>switchAdminTab(btn.dataset.tab));
-  });
-
-  // Board filters
-  ['filter-month','filter-year','filter-status'].forEach(id=>document.getElementById(id).addEventListener('change',renderBoard));
-  document.getElementById('filter-search').addEventListener('input',renderBoard);
-  document.getElementById('reset-filters-btn').addEventListener('click',()=>{
-    ['filter-month','filter-year','filter-status'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('filter-search').value='';renderBoard();
-  });
-
-  // Admin records filters
-  document.getElementById('admin-search').addEventListener('input',renderAdminRecords);
-  document.getElementById('admin-filter-status').addEventListener('change',renderAdminRecords);
-
-  // Add entry
-  document.getElementById('add-entry-btn').addEventListener('click',addProductEntry);
-  document.getElementById('save-all-btn').addEventListener('click',()=>saveAll(false));
-  document.getElementById('save-announce-btn').addEventListener('click',()=>saveAll(true));
-
-  // Announce
-  document.getElementById('sel-all-btn').addEventListener('click',()=>document.querySelectorAll('#announce-list input[type=checkbox]').forEach(c=>c.checked=true));
-  document.getElementById('desel-all-btn').addEventListener('click',()=>document.querySelectorAll('#announce-list input[type=checkbox]').forEach(c=>c.checked=false));
-  document.getElementById('send-batch-btn').addEventListener('click',()=>{
-    const ids=[...document.querySelectorAll('#announce-list input:checked')].map(c=>c.value);
-    if(!ids.length){toast('Select at least one record.','error');return;}
-    sendAnnouncement(ids.map(id=>records.find(r=>r.id===id)).filter(Boolean));
-  });
-
-  // Digest
-  document.getElementById('preview-digest-btn').addEventListener('click',previewDigest);
-  document.getElementById('copy-digest-btn').addEventListener('click',copyDigest);
-  document.getElementById('send-digest-btn').addEventListener('click',sendDigest);
-  document.getElementById('close-preview-btn').addEventListener('click',()=>document.getElementById('digest-preview-wrap').style.display='none');
-
-  // Settings
-  document.getElementById('save-webhook-btn').addEventListener('click',()=>{
-    webhookUrl=document.getElementById('webhook-url').value.trim();
-    localStorage.setItem('smh_webhook',webhookUrl);setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');
-  });
-  document.getElementById('test-webhook-btn').addEventListener('click',()=>{
-    if(!webhookUrl){toast('Enter a webhook URL first.','error');return;}
-    fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🌱 Sprout Maintenance Hub — test message'})})
-      .then(r=>{if(r.ok){setWebhookPill('ok');toast('Test sent!','success');}else{setWebhookPill('err');toast('Webhook error.','error');}})
-      .catch(()=>{setWebhookPill('err');toast('Failed to reach webhook.','error');});
-  });
-  document.getElementById('save-emailjs-btn').addEventListener('click',()=>{
-    localStorage.setItem('ejs_service',document.getElementById('ejs-service').value.trim());
-    localStorage.setItem('ejs_template',document.getElementById('ejs-template').value.trim());
-    localStorage.setItem('ejs_pubkey',document.getElementById('ejs-pubkey').value.trim());
-    toast('EmailJS config saved.','success');
-  });
-  document.getElementById('change-pw-btn').addEventListener('click',()=>{
-    const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
-    if(!np){toast('Enter a new password.','error');return;}
-    if(np!==cp){toast('Passwords do not match.','error');return;}
-    adminPw=np;localStorage.setItem('smh_pw',np);
-    document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
-    toast('Password updated.','success');
-  });
-  document.getElementById('chart-year').addEventListener('change',renderCharts);
-
-  // Simulate import
-  document.getElementById('sim-import-btn').addEventListener('click',simulateCalendarImport);
-
-  // Calendar toggle
-  document.getElementById('cal-btn-month').addEventListener('click',()=>switchCalView('MONTH'));
-  document.getElementById('cal-btn-week').addEventListener('click',()=>switchCalView('WEEK'));
-
-  // Calendar iframe fallback
-  const iframe=document.getElementById('gcal-iframe');
-  iframe.addEventListener('load',()=>{try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='') showCalFallback();}catch(e){}});
-  iframe.addEventListener('error',()=>showCalFallback());
-  setTimeout(()=>{if(iframe.style.display!=='none'){try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='') showCalFallback();}catch(e){}}},5000);
-
-  populateYearFilters();
-  renderHome();
-  setInterval(()=>{renderHome();if(document.getElementById('board-view').classList.contains('active')) renderBoard();},60000);
-});
+populateYearFilters();
+renderHome();
+setInterval(()=>{renderHome();if(document.getElementById('board-view').classList.contains('active'))renderBoard();},60000);
 </script>
 </body>
 </html>
