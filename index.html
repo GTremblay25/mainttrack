@@ -2,861 +2,1240 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprout Maintenance Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --g:#32CE13;--deep:#092903;--lime:#D2F612;--carrot:#FF7F00;
-  --blue:#1679FA;--ubas:#8139EE;
-  --bg1:#F7F5F2;--bg2:#F7F9ED;--bg4:#E1F6C8;--bg5:#F5F3FF;
+  --green:#32CE13;--deep:#092903;--lime:#D2F612;
+  --carrot:#FF7F00;--blue:#1679FA;--ubas:#8139EE;
+  --bg:#F7F9ED;--bg2:#F7F5F2;--bg3:#E1F6C8;--bg4:#F5F3FF;
+  --surface:#ffffff;--border:#e0e8d0;--border2:#d4d0ea;
+  --text:#092903;--muted:#5a6e50;--muted2:#7b6fa8;
+  --radius:14px;--radius-sm:9px;
+  --shadow:0 2px 12px rgba(9,41,3,.07);
+  --shadow-md:0 4px 24px rgba(9,41,3,.10);
 }
-body{font-family:'Rubik',sans-serif;background:var(--bg1);color:var(--deep);min-height:100vh}
-
-/* ── ROLE BAR ── */
-.role-bar{background:var(--deep);padding:6px 28px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
-.role-label{font-size:11px;color:rgba(255,255,255,.35);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
-.role-btn{font-size:12px;font-family:'Rubik',sans-serif;font-weight:500;padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;transition:.15s}
-.role-btn.active{background:var(--ubas);border-color:var(--ubas);color:#fff}
+body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+h1,h2,h3,h4,h5{font-family:'Inter',sans-serif}
 
 /* ── NAV ── */
-nav{background:var(--deep);padding:0 28px;display:flex;align-items:center;height:56px;border-bottom:1px solid rgba(255,255,255,.06)}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#8435EB,#32CE13);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-icon svg{width:17px;height:17px}
-.nav-brand{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:#fff;letter-spacing:.2px}
-.nav-brand em{font-style:normal;color:var(--g)}
-.nav-pill{font-size:10px;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.1);padding:2px 9px;border-radius:20px;margin-left:6px}
-.nav-tabs{display:flex;gap:2px;margin-left:auto}
-.nt{background:transparent;border:none;color:rgba(255,255,255,.45);padding:6px 13px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;font-weight:500;transition:.15s;white-space:nowrap}
-.nt:hover,.nt.active{background:rgba(255,255,255,.1);color:#fff}
-.nbadge{background:var(--ubas);color:#fff;font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;margin-left:5px}
-.ntag{background:linear-gradient(90deg,var(--ubas),var(--blue));color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:6px}
+nav{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:62px;position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 8px rgba(9,41,3,.06);
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--green),var(--lime));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 2px 8px rgba(50,206,19,.3);
+}
+.logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:var(--deep);line-height:1.1}
+.logo-sub{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.3px}
+.nav-tabs{display:flex;gap:2px;background:var(--bg);padding:4px;border-radius:10px}
+.nav-tab{
+  padding:7px 16px;border-radius:7px;cursor:pointer;
+  font-size:13px;color:var(--muted);border:none;
+  background:transparent;font-family:'Rubik',sans-serif;font-weight:500;
+  transition:.15s;
+}
+.nav-tab:hover{color:var(--text);background:var(--surface)}
+.nav-tab.active{color:var(--deep);background:var(--surface);box-shadow:var(--shadow);font-weight:600}
+.nav-right{display:flex;align-items:center;gap:10px}
 
-/* ── PAGES ── */
-.page{display:none}.page.active{display:block}
+/* ── BUTTONS ── */
+.btn{
+  padding:8px 18px;border-radius:var(--radius-sm);border:none;
+  cursor:pointer;font-size:13px;font-family:'Rubik',sans-serif;
+  font-weight:500;transition:.15s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary{background:var(--green);color:var(--deep);box-shadow:0 2px 8px rgba(50,206,19,.25)}
+.btn-primary:hover{filter:brightness(1.05);box-shadow:0 4px 14px rgba(50,206,19,.35)}
+.btn-outline{background:transparent;color:var(--deep);border:1.5px solid var(--border);font-weight:500}
+.btn-outline:hover{border-color:var(--green);color:var(--green);background:rgba(50,206,19,.05)}
+.btn-danger{background:#fff0f0;color:#c0392b;border:1.5px solid #ffd5d5}
+.btn-danger:hover{background:#ffe0e0}
+.btn-warn{background:linear-gradient(135deg,var(--carrot),#ffaa40);color:#fff;box-shadow:0 2px 8px rgba(255,127,0,.25)}
+.btn-ubas{background:linear-gradient(135deg,var(--ubas),#a060f0);color:#fff;box-shadow:0 2px 8px rgba(129,57,238,.25)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+.badge-admin{
+  background:var(--bg4);color:var(--ubas);
+  border:1px solid #ddd6f7;
+  padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;
+  font-family:'Inter',sans-serif;
+}
 
-/* ── HERO ── */
-.hero{background:var(--deep);padding:44px 28px 48px;position:relative;overflow:hidden}
-.hg1{position:absolute;top:-100px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(129,57,238,.28) 0%,transparent 68%);pointer-events:none}
-.hg2{position:absolute;bottom:-80px;left:10%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(50,206,19,.1) 0%,transparent 68%);pointer-events:none}
-.hero-inner{max-width:880px;margin:0 auto;position:relative;z-index:1}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(129,57,238,.18);border:1px solid rgba(129,57,238,.3);color:#c4a3f7;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:18px}
-.edot{width:6px;height:6px;border-radius:50%;background:var(--ubas)}
-h1{font-family:'Inter',sans-serif;font-weight:800;font-size:38px;line-height:1.1;color:#fff;letter-spacing:-1px;margin-bottom:10px}
-h1 .ga{background:linear-gradient(90deg,#32CE13,#D2F612);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-h1 .ua{background:linear-gradient(90deg,#8139EE,#1679FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hsub{font-size:14px;color:rgba(255,255,255,.5);line-height:1.6;max-width:480px}
+/* ── VIEWS ── */
+.view{display:none;padding:28px;max-width:1140px;margin:0 auto}
+.view.active{display:block}
 
-/* ── GAMIFICATION STREAK BAR ── */
-.streak-bar{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 20px;margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.streak-item{display:flex;align-items:center;gap:8px}
-.streak-icon{font-size:20px;line-height:1}
-.streak-val{font-family:'Inter',sans-serif;font-weight:700;font-size:20px;color:#fff}
-.streak-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
-.streak-div{width:1px;height:32px;background:rgba(255,255,255,.1)}
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
 
-/* ── XP PROGRESS ── */
-.xp-bar{margin-top:14px}
-.xp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.xp-label{font-size:11px;color:rgba(255,255,255,.4);font-weight:500}
-.xp-val{font-size:11px;color:var(--lime);font-weight:600}
-.xp-track{height:6px;background:rgba(255,255,255,.1);border-radius:20px;overflow:hidden}
-.xp-fill{height:100%;background:linear-gradient(90deg,var(--ubas),var(--lime));border-radius:20px;transition:width .6s ease}
+/* ── STATUS BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.2px}
+.badge-upcoming{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
+.badge-ongoing{background:#FFF3E8;color:#c05800;border:1px solid #ffd5a8}
+.badge-completed{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
+.badge-cancelled{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
 
-/* ── WRAP ── */
-.wrap{max-width:900px;margin:0 auto;padding:36px 28px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--carrot);animation:pulse 1.4s ease-in-out infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.35)}}
 
-/* ── SECTION LABEL ── */
-.sec-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.sbar{width:16px;height:2px;background:var(--ubas);border-radius:2px}
-h2{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;color:var(--deep);margin-bottom:6px}
-h2 em{font-style:normal;color:var(--ubas)}
+/* ── MAINT CARDS ── */
+.maint-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px;
+  box-shadow:var(--shadow);transition:.15s;
+}
+.maint-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.maint-card.ongoing{border-left:4px solid var(--carrot);background:linear-gradient(to right,#fffaf5,var(--surface))}
+.maint-card.upcoming{border-left:4px solid var(--blue);background:linear-gradient(to right,#f5f8ff,var(--surface))}
+.maint-product{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep)}
+.maint-meta{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:8px}
+.maint-meta span{display:flex;align-items:center;gap:4px}
+.maint-remarks{font-size:12px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.6}
+.maint-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 
-/* ── HOME CARDS ── */
-.home-status-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
-.status-section{border-radius:14px;padding:20px}
-.status-section.ongoing{background:linear-gradient(135deg,#fff8f0,#fff);border:1.5px solid #FFB347}
-.status-section.upcoming{background:linear-gradient(135deg,#f0f5ff,#fff);border:1.5px solid #92b8ff}
-.ss-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.ss-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.ss-dot.on{background:var(--carrot);box-shadow:0 0 0 3px rgba(255,127,0,.2)}
-.ss-dot.up{background:var(--blue)}
-.ss-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
-.ss-title.on{color:#9a4500}
-.ss-title.up{color:#1a56c4}
-.ss-count{margin-left:auto;font-family:'Inter',sans-serif;font-weight:700;font-size:18px}
-.ss-count.on{color:var(--carrot)}
-.ss-count.up{color:var(--blue)}
-.mcard{background:#fff;border-radius:10px;border:1px solid #f0f0f0;padding:12px 14px;margin-bottom:8px}
-.mcard:last-child{margin-bottom:0}
-.mc-prod{font-weight:500;font-size:14px;color:var(--deep)}
-.mc-meta{font-size:11px;color:#9ca3af;margin-top:2px}
-.mc-rem{font-size:12px;color:#6b7280;margin-top:6px;padding-top:6px;border-top:1px solid #f3f4f6}
-.badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0}
-.b-upcoming{background:#e8f0fe;color:#1a56c4}
-.b-ongoing{background:#fff4e8;color:#9a4500}
-.b-completed{background:var(--bg4);color:#2a6b0a}
-.b-cancelled{background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb}
-.ss-empty{font-size:13px;color:#bbb;text-align:center;padding:16px 0}
-.view-all-btn{display:block;width:100%;margin-top:20px;background:var(--bg5);color:var(--ubas);font-family:'Rubik',sans-serif;font-weight:500;font-size:13px;padding:11px;border-radius:10px;border:1px solid rgba(129,57,238,.2);cursor:pointer;text-align:center;transition:.15s}
-.view-all-btn:hover{background:var(--ubas);color:#fff}
+/* ── STAT CARDS ── */
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;
+}
+.stat-num{font-family:'Inter',sans-serif;font-weight:800;font-size:30px;line-height:1}
+.stat-label{font-size:12px;color:var(--muted);font-weight:500}
+.stat-icon{font-size:22px;margin-bottom:4px}
 
-/* ── BOARD ── */
-.period-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.period-pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e0e7ef;border-radius:20px;padding:6px 14px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.period-pill select{border:none;font-size:13px;font-family:'Rubik',sans-serif;color:var(--deep);outline:none;cursor:pointer;background:transparent}
-.reset-btn{font-size:12px;color:#9ca3af;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;font-family:'Rubik',sans-serif}
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.scard{background:#fff;border-radius:12px;border:1px solid #e8edf2;padding:16px;text-align:center}
-.scard .sn{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;color:var(--deep)}
-.scard .sn.bl{color:var(--blue)}.scard .sn.or{color:var(--carrot)}.scard .sn.gr{color:var(--g)}
-.scard .sl{font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
-.mlist{display:flex;flex-direction:column;gap:10px}
-.mc{background:#fff;border-radius:12px;border:1px solid #e8edf2;padding:16px 20px;transition:.2s}
-.mc:hover{box-shadow:0 4px 16px rgba(9,41,3,.07);border-color:#d0d8ee}
-.mc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.mc-sys{font-weight:500;font-size:15px;color:var(--deep)}
-.mc-dt{font-size:12px;color:#9ca3af;margin-top:2px}
-.mc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6}
-.mc-f .fl{font-size:10px;color:#8b5cf6;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.mc-f .fv{font-size:13px;color:var(--deep);font-weight:500;margin-top:3px}
-.mc-rem{margin-top:10px;background:var(--bg2);border-radius:8px;padding:9px 13px;font-size:13px;color:#4b5563;border-left:3px solid var(--g)}
-.empty{text-align:center;padding:60px 20px;color:#9ca3af;font-size:14px}
-.atab{background:transparent;border:none;border-bottom:2px solid transparent;color:#9ca3af;font-family:'Rubik',sans-serif;font-weight:500;font-size:14px;padding:9px 16px;cursor:pointer;transition:.15s;margin-bottom:-1px}
-.atab:hover{color:var(--deep)}.atab.active{color:var(--ubas);border-bottom-color:var(--ubas)}
-.atab-content{display:none}.atab-content.active{display:block}
-.filters{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.filters input,.filters select{padding:9px 13px;border:1px solid #e5e7eb;border-radius:10px;font-size:13px;font-family:'Rubik',sans-serif;background:#fff;outline:none;transition:.15s}
-.filters input{flex:1;min-width:160px}
-.filters input:focus,.filters select:focus{border-color:var(--ubas);box-shadow:0 0 0 3px rgba(129,57,238,.08)}
+/* ── FORMS ── */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500;font-family:'Inter',sans-serif}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:var(--bg);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:9px 12px;
+  color:var(--text);font-family:'Rubik',sans-serif;font-size:13px;
+  outline:none;transition:.15s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(50,206,19,.1);background:var(--surface)}
+.form-select option{background:var(--surface)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 
-/* ── ADMIN ── */
-.login-wrap{min-height:calc(100vh - 100px);display:flex;align-items:center;justify-content:center;padding:40px 20px}
-.login-card{background:#fff;border-radius:20px;border:1px solid #e8edf2;padding:40px;width:100%;max-width:400px;text-align:center}
-.login-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#8435EB,#32CE13);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-.login-icon svg{width:24px;height:24px}
-.login-card h2{font-size:20px;margin-bottom:6px;font-family:'Inter',sans-serif;font-weight:700}
-.login-card p{font-size:13px;color:#9ca3af;margin-bottom:24px}
-.lf{text-align:left;margin-bottom:14px}
-.lf label{font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:5px}
-.lf input{width:100%;padding:10px 13px;border:1px solid #e5e7eb;border-radius:9px;font-size:14px;font-family:'Rubik',sans-serif;outline:none;transition:.15s}
-.lf input:focus{border-color:var(--ubas);box-shadow:0 0 0 3px rgba(129,57,238,.1)}
-.login-err{font-size:12px;color:#dc2626;margin-top:-8px;margin-bottom:12px;text-align:left;display:none}
-.btn-login{width:100%;background:linear-gradient(135deg,var(--deep),#1a4d0a);color:#fff;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;padding:12px;border-radius:10px;border:none;cursor:pointer;margin-top:4px}
-.adm-wrap{max-width:900px;margin:0 auto;padding:32px 28px}
-.adm-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.adm-hdr h2{margin-bottom:0}
-.btn-logout{background:var(--bg5);color:var(--ubas);font-family:'Rubik',sans-serif;font-weight:500;font-size:12px;padding:7px 15px;border-radius:8px;border:1px solid rgba(129,57,238,.2);cursor:pointer;transition:.15s}
-.btn-logout:hover{background:var(--ubas);color:#fff}
-.card{background:#fff;border-radius:14px;border:1px solid #e8edf2;padding:24px;margin-bottom:18px}
-.card-ttl{font-weight:500;font-size:15px;color:var(--deep);margin-bottom:18px;display:flex;align-items:center;gap:8px}
-.ci{width:28px;height:28px;border-radius:8px;background:var(--bg5);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.field{display:flex;flex-direction:column;gap:4px}
-.field.full{grid-column:1/-1}
-label{font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:.6px}
-input[type=text],input[type=date],input[type=time],input[type=number],input[type=url],input[type=password],select,textarea{width:100%;padding:9px 12px;border:1px solid #e5e7eb;border-radius:9px;font-size:14px;font-family:'Rubik',sans-serif;color:var(--deep);background:#fafafa;outline:none;transition:.15s}
-input:focus,select:focus,textarea:focus{border-color:var(--ubas);background:#fff;box-shadow:0 0 0 3px rgba(129,57,238,.08)}
-textarea{resize:vertical;min-height:76px}
-.fa{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.btn-save{background:linear-gradient(135deg,var(--deep),#1a4d0a);color:#fff;font-family:'Rubik',sans-serif;font-weight:600;font-size:13px;padding:10px 22px;border-radius:9px;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.15s}
-.btn-save:hover{opacity:.9}
-.btn-clr{background:var(--bg1);color:#6b7280;font-family:'Rubik',sans-serif;font-weight:500;font-size:13px;padding:10px 16px;border-radius:9px;border:1px solid #e5e7eb;cursor:pointer}
-.amc{background:#fff;border-radius:12px;border:1px solid #e8edf2;padding:16px 20px;transition:.2s;margin-bottom:10px}
-.amc:hover{box-shadow:0 4px 16px rgba(9,41,3,.07)}
-.amc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.amc-sys{font-weight:500;font-size:15px;color:var(--deep)}
-.amc-meta{font-size:12px;color:#9ca3af;margin-top:2px}
-.amc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6}
-.amc-rem{margin-top:10px;background:var(--bg2);border-radius:8px;padding:9px 13px;font-size:13px;color:#4b5563;border-left:3px solid var(--g)}
-.amc-acts{display:flex;gap:7px;margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6;flex-wrap:wrap}
-.act{padding:5px 12px;border-radius:7px;font-size:12px;font-family:'Rubik',sans-serif;font-weight:500;cursor:pointer;border:none;transition:.15s}
-.act-e{background:var(--bg5);color:var(--ubas)}.act-e:hover{background:var(--ubas);color:#fff}
-.act-a{background:var(--bg4);color:#2a6b0a}.act-a:hover{background:var(--g);color:var(--deep)}
-.act-c{background:#f9fafb;color:#6b7280;border:1px solid #e5e7eb}
-.act-d{background:#fff0f0;color:#c62828;border:1px solid #fee2e2}.act-d:hover{background:#fecaca}
-.wh-row{display:flex;gap:10px;flex-wrap:wrap}
-.wh-row input{flex:1;min-width:200px}
-.btn-ws{font-family:'Rubik',sans-serif;font-weight:600;font-size:13px;padding:9px 16px;border-radius:9px;border:none;cursor:pointer;transition:.15s;white-space:nowrap}
-.btn-ws.sv{background:var(--bg5);color:var(--ubas);border:1px solid rgba(129,57,238,.2)}.btn-ws.sv:hover{background:var(--ubas);color:#fff}
-.btn-ws.ts{background:var(--bg4);color:#2a6b0a;border:1px solid rgba(50,206,19,.2)}.btn-ws.ts:hover{background:var(--g);color:var(--deep)}
-.wdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d1d5db;margin-right:6px}
-.wdot.ok{background:var(--g)}.wdot.err{background:#ef4444}
-.wstatus{font-size:12px;color:#9ca3af;margin-top:8px;display:flex;align-items:center}
-.howto{background:var(--bg2);border-radius:12px;padding:18px;margin-top:14px}
-.howto b{font-weight:500;font-size:14px;color:var(--deep);display:block;margin-bottom:8px}
-.howto ol{font-size:13px;color:#4b5563;line-height:2;padding-left:18px}
-.eb{border:1px solid #e8edf2;border-radius:12px;padding:18px;margin-bottom:12px;background:#fafcff}
-.auto-hint{font-size:11px;color:#9ca3af;margin-top:6px;font-style:italic}
-.ann-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e8edf2;border-radius:10px;padding:11px 14px;cursor:pointer;transition:.15s;margin-bottom:7px}
-.ann-row.sel{background:var(--bg5);border-color:var(--ubas)}
-.modal-bg{display:none;position:absolute;inset:0;background:rgba(9,41,3,.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:60px;min-height:100%}
-.modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:18px;padding:28px;width:90%;max-width:500px}
-.modal h3{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--deep);margin-bottom:20px}
-.modal-acts{display:flex;gap:10px;margin-top:16px}
-#toast{position:absolute;bottom:20px;right:20px;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:500;font-family:'Rubik',sans-serif;opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;z-index:400;max-width:300px}
-#toast.show{opacity:1;transform:translateY(0)}
-#toast.ok{background:var(--deep);color:var(--lime)}
-#toast.err{background:#7f1d1d;color:#fca5a5}
-@media(max-width:620px){
-  h1{font-size:28px}.stat-row,.fg,.amc-grid,.mc-grid,.home-status-grid{grid-template-columns:1fr}
-  .nav-tabs{gap:1px}.nt{padding:5px 8px;font-size:11px}
-  .wrap,.adm-wrap{padding:24px 16px}.hero{padding:32px 16px 36px}
+/* ── PRODUCT ENTRY ── */
+.product-entry{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:20px;margin-bottom:14px;
+  position:relative;box-shadow:var(--shadow);
+}
+.product-entry-label{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;
+  display:flex;align-items:center;gap:6px;
+}
+.remove-entry{
+  position:absolute;top:14px;right:14px;
+  background:var(--bg);border:1px solid var(--border);
+  color:var(--muted);cursor:pointer;font-size:14px;
+  padding:4px 8px;border-radius:6px;transition:.15s;
+}
+.remove-entry:hover{background:#fff0f0;border-color:#ffc8c8;color:#c0392b}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;padding:14px 18px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
+.filter-bar .form-select,.filter-bar .form-input{width:auto;min-width:130px;background:var(--bg)}
+
+/* ── SUB TABS ── */
+.sub-tabs{display:flex;gap:2px;background:var(--surface);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;border:1px solid var(--border);box-shadow:var(--shadow)}
+.sub-tab{padding:7px 18px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--muted);border:none;background:transparent;font-family:'Rubik',sans-serif;font-weight:500}
+.sub-tab.active{background:var(--deep);color:#fff;font-weight:600}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(9,41,3,.35);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(9,41,3,.18)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-family:'Inter',sans-serif;font-weight:700;font-size:16px}
+.modal-close{background:var(--bg);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:18px;line-height:1;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:#fff0f0;color:#c0392b}
+
+/* ── LOGIN ── */
+#login-view{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 62px);background:linear-gradient(135deg,var(--bg4) 0%,var(--bg) 60%,var(--bg3) 100%)}
+.login-wrap{text-align:center}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;width:380px;text-align:center;box-shadow:0 8px 32px rgba(9,41,3,.12)}
+.login-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--lime));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;box-shadow:0 4px 14px rgba(50,206,19,.3)}
+.login-card h2{font-size:20px;color:var(--deep);margin-bottom:6px}
+.login-card p{color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.6}
+.login-error{color:#c0392b;font-size:12px;margin-top:10px;background:#fff0f0;padding:8px 12px;border-radius:7px;border:1px solid #ffc8c8;display:none}
+.login-error.show{display:block}
+
+/* ── HERO BANNER ── */
+.home-hero{
+  background:linear-gradient(135deg,var(--deep) 0%,#1a3d10 50%,#0f2a30 100%);
+  border-radius:18px;padding:32px 36px;margin-bottom:24px;
+  display:flex;align-items:center;justify-content:space-between;
+  overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(9,41,3,.2);
+}
+.home-hero::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(50,206,19,.15),transparent 70%);
+}
+.home-hero::after{
+  content:'';position:absolute;left:40%;bottom:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(129,57,238,.12),transparent 70%);
+}
+.hero-title{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:6px;line-height:1.2}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+.hero-month{font-size:12px;color:var(--lime);font-weight:600;font-family:'Inter',sans-serif;margin-bottom:6px;letter-spacing:.4px}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.section-title{font-family:'Inter',sans-serif;font-weight:700;font-size:18px;color:var(--deep)}
+.section-sub{color:var(--muted);font-size:13px;margin-top:3px}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--green);font-family:'Inter',sans-serif;margin-bottom:4px}
+
+/* ── GROUP LABELS ── */
+.group-label{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.group-label-text{font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
+.group-label-text.ongoing{color:var(--carrot)}
+.group-label-text.upcoming{color:var(--blue)}
+
+/* ── CHART ── */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.chart-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--deep);margin-bottom:14px}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:48px 0;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty p{font-size:13px}
+
+/* ── SETTING ROW ── */
+.setting-row{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
+.setting-row:last-child{border-bottom:none}
+.setting-info h4{font-size:14px;font-weight:600;font-family:'Inter',sans-serif;color:var(--deep)}
+.setting-info p{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.status-pill.ok{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
+.status-pill.err{background:#FFF0F0;color:#b03030;border:1px solid #ffc8c8}
+.status-pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+/* ── ANNOUNCE ── */
+.announce-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border);margin-bottom:8px;transition:.1s}
+.announce-item:hover{border-color:var(--green);background:#f5fdf0}
+.announce-item input[type=checkbox]{accent-color:var(--green);margin-top:2px;width:15px;height:15px;cursor:pointer}
+
+/* ── CHIP ── */
+.chip{display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif}
+.chip-green{background:#EDFAE5;color:#1a7a06;border:1px solid #b8eea5}
+.chip-blue{background:#EBF2FF;color:#1558c0;border:1px solid #c5d9ff}
+.chip-ubas{background:var(--bg4);color:var(--ubas);border:1px solid #ddd6f7}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:20px 0}
+
+/* ── TOAST ── */
+.toast-container{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:300}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:13px;animation:slideIn .2s ease;max-width:300px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:8px}
+.toast.success{border-color:#b8eea5;background:#f5fdf0}
+.toast.error{border-color:#ffc8c8;background:#fff5f5}
+.toast.info{border-color:#c5d9ff;background:#f0f6ff}
+@keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── GRADIENT ACCENT STRIP ── */
+.gradient-strip{height:3px;background:linear-gradient(90deg,var(--green),var(--ubas),var(--blue));border-radius:2px;margin-bottom:18px}
+
+/* ── AI BADGE ── */
+.ai-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:linear-gradient(135deg,var(--ubas),#a060f0);
+  color:#fff;padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.3px;
+}
+
+/* ── CALENDAR ── */
+.cal-card{
+  background:linear-gradient(135deg,var(--bg4) 0%,#f0f8ff 100%);
+  border:1px solid #ddd6f7;border-radius:var(--radius);
+  padding:40px;text-align:center;box-shadow:var(--shadow);
 }
 </style>
 </head>
 <body>
-<div style="position:relative">
 
-<div class="role-bar">
-  <span class="role-label">View as:</span>
-  <button class="role-btn active" id="rb-emp" onclick="app.switchRole('employee')">Employee</button>
-  <button class="role-btn" id="rb-adm" onclick="app.switchRole('admin')">Admin</button>
-</div>
-
+<!-- ── GLOBAL NAV ── -->
 <nav>
-  <div class="nav-logo">
-    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
-    <span class="nav-brand">Sprout <em>Maintenance Hub</em></span>
-    <span class="nav-pill">Internal</span>
+  <a class="logo" href="#">
+    <div class="logo-mark">🌱</div>
+    <div>
+      <div class="logo-text">Sprout Maintenance Hub</div>
+      <div class="logo-sub">System Status · CS Operations</div>
+    </div>
+  </a>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showView('home')">Home</button>
+    <button class="nav-tab" onclick="showView('board')">Maintenance Board</button>
+    <button class="nav-tab" id="admin-nav-tab" onclick="handleAdminClick()">Admin</button>
   </div>
-  <div class="nav-tabs" id="emp-nav-tabs">
-    <button class="nt active" id="en-home" onclick="app.showEmpPage('home',this)">Home</button>
-    <button class="nt" id="en-board" onclick="app.showEmpPage('board',this)">Maintenance Board <span class="nbadge" id="emp-nav-count">0</span></button>
-  </div>
-  <div class="nav-tabs" id="adm-nav-tabs" style="display:none">
-    <button class="nt active" id="an-add" onclick="app.showAdmTab('add',this)">Add Maintenance</button>
-    <button class="nt" id="an-rec" onclick="app.showAdmTab('rec',this)">Records <span class="nbadge" id="adm-nav-count">0</span></button>
-    <button class="nt" id="an-set" onclick="app.showAdmTab('set',this)">Settings</button>
-    <span class="ntag">Admin</span>
+  <div class="nav-right">
+    <span id="admin-badge" style="display:none" class="badge-admin">⚙ Admin</span>
+    <button id="signout-btn" style="display:none" class="btn btn-outline btn-sm" onclick="signOut()">Sign out</button>
   </div>
 </nav>
 
-<!-- ══ EMPLOYEE ══ -->
-<div id="emp-ui">
+<div class="toast-container" id="toasts"></div>
 
-  <!-- HOME -->
-  <div class="page active" id="ep-home">
-    <div class="hero">
-      <div class="hg1"></div><div class="hg2"></div>
-      <div class="hero-inner">
-        <div class="eyebrow"><span class="edot"></span>Sprout Systems · Internal Use Only</div>
-        <h1>Know every <span class="ga">maintenance.</span><br>Plan <span class="ua">ahead.</span></h1>
-        <p class="hsub">Stay informed on Sprout system maintenance.</p>
-        <div class="streak-bar">
-          <div style="display:flex;align-items:center;gap:6px;width:100%;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span id="hero-period-label" style="font-size:12px;color:rgba(255,255,255,.45);font-weight:500"></span>
-          </div>
-          <div class="streak-item">
-            <span class="streak-icon">🌱</span>
-            <div><div class="streak-val" id="g-total">0</div><div class="streak-lbl">Total records</div></div>
-          </div>
-          <div class="streak-div"></div>
-          <div class="streak-item">
-            <span class="streak-icon">🔥</span>
-            <div><div class="streak-val" id="g-ongoing" style="color:var(--carrot)">0</div><div class="streak-lbl">Ongoing now</div></div>
-          </div>
-          <div class="streak-div"></div>
-          <div class="streak-item">
-            <span class="streak-icon">📅</span>
-            <div><div class="streak-val" id="g-upcoming" style="color:#93c5fd">0</div><div class="streak-lbl">Upcoming</div></div>
-          </div>
-          <div class="streak-div"></div>
-          <div class="streak-item">
-            <span class="streak-icon">✅</span>
-            <div><div class="streak-val" id="g-done" style="color:var(--g)">0</div><div class="streak-lbl">Completed</div></div>
-          </div>
-        </div>
-      </div>
+<!-- ══════════════ HOME ══════════════ -->
+<div class="view active" id="home-view">
+
+  <!-- Hero Banner -->
+  <div class="home-hero">
+    <div style="position:relative;z-index:1">
+      <div class="hero-month" id="hero-month">Loading…</div>
+      <div class="hero-title">System Status Overview</div>
+      <div class="hero-sub" style="max-width:420px">Real-time visibility into all Sprout product maintenance windows. Stay informed, plan ahead.</div>
     </div>
-    <div class="wrap">
-      <div class="sec-label"><span class="sbar"></span>Live status</div>
-      <h2 style="margin-bottom:4px">Ongoing &amp; <em>upcoming</em> maintenance</h2>
-      <p style="font-size:13px;color:#9ca3af;margin-bottom:20px">Auto-updates every 60 seconds.</p>
-      <div class="home-status-grid" id="home-status-grid"></div>
+    <div style="position:relative;z-index:1;text-align:right">
+      <button class="btn btn-primary" onclick="showView('board')">View All Records →</button>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.45)">Auto-refreshes every 60s</div>
     </div>
   </div>
 
-  <!-- BOARD -->
-  <div class="page" id="ep-board">
-    <div class="wrap">
-      <div class="sec-label"><span class="sbar"></span>Maintenance board</div>
-      <h2 style="margin-bottom:6px">All <em>maintenance records</em></h2>
-      <p style="font-size:13px;color:#9ca3af;margin-bottom:20px">Read-only · visible to all Sprout employees.</p>
+  <!-- Stats -->
+  <div class="grid grid-4" style="margin-bottom:28px" id="home-stats"></div>
 
-      <div class="period-row">
-        <div class="period-pill">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--ubas)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <select id="board-month-sel" onchange="app.updateBoardStats()"><option value="">All months</option></select>
-        </div>
-        <div class="period-pill">
-          <select id="board-year-sel" onchange="app.updateBoardStats()"><option value="">All years</option></select>
-        </div>
-        <button class="reset-btn" onclick="app.resetBoardPeriod()">Reset</button>
-      </div>
+  <!-- Ongoing -->
+  <div id="ongoing-section" style="margin-bottom:28px">
+    <div class="group-label">
+      <span class="pulse"></span>
+      <span class="group-label-text ongoing">Ongoing Maintenance</span>
+    </div>
+    <div id="ongoing-cards" class="grid grid-2"></div>
+  </div>
 
-      <div style="display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid #e8edf2">
-        <button class="atab active" id="bst-list" onclick="app.boardSubTab('list',this)">Records</button>
-        <button class="atab" id="bst-analytics" onclick="app.boardSubTab('analytics',this)">Analytics</button>
-        <button class="atab" id="bst-calendar" onclick="app.boardSubTab('calendar',this)">Calendar</button>
-      </div>
+  <!-- Upcoming -->
+  <div id="upcoming-section">
+    <div class="group-label">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block"></span>
+      <span class="group-label-text upcoming">Upcoming Maintenance</span>
+    </div>
+    <div id="upcoming-cards" class="grid grid-2"></div>
+  </div>
 
-      <div id="bsp-list">
-        <div class="filters">
-          <input type="text" id="emp-search" placeholder="Search system or remarks..." oninput="app.renderEmpBoard()">
-          <select id="emp-filter" onchange="app.renderEmpBoard()">
-            <option value="">All statuses</option>
-            <option value="upcoming">Upcoming</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
-        <div class="mlist" id="emp-board-list"></div>
-      </div>
+</div>
 
-      <div id="bsp-analytics" style="display:none">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div class="card" style="margin-bottom:0">
-            <div class="card-ttl" style="margin-bottom:14px">
-              <div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>Month on month
-            </div>
-            <div style="position:relative;height:190px"><canvas id="canvas-month"></canvas></div>
+<!-- ══════════════ BOARD ══════════════ -->
+<div class="view" id="board-view">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Maintenance Records</div>
+      <h2 class="section-title">Maintenance Board</h2>
+      <div class="section-sub">Searchable history of all system maintenance windows</div>
+    </div>
+  </div>
+
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchBoardTab('records')">Records</button>
+    <button class="sub-tab" onclick="switchBoardTab('analytics')">Analytics</button>
+    <button class="sub-tab" onclick="switchBoardTab('calendar')">Calendar</button>
+  </div>
+
+  <!-- Records -->
+  <div id="board-records">
+    <div class="filter-bar">
+      <select class="form-select" id="filter-month" onchange="renderBoard()">
+        <option value="">All Months</option>
+        <option value="1">January</option><option value="2">February</option>
+        <option value="3">March</option><option value="4">April</option>
+        <option value="5">May</option><option value="6">June</option>
+        <option value="7">July</option><option value="8">August</option>
+        <option value="9">September</option><option value="10">October</option>
+        <option value="11">November</option><option value="12">December</option>
+      </select>
+      <select class="form-select" id="filter-year" onchange="renderBoard()"></select>
+      <select class="form-select" id="filter-status" onchange="renderBoard()">
+        <option value="">All Statuses</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="ongoing">Ongoing</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+      <input class="form-input" id="filter-search" placeholder="🔍  Search product or remarks…" oninput="renderBoard()" style="min-width:220px;flex:1">
+      <button class="btn btn-outline btn-sm" onclick="resetFilters()">Reset</button>
+    </div>
+    <div id="board-cards" class="grid"></div>
+  </div>
+
+  <!-- Analytics -->
+  <div id="board-analytics" style="display:none">
+    <div class="grid grid-2" style="gap:20px">
+      <div class="chart-wrap">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div>
+            <div class="section-eyebrow" style="margin-bottom:2px">Trends</div>
+            <div class="chart-label">Maintenance Count MoM</div>
           </div>
-          <div class="card" style="margin-bottom:0">
-            <div class="card-ttl" style="margin-bottom:14px">
-              <div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>Per product
-            </div>
-            <div style="position:relative;height:190px"><canvas id="canvas-product"></canvas></div>
-          </div>
+          <select class="form-select" id="chart-year" onchange="renderCharts()" style="width:100px"></select>
         </div>
+        <canvas id="line-chart" height="220"></canvas>
       </div>
-      <div id="bsp-calendar" style="display:none">
-        <div class="card" style="margin-bottom:0;padding:20px">
-          <div class="card-ttl" style="margin-bottom:16px">
-            <div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            Sprout Maintenance Calendar
-          </div>
-          <p style="font-size:13px;color:#9ca3af;margin-bottom:20px;line-height:1.6">All scheduled maintenance windows — with and without downtime — from the Sprout maintenance calendar.</p>
-
-          <!-- open in new tab button -->
-          <a href="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--deep),#1a4d0a);color:#fff;font-family:Rubik,sans-serif;font-weight:500;font-size:13px;padding:10px 20px;border-radius:10px;text-decoration:none;margin-bottom:20px">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Open calendar in new tab
-          </a>
-
-          <!-- embed attempt with fallback message -->
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #e8edf2;background:#f9fafb;position:relative;min-height:600px">
-            <iframe
-              src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH"
-              style="border:0;display:block;width:100%;height:600px"
-              frameborder="0"
-              scrolling="no"
-              id="gcal-iframe"
-              onload="document.getElementById('gcal-fallback').style.display='none'"
-              onerror="document.getElementById('gcal-fallback').style.display='flex'">
-            </iframe>
-            <div id="gcal-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:#f9fafb;padding:40px;text-align:center">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <p style="font-size:14px;color:#6b7280;max-width:340px;line-height:1.6">The calendar could not load here. Use the button above to open it directly in Google Calendar.</p>
-            </div>
-          </div>
-
-          <div style="margin-top:16px;background:var(--bg5);border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ubas)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <p style="font-size:12px;color:#6b7280;line-height:1.6">If the calendar doesn't appear, make sure it is set to <strong>public</strong> in Google Calendar → Settings → Access permissions. You can also use the "Open calendar in new tab" button above.</p>
-          </div>
+      <div class="chart-wrap">
+        <div style="margin-bottom:16px">
+          <div class="section-eyebrow" style="margin-bottom:2px">Distribution</div>
+          <div class="chart-label">Per Product · All-time</div>
         </div>
-      </div>
-<div id="adm-ui" style="display:none">
-  <div class="page active" id="ap-login">
-    <div class="login-wrap">
-      <div class="login-card">
-        <div class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <h2>Admin access</h2>
-        <p>Enter your password to manage system maintenance.</p>
-        <div class="lf"><label>Password</label><input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')app.doLogin()"></div>
-        <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
-        <button class="btn-login" onclick="app.doLogin()">Sign in</button>
-        <p style="font-size:11px;color:#d1d5db;margin-top:18px">Default: <code style="background:#f3f4f6;color:#6b7280;padding:2px 6px;border-radius:4px">admin123</code></p>
+        <canvas id="pie-chart" height="220"></canvas>
       </div>
     </div>
   </div>
 
-  <div class="page" id="ap-dash">
-    <div class="adm-wrap">
-      <div class="adm-hdr">
-        <div><div class="sec-label"><span class="sbar"></span>Admin panel</div><h2>Manage <em>system maintenance</em></h2></div>
-        <button class="btn-logout" onclick="app.doLogout()">Sign out</button>
+  <!-- Calendar -->
+  <div id="board-calendar" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2px">Developer Announcements</div>
+        <div class="chart-label" style="margin-bottom:0">Maintenance Schedule Calendar</div>
       </div>
-      <div style="display:flex;gap:6px;margin-bottom:24px;border-bottom:1px solid #e8edf2;flex-wrap:wrap">
-        <button class="atab active" id="at-add" onclick="app.showAdmTab('add',document.getElementById('an-add'))">Add maintenance</button>
-        <button class="atab" id="at-rec" onclick="app.showAdmTab('rec',document.getElementById('an-rec'))">All records <span class="nbadge" id="adm-rec-count">0</span></button>
-        <button class="atab" id="at-set" onclick="app.showAdmTab('set',document.getElementById('an-set'))">Google Chat settings</button>
+      <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+    </div>
+    <!-- Cal loading / error / content states -->
+    <div id="cal-loading" style="display:none;text-align:center;padding:56px 0">
+      <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div>
+      <p style="font-size:13px;color:var(--muted)">Fetching maintenance schedule…</p>
+    </div>
+
+    <div id="cal-error" style="display:none">
+      <div class="cal-card">
+        <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+        <h3 style="font-size:15px;font-family:'Inter',sans-serif;font-weight:700;color:var(--deep);margin-bottom:8px">Could not load calendar</h3>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:18px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto" id="cal-err-msg">—</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="loadCalendar()">↻ Try again</button>
+          <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="cal-content" style="display:none">
+      <!-- nav bar -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn btn-outline btn-sm" onclick="calNav(-1)">‹ Prev</button>
+        <span id="cal-heading" style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);flex:1;text-align:center"></span>
+        <button class="btn btn-outline btn-sm" onclick="calNav(1)">Next ›</button>
+        <button class="btn btn-ghost btn-sm" onclick="loadCalendar()">↻</button>
+        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google ↗</a>
+      </div>
+      <!-- grid -->
+      <div id="cal-grid" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:20px"></div>
+      <!-- event list -->
+      <div id="cal-list-label" style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--deep);margin-bottom:10px"></div>
+      <div id="cal-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div class="view" id="login-view">
+  <div class="login-card" style="margin:0 auto">
+    <div class="login-logo">🌱</div>
+    <h2>Admin Access</h2>
+    <p>Sign in to manage maintenance records and send Google Chat announcements.</p>
+    <div class="form-group">
+      <input class="form-input" type="password" id="login-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN ══════════════ -->
+<div class="view" id="admin-view">
+  <div class="section-header" style="margin-bottom:10px">
+    <div>
+      <div class="section-eyebrow">CS Operations</div>
+      <h2 class="section-title">Admin Panel</h2>
+      <div class="section-sub">Schedule maintenance windows and manage records</div>
+    </div>
+  </div>
+  <div class="gradient-strip"></div>
+
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="switchAdminTab('add')">Add Maintenance</button>
+    <button class="sub-tab" onclick="switchAdminTab('records')">All Records</button>
+    <button class="sub-tab" onclick="switchAdminTab('announce')">Announce</button>
+    <button class="sub-tab" onclick="switchAdminTab('settings')">Settings</button>
+  </div>
+
+  <!-- ADD -->
+  <div id="admin-add">
+    <div id="product-entries"></div>
+    <button class="btn btn-outline btn-sm" onclick="addProductEntry()" style="margin-bottom:18px">+ Add another product</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="saveAll(false)">Save all</button>
+      <button class="btn btn-warn" onclick="saveAll(true)">💬 Save &amp; Announce to Google Chat</button>
+    </div>
+  </div>
+
+  <!-- RECORDS -->
+  <div id="admin-records" style="display:none">
+    <div class="filter-bar">
+      <input class="form-input" id="admin-search" placeholder="🔍  Search…" oninput="renderAdminRecords()" style="min-width:200px;flex:1">
+      <select class="form-select" id="admin-filter-status" onchange="renderAdminRecords()">
+        <option value="">All Statuses</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="ongoing">Ongoing</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div id="admin-cards" class="grid"></div>
+  </div>
+
+  <!-- ANNOUNCE -->
+  <div id="admin-announce" style="display:none">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div class="chart-label" style="margin-bottom:2px">Batch Announcement</div>
+          <p style="font-size:12px;color:var(--muted)">Select records to send as one combined Google Chat message.</p>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(true)">Select all</button>
+          <button class="btn btn-outline btn-sm" onclick="selectAllAnnounce(false)">Deselect all</button>
+        </div>
+      </div>
+      <div id="announce-list"></div>
+      <div style="margin-top:16px">
+        <button class="btn btn-warn" onclick="sendBatchAnnouncement()">💬 Send to Google Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="admin-settings" style="display:none">
+    <div class="card">
+      <div class="setting-row">
+        <div class="setting-info">
+          <h4>Google Chat Webhook URL</h4>
+          <p>Incoming webhook for maintenance announcements</p>
+        </div>
+        <span id="webhook-status-pill" class="status-pill none">⚪ Not configured</span>
+      </div>
+      <div style="margin-top:14px;margin-bottom:6px">
+        <input class="form-input" id="webhook-url" placeholder="https://chat.googleapis.com/v1/spaces/…" style="margin-bottom:10px">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="saveWebhook()">Save</button>
+          <button class="btn btn-outline btn-sm" onclick="testWebhook()">Test message</button>
+        </div>
       </div>
 
-      <div class="atab-content active" id="ac-add">
-        <div class="card">
-          <div class="card-ttl"><div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>System maintenance details</div>
-          <div id="entries-container"></div>
-          <button type="button" onclick="app.addBlock()" style="display:flex;align-items:center;gap:7px;background:var(--bg5);color:var(--ubas);font-family:Rubik,sans-serif;font-weight:500;font-size:13px;padding:9px 16px;border-radius:9px;border:1px dashed rgba(129,57,238,.35);cursor:pointer;margin-top:2px;width:100%;justify-content:center">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add another product
-          </button>
-          <div class="fa" style="margin-top:18px">
-            <button class="btn-save" onclick="app.submitForm()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Save all &amp; announce to Google Chat</button>
-            <button class="btn-clr" onclick="app.clearForm()">Clear all</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-ttl"><div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>Announce to Google Chat</div>
-          <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.6">Select records to include in one combined announcement.</p>
-          <div class="filters" style="margin-bottom:14px">
-            <input type="text" id="ann-search" placeholder="Search product or remarks..." oninput="app.renderAnnList()">
-            <select id="ann-filter" onchange="app.renderAnnList()">
-              <option value="">All statuses</option>
-              <option value="upcoming">Upcoming</option>
-              <option value="ongoing">Ongoing</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-          </div>
-          <div id="ann-list" style="max-height:340px;overflow-y:auto"></div>
-          <div style="display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;flex-wrap:wrap;align-items:center">
-            <button class="btn-ws sv" onclick="app.selAllAnn()" style="padding:7px 13px">Select all</button>
-            <button class="btn-ws sv" onclick="app.clrAnn()" style="padding:7px 13px">Clear</button>
-            <button class="btn-save" onclick="app.batchAnnounce()" style="padding:9px 18px"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Announce selected (<span id="sel-count">0</span>)</button>
-          </div>
+      <div class="divider"></div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <h4>Change Admin Password</h4>
+          <p>Update the password used to access this admin panel</p>
         </div>
       </div>
-
-      <div class="atab-content" id="ac-rec">
-        <div class="filters" style="margin-bottom:14px">
-          <input type="text" id="adm-search" placeholder="Search system or remarks..." oninput="app.renderAdmBoard()">
-          <select id="adm-filter" onchange="app.renderAdmBoard()">
-            <option value="">All statuses</option>
-            <option value="upcoming">Upcoming</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
-        <div id="adm-list"></div>
-      </div>
-
-      <div class="atab-content" id="ac-set">
-        <div class="card">
-          <div class="card-ttl"><div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>Google Chat webhook</div>
-          <div class="field" style="margin-bottom:10px"><label>Webhook URL</label>
-            <div class="wh-row">
-              <input id="wh-url" type="url" placeholder="https://chat.googleapis.com/v1/spaces/...">
-              <button class="btn-ws sv" onclick="app.saveWh()">Save</button>
-              <button class="btn-ws ts" onclick="app.testWh()">Test</button>
-            </div>
-            <div class="wstatus"><span class="wdot" id="wdot"></span><span id="wstatus-txt">Not configured</span></div>
+      <div style="margin-top:14px">
+        <div class="form-row" style="margin-bottom:10px">
+          <div>
+            <div class="form-label">New Password</div>
+            <input class="form-input" type="password" id="new-pw" placeholder="New password">
           </div>
-          <div class="howto"><b>How to get your webhook URL</b><ol><li>Open Google Chat → CS General channel</li><li>Click channel name → Apps &amp; Integrations → Manage webhooks</li><li>Add webhook, name it "MaintTrack Bot"</li><li>Copy URL, paste above, click Save</li></ol></div>
-        </div>
-        <div class="card" style="margin-top:4px">
-          <div class="card-ttl"><div class="ci"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8139EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>Change admin password</div>
-          <div class="fg">
-            <div class="field"><label>New password</label><input type="password" id="new-pw" placeholder="Enter new password"></div>
-            <div class="field"><label>Confirm password</label><input type="password" id="confirm-pw" placeholder="Confirm"></div>
+          <div>
+            <div class="form-label">Confirm Password</div>
+            <input class="form-input" type="password" id="confirm-pw" placeholder="Confirm password">
           </div>
-          <div class="fa"><button class="btn-save" onclick="app.changePw()">Update password</button></div>
         </div>
+        <button class="btn btn-primary btn-sm" onclick="changePassword()">Update Password</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- EDIT MODAL -->
-<div class="modal-bg" id="edit-modal">
+<!-- ══════════════ EDIT MODAL ══════════════ -->
+<div class="modal-overlay" id="edit-modal">
   <div class="modal">
-    <h3>Edit maintenance record</h3>
-    <div class="fg">
-      <div class="field full"><label>Product / System</label>
-        <select id="e-product"></select>
-        <div id="e-custom-wrap" style="display:none;gap:8px;margin-top:8px">
-          <input type="text" id="e-custom-product" placeholder="New product name..." style="flex:1">
-          <button type="button" class="btn-ws sv" onclick="app.addCustomModal()" style="padding:9px 14px">Save</button>
-        </div>
-      </div>
-      <div class="field"><label>Date</label><input id="e-date" type="date"></div>
-      <div class="field"><label>Time (start)</label><input id="e-time" type="time" oninput="app.calcEditEnd()"></div>
-      <div class="field"><label>Duration (hours)</label><input id="e-dur-h" type="number" min="0" placeholder="0" oninput="app.calcEditEnd()"></div>
-      <div class="field"><label>Duration (minutes)</label><input id="e-dur-m" type="number" min="0" max="59" placeholder="0" oninput="app.calcEditEnd()"></div>
-      <div class="field"><label>End time</label><input id="e-end" type="text" readonly style="background:#f3f4f6;color:#6b7280"></div>
-      <div class="field full"><label>Remarks</label><textarea id="e-remarks"></textarea></div>
+    <div class="modal-header">
+      <span class="modal-title">Edit Maintenance Record</span>
+      <button class="modal-close" onclick="closeModal('edit-modal')">✕</button>
     </div>
-    <div class="modal-acts">
-      <button class="btn-save" onclick="app.saveEdit()">Save changes</button>
-      <button class="btn-clr" onclick="app.closeModal()">Cancel</button>
+    <div id="edit-modal-body"></div>
+    <div style="display:flex;gap:8px;margin-top:18px">
+      <button class="btn btn-primary" onclick="saveEdit()">Save changes</button>
+      <button class="btn btn-outline" onclick="closeModal('edit-modal')">Cancel</button>
     </div>
   </div>
-</div>
-<div id="toast"></div>
 </div>
 
 <script>
-var app;
-(function(){
-  var S={
-    data:JSON.parse(localStorage.getItem('mt_data')||'[]'),
-    pw:localStorage.getItem('mt_pw')||'admin123',
-    wh:localStorage.getItem('mt_wh')||'',
-    cp:JSON.parse(localStorage.getItem('mt_products')||'[]'),
-    loggedIn:false,editId:null,selIds:new Set(),ec:0,
-    BASE:['ReadyCash','ReadyWage','Sprout HR','Sprout Payroll','Sandbox','API']
-  };
-  var chartM=null,chartP=null;
-  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var CC=['#8139EE','#1679FA','#32CE13','#FF7F00','#D2F612','#0F6E56','#FF6B6B','#4ECDC4'];
+// ══ DATA ══
+const PRODUCTS=['ReadyCash','ReadyWage','Sprout HR','Sprout Payroll','Sandbox','API'];
+let records=JSON.parse(localStorage.getItem('smh_records')||'[]');
+let adminPw=localStorage.getItem('smh_pw')||'admin123';
+let webhookUrl=localStorage.getItem('smh_webhook')||'';
+let customProducts=JSON.parse(localStorage.getItem('smh_custom_products')||'[]');
+let isAdmin=false,editingId=null,lineChart=null,pieChart=null;
 
-  function allP(){return S.BASE.concat(S.cp);}
-  function saveData(){localStorage.setItem('mt_data',JSON.stringify(S.data));}
-  function saveCP(){localStorage.setItem('mt_products',JSON.stringify(S.cp));}
-  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-  function fmtT(t){if(!t)return'—';var p=t.split(':'),h=parseInt(p[0]),m=p[1];return((h%12)||12)+':'+m+(h>=12?' PM':' AM');}
-  function fmtD(d){if(!d)return'—';return new Date(d+'T12:00').toLocaleDateString('en-PH',{weekday:'short',month:'short',day:'numeric',year:'numeric'});}
-  function bc(s){return{upcoming:'b-upcoming',ongoing:'b-ongoing',completed:'b-completed',cancelled:'b-cancelled'}[s]||'b-upcoming';}
-  function parseMins(dur){if(!dur)return 60;var l=dur.toLowerCase(),t=0,h=l.match(/(\d+(\.\d+)?)\s*(hour|hr)/),m=l.match(/(\d+)\s*(minute|min)/);if(h)t+=parseFloat(h[1])*60;if(m)t+=parseInt(m[1]);return t||60;}
-  function computeStatus(rec){if(rec.status==='cancelled')return'cancelled';if(!rec.date||!rec.time)return'upcoming';var now=new Date(),s=new Date(rec.date+'T'+rec.time),e=new Date(s.getTime()+parseMins(rec.duration)*60000);if(now<s)return'upcoming';if(now>=s&&now<e)return'ongoing';return'completed';}
-  function calcEnd(tv,dh,dm){var h=parseInt(dh)||0,m=parseInt(dm)||0;if(!tv||(h===0&&m===0))return'';var p=tv.split(':'),s=new Date();s.setHours(parseInt(p[0]),parseInt(p[1]),0,0);var e=new Date(s.getTime()+(h*60+m)*60000),eh=e.getHours(),em=e.getMinutes();return((eh%12)||12)+':'+(em<10?'0':'')+em+(eh>=12?' PM':' AM');}
-  function buildPOpts(sel){var o='<option value="" disabled'+(sel?'':' selected')+'>Select a product...</option>';allP().forEach(function(p){o+='<option value="'+p+'"'+(p===sel?' selected':'')+'>'+p+'</option>';});o+='<option value="__other__">+ Add new product...</option>';return o;}
-  function toast(msg,t){t=t||'ok';var el=document.getElementById('toast');el.textContent=msg;el.className='show '+t;setTimeout(function(){el.className='';},3500);}
-  function setEl(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+setInterval(()=>{renderHome();renderBoard();if(isAdmin)renderAdminRecords();},60000);
 
-  // ── GAMIFICATION ──
-  function updateGamification(){
-    var now=new Date();
-    var curM=now.getMonth(),curY=now.getFullYear();
-    var prefix=curY+'-'+String(curM+1).padStart(2,'0');
-    var monthData=S.data.filter(function(m){return m.date&&m.date.substring(0,7)===prefix;});
-    var n=monthData.length,up=0,on=0,done=0,cancelled=0;
-    monthData.forEach(function(m){var s=computeStatus(m);if(s==='upcoming')up++;else if(s==='ongoing')on++;else if(s==='completed')done++;else if(s==='cancelled')cancelled++;});
-    setEl('g-total',n);setEl('g-ongoing',on);setEl('g-upcoming',up);setEl('g-done',done);
-    setEl('emp-nav-count',S.data.length);setEl('adm-nav-count',S.data.length);setEl('adm-rec-count',S.data.length);
-    // period label
-    var lbl=document.getElementById('hero-period-label');
-    if(lbl)lbl.textContent=now.toLocaleDateString('en-PH',{month:'long',year:'numeric'});
-    var nonCancelled=n-cancelled;
-    var score=nonCancelled>0?Math.round((done/nonCancelled)*100):0;
-    var fill=document.getElementById('xp-fill');
-    var xplbl=document.getElementById('xp-label');
-    var pct=document.getElementById('xp-pct');
-    if(fill)fill.style.width=score+'%';
-    if(pct)pct.textContent=score+'%';
-    if(xplbl){var rank=score>=90?'🏆 Elite status':score>=70?'⭐ High performer':score>=50?'📈 On track':'🌱 Getting started';xplbl.textContent='System health · '+rank;}
+// ══ STATUS ══
+function computeStatus(r){
+  if(r.status==='cancelled') return 'cancelled';
+  const now=new Date(),start=new Date(r.date+'T'+r.time),end=new Date(start.getTime()+parseDuration(r.duration)*60000);
+  if(now<start) return 'upcoming';
+  if(now>=start&&now<end) return 'ongoing';
+  return 'completed';
+}
+function parseDuration(d){
+  if(!d) return 0; let m=0;
+  const h=d.match(/(\d+)\s*h/i),mn=d.match(/(\d+)\s*m/i);
+  if(h) m+=parseInt(h[1])*60; if(mn) m+=parseInt(mn[1]);
+  if(!h&&!mn) m=parseFloat(d)*60||0; return m;
+}
+function formatDuration(h,m){
+  if(!h&&!m) return '0 minutes';
+  let p=[];if(h) p.push(h+' hour'+(h>1?'s':''));if(m) p.push(m+' min'+(m>1?'s':''));return p.join(' ');
+}
+function getEndTime(d,t,dur){const s=new Date(d+'T'+t);return new Date(s.getTime()+parseDuration(dur)*60000);}
+function formatTime(d){return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
+function formatDate(d){return new Date(d).toLocaleDateString([],{weekday:'short',year:'numeric',month:'short',day:'numeric'});}
+function weekOf(d){
+  const dt=new Date(d),day=dt.getDay(),diff=dt.getDate()-day+(day===0?-6:1);
+  const mon=new Date(dt.setDate(diff));
+  return mon.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'});
+}
+function allProducts(){return [...PRODUCTS,...customProducts];}
+
+// ══ NAV ══
+function showView(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  const map={home:'home-view',board:'board-view',login:'login-view',admin:'admin-view'};
+  document.getElementById(map[v]).classList.add('active');
+  const idx={home:0,board:1,admin:2};
+  if(idx[v]!==undefined) document.querySelectorAll('.nav-tab')[idx[v]].classList.add('active');
+  if(v==='home') renderHome();
+  if(v==='board'){renderBoard();populateYearFilters();}
+  if(v==='admin'){initAdminEntries();renderAdminRecords();populateAnnounceList();loadSettings();}
+}
+function handleAdminClick(){isAdmin?showView('admin'):showView('login');}
+function doLogin(){
+  const pw=document.getElementById('login-pw').value;
+  const errEl=document.getElementById('login-error');
+  if(pw===adminPw){
+    isAdmin=true;
+    document.getElementById('admin-badge').style.display='';
+    document.getElementById('signout-btn').style.display='';
+    document.getElementById('login-pw').value='';
+    errEl.classList.remove('show');
+    showView('admin');
+  } else {errEl.classList.add('show');}
+}
+function signOut(){
+  isAdmin=false;
+  document.getElementById('admin-badge').style.display='none';
+  document.getElementById('signout-btn').style.display='none';
+  showView('home');
+}
+
+// ══ STATUS BADGE ══
+function statusBadge(s){
+  const map={upcoming:'badge-upcoming',ongoing:'badge-ongoing',completed:'badge-completed',cancelled:'badge-cancelled'};
+  const icons={upcoming:'●',ongoing:'●',completed:'✓',cancelled:'✕'};
+  const labels={upcoming:'Upcoming',ongoing:'Ongoing',completed:'Completed',cancelled:'Cancelled'};
+  const inner=s==='ongoing'?`<span class="pulse"></span> Ongoing`:`<span>${icons[s]}</span> ${labels[s]}`;
+  return `<span class="badge ${map[s]}">${inner}</span>`;
+}
+
+// ══ HOME ══
+function renderHome(){
+  const now=new Date(),month=now.getMonth()+1,year=now.getFullYear();
+  document.getElementById('hero-month').textContent=now.toLocaleDateString([],{month:'long',year:'numeric'}).toUpperCase();
+  const thisMonth=records.filter(r=>{const d=new Date(r.date);return d.getMonth()+1===month&&d.getFullYear()===year;});
+  const statuses=thisMonth.map(r=>computeStatus(r));
+  const total=thisMonth.length,ongoing=statuses.filter(s=>s==='ongoing').length,upcoming=statuses.filter(s=>s==='upcoming').length,completed=statuses.filter(s=>s==='completed').length;
+  document.getElementById('home-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-num">${total}</div><div class="stat-label">Total this month</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--carrot)"><div class="stat-icon">⚡</div><div class="stat-num" style="color:var(--carrot)">${ongoing}</div><div class="stat-label">Ongoing now</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--blue)"><div class="stat-icon">🗓</div><div class="stat-num" style="color:var(--blue)">${upcoming}</div><div class="stat-label">Upcoming</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--green)"><div class="stat-icon">✅</div><div class="stat-num" style="color:#1a7a06">${completed}</div><div class="stat-label">Completed</div></div>
+  `;
+  const ongoingRecs=records.filter(r=>computeStatus(r)==='ongoing');
+  const upcomingRecs=records.filter(r=>computeStatus(r)==='upcoming').sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  document.getElementById('ongoing-section').style.display=ongoingRecs.length?'':'none';
+  document.getElementById('ongoing-cards').innerHTML=ongoingRecs.map(r=>renderMaintCard(r,'ongoing')).join('');
+  document.getElementById('upcoming-cards').innerHTML=upcomingRecs.length
+    ?upcomingRecs.map(r=>renderMaintCard(r,'upcoming')).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">✅</div><p>No upcoming maintenance scheduled</p></div>`;
+}
+
+function renderMaintCard(r,cls){
+  const s=computeStatus(r);
+  const end=getEndTime(r.date,r.time,r.duration);
+  return `<div class="maint-card ${cls||s}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <div>
+        <div class="maint-product">${r.product}</div>
+        <div class="maint-meta">
+          <span>📅 ${formatDate(r.date)}</span>
+          <span>🕐 ${r.time} – ${formatTime(end)}</span>
+          <span>⏱ ${r.duration}</span>
+        </div>
+      </div>
+      ${statusBadge(s)}
+    </div>
+    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+  </div>`;
+}
+
+// ══ BOARD ══
+function switchBoardTab(t){
+  ['records','analytics','calendar'].forEach(id=>{document.getElementById('board-'+id).style.display=id===t?'':'none';});
+  document.querySelectorAll('#board-view .sub-tab').forEach((el,i)=>{el.classList.toggle('active',['records','analytics','calendar'][i]===t);});
+  if(t==='analytics') renderCharts();
+  if(t==='calendar'&&!calEvents.length) loadCalendar();
+}
+function populateYearFilters(){
+  const years=[...new Set(records.map(r=>new Date(r.date).getFullYear()))];
+  const cur=new Date().getFullYear();
+  if(!years.includes(cur)) years.push(cur);
+  years.sort((a,b)=>b-a);
+  ['filter-year','chart-year'].forEach(id=>{
+    const el=document.getElementById(id);if(!el) return;
+    el.innerHTML=years.map(y=>`<option value="${y}"${y===cur?'selected':''}>${y}</option>`).join('');
+  });
+}
+function resetFilters(){
+  ['filter-month','filter-year','filter-status'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('filter-search').value='';renderBoard();
+}
+function renderBoard(){
+  const month=document.getElementById('filter-month')?.value;
+  const year=document.getElementById('filter-year')?.value;
+  const status=document.getElementById('filter-status')?.value;
+  const search=document.getElementById('filter-search')?.value?.toLowerCase();
+  let list=records.map(r=>({...r,_s:computeStatus(r)}));
+  if(month) list=list.filter(r=>new Date(r.date).getMonth()+1===parseInt(month));
+  if(year) list=list.filter(r=>new Date(r.date).getFullYear()===parseInt(year));
+  if(status) list=list.filter(r=>r._s===status);
+  if(search) list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
+  list.sort((a,b)=>new Date(b.date+'T'+b.time)-new Date(a.date+'T'+a.time));
+  document.getElementById('board-cards').innerHTML=list.length
+    ?list.map(r=>renderBoardCard(r)).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
+}
+function renderBoardCard(r){
+  const s=computeStatus(r);
+  const end=getEndTime(r.date,r.time,r.duration);
+  return `<div class="maint-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <div>
+        <div class="maint-product">${r.product}</div>
+        <div class="maint-meta">
+          <span>📅 ${formatDate(r.date)}</span>
+          <span>🕐 ${r.time} – ${formatTime(end)}</span>
+          <span>⏱ ${r.duration}</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Added ${new Date(r.createdAt).toLocaleDateString()}</div>
+      </div>
+      ${statusBadge(s)}
+    </div>
+    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+  </div>`;
+}
+
+// ══ CHARTS ══
+function renderCharts(){
+  const year=parseInt(document.getElementById('chart-year')?.value||new Date().getFullYear());
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const counts=months.map((_,i)=>records.filter(r=>{const d=new Date(r.date);return d.getFullYear()===year&&d.getMonth()===i;}).length);
+  if(lineChart) lineChart.destroy();
+  lineChart=new Chart(document.getElementById('line-chart'),{
+    type:'line',
+    data:{labels:months,datasets:[{label:'Maintenance Count',data:counts,borderColor:'#32CE13',backgroundColor:'rgba(50,206,19,.08)',tension:.4,pointBackgroundColor:'#32CE13',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#5a6e50',font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'}},y:{ticks:{color:'#5a6e50',stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(9,41,3,.06)'},beginAtZero:true}}}
+  });
+  const prodMap={};
+  records.forEach(r=>{prodMap[r.product]=(prodMap[r.product]||0)+1;});
+  const labels=Object.keys(prodMap),data=Object.values(prodMap);
+  const colors=['#32CE13','#1679FA','#FF7F00','#8139EE','#D2F612','#00d4aa','#ff6b6b','#ffd93d'];
+  if(pieChart) pieChart.destroy();
+  pieChart=new Chart(document.getElementById('pie-chart'),{
+    type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#fff',borderWidth:3,hoverOffset:6}]},
+    options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#092903',font:{family:'Rubik',size:12},padding:12,usePointStyle:true}}}}
+  });
+}
+
+// ══ ADMIN – ADD ══
+let entryCount=0;
+function addProductEntry(){
+  entryCount++;
+  const id='entry-'+Date.now();
+  const div=document.createElement('div');
+  div.className='product-entry';div.id=id;
+  div.innerHTML=`
+    <div class="product-entry-label">🌱 Entry #${entryCount}
+      ${entryCount>1?`<button class="remove-entry" onclick="removeEntry('${id}')">✕ Remove</button>`:''}
+    </div>
+    <div class="form-row" style="margin-bottom:12px">
+      <div>
+        <div class="form-label">Product / System</div>
+        <select class="form-select entry-product" onchange="handleProductChange(this)">
+          ${allProducts().map(p=>`<option>${p}</option>`).join('')}
+          <option value="__custom__">+ Custom product…</option>
+        </select>
+        <input class="form-input entry-custom-product" placeholder="Enter custom product name" style="display:none;margin-top:8px">
+      </div>
+      <div>
+        <div class="form-label">Date</div>
+        <input class="form-input entry-date" type="date" value="${new Date().toISOString().split('T')[0]}">
+      </div>
+    </div>
+    <div class="form-row-3" style="margin-bottom:12px">
+      <div>
+        <div class="form-label">Start Time</div>
+        <input class="form-input entry-time" type="time" value="22:00" oninput="updateEndTime(this)">
+      </div>
+      <div>
+        <div class="form-label">Duration</div>
+        <div style="display:flex;gap:6px">
+          <input class="form-input entry-dur-h" type="number" min="0" placeholder="hrs" oninput="updateEndTime(this.closest('.product-entry').querySelector('.entry-time'))" style="width:70px">
+          <input class="form-input entry-dur-m" type="number" min="0" max="59" placeholder="min" oninput="updateEndTime(this.closest('.product-entry').querySelector('.entry-time'))" style="width:70px">
+        </div>
+      </div>
+      <div>
+        <div class="form-label">End Time <span style="color:var(--green);font-size:10px">(auto)</span></div>
+        <input class="form-input entry-endtime" readonly placeholder="–" style="background:var(--bg3);cursor:default">
+      </div>
+    </div>
+    <div>
+      <div class="form-label">Remarks</div>
+      <textarea class="form-textarea entry-remarks" rows="2" placeholder="Optional — describe the maintenance activity…"></textarea>
+    </div>
+  `;
+  document.getElementById('product-entries').appendChild(div);
+}
+function removeEntry(id){document.getElementById(id).remove();}
+function handleProductChange(sel){
+  const c=sel.closest('.product-entry').querySelector('.entry-custom-product');
+  c.style.display=sel.value==='__custom__'?'':'none';
+}
+function updateEndTime(ti){
+  const e=ti.closest('.product-entry');
+  const t=e.querySelector('.entry-time').value;
+  const h=parseInt(e.querySelector('.entry-dur-h').value)||0;
+  const m=parseInt(e.querySelector('.entry-dur-m').value)||0;
+  const ee=e.querySelector('.entry-endtime');
+  if(!t){ee.value='';return;}
+  const [hh,mm]=t.split(':').map(Number);
+  const total=hh*60+mm+h*60+m;
+  ee.value=String(Math.floor(total/60)%24).padStart(2,'0')+':'+String(total%60).padStart(2,'0');
+}
+function initAdminEntries(){document.getElementById('product-entries').innerHTML='';entryCount=0;addProductEntry();}
+function collectEntries(){
+  const out=[];
+  document.querySelectorAll('.product-entry').forEach(el=>{
+    const ps=el.querySelector('.entry-product').value;
+    const ci=el.querySelector('.entry-custom-product');
+    let product=ps==='__custom__'?ci.value.trim():ps;
+    if(!product) return;
+    if(ps==='__custom__'&&product&&!allProducts().includes(product)){customProducts.push(product);localStorage.setItem('smh_custom_products',JSON.stringify(customProducts));}
+    const date=el.querySelector('.entry-date').value;
+    const time=el.querySelector('.entry-time').value;
+    const h=parseInt(el.querySelector('.entry-dur-h').value)||0;
+    const m=parseInt(el.querySelector('.entry-dur-m').value)||0;
+    const duration=formatDuration(h,m);
+    const remarks=el.querySelector('.entry-remarks').value.trim();
+    if(!date||!time) return;
+    out.push({id:'smh_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),product,date,time,duration,status:'auto',remarks,createdAt:new Date().toISOString()});
+  });
+  return out;
+}
+function saveAll(announce){
+  const entries=collectEntries();
+  if(!entries.length){toast('No valid entries to save.','error');return;}
+  records.push(...entries);saveRecords();
+  toast(`${entries.length} record(s) saved.`,'success');
+  if(announce) sendAnnouncement(entries);
+  initAdminEntries();renderAdminRecords();populateAnnounceList();
+}
+
+// ══ ADMIN – RECORDS ══
+function renderAdminRecords(){
+  const search=(document.getElementById('admin-search')?.value||'').toLowerCase();
+  const status=document.getElementById('admin-filter-status')?.value||'';
+  let list=records.map(r=>({...r,_s:computeStatus(r)}));
+  if(search) list=list.filter(r=>r.product.toLowerCase().includes(search)||(r.remarks||'').toLowerCase().includes(search));
+  if(status) list=list.filter(r=>r._s===status);
+  list.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  document.getElementById('admin-cards').innerHTML=list.length
+    ?list.map(r=>renderAdminCard(r)).join('')
+    :`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>No records found</p></div>`;
+}
+function renderAdminCard(r){
+  const s=computeStatus(r);
+  const end=getEndTime(r.date,r.time,r.duration);
+  const cancelled=r.status==='cancelled';
+  return `<div class="maint-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <div>
+        <div class="maint-product">${r.product}</div>
+        <div class="maint-meta">
+          <span>📅 ${formatDate(r.date)}</span>
+          <span>🕐 ${r.time}–${formatTime(end)}</span>
+          <span>⏱ ${r.duration}</span>
+        </div>
+      </div>
+      ${statusBadge(s)}
+    </div>
+    ${r.remarks?`<div class="maint-remarks">${r.remarks}</div>`:''}
+    <div class="maint-actions">
+      <button class="btn btn-outline btn-sm" onclick="openEdit('${r.id}')">✏ Edit</button>
+      <button class="btn btn-ghost btn-sm" onclick="announceSingle('${r.id}')">💬 Announce</button>
+      <button class="btn btn-ghost btn-sm" onclick="toggleCancel('${r.id}')">${cancelled?'↩ Uncancel':'✕ Cancel'}</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">🗑 Delete</button>
+    </div>
+  </div>`;
+}
+function toggleCancel(id){
+  const r=records.find(x=>x.id===id);if(!r) return;
+  r.status=r.status==='cancelled'?'auto':'cancelled';
+  saveRecords();renderAdminRecords();renderHome();
+}
+function deleteRecord(id){
+  if(!confirm('Delete this record? This cannot be undone.')) return;
+  records=records.filter(r=>r.id!==id);saveRecords();
+  renderAdminRecords();renderHome();populateAnnounceList();
+  toast('Record deleted.','info');
+}
+function announceSingle(id){
+  const r=records.find(x=>x.id===id);if(r) sendAnnouncement([r]);
+}
+
+// ══ EDIT MODAL ══
+function openEdit(id){
+  editingId=id;const r=records.find(x=>x.id===id);if(!r) return;
+  const dh=r.duration.match(/(\d+)\s*hour/i)?.[1]||'';
+  const dm=r.duration.match(/(\d+)\s*min/i)?.[1]||'';
+  document.getElementById('edit-modal-body').innerHTML=`
+    <div class="form-group"><div class="form-label">Product</div>
+      <select class="form-select" id="edit-product">${allProducts().map(p=>`<option${p===r.product?' selected':''}>${p}</option>`).join('')}</select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Date</div><input class="form-input" id="edit-date" type="date" value="${r.date}"></div>
+      <div class="form-group"><div class="form-label">Start Time</div><input class="form-input" id="edit-time" type="time" value="${r.time}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Hours</div><input class="form-input" id="edit-dur-h" type="number" min="0" value="${dh}" placeholder="hrs"></div>
+      <div class="form-group"><div class="form-label">Minutes</div><input class="form-input" id="edit-dur-m" type="number" min="0" max="59" value="${dm}" placeholder="min"></div>
+    </div>
+    <div class="form-group"><div class="form-label">Remarks</div><textarea class="form-textarea" id="edit-remarks" rows="2">${r.remarks||''}</textarea></div>
+  `;
+  document.getElementById('edit-modal').classList.add('open');
+}
+function saveEdit(){
+  const r=records.find(x=>x.id===editingId);if(!r) return;
+  r.product=document.getElementById('edit-product').value;
+  r.date=document.getElementById('edit-date').value;
+  r.time=document.getElementById('edit-time').value;
+  const h=parseInt(document.getElementById('edit-dur-h').value)||0;
+  const m=parseInt(document.getElementById('edit-dur-m').value)||0;
+  r.duration=formatDuration(h,m);
+  r.remarks=document.getElementById('edit-remarks').value.trim();
+  saveRecords();closeModal('edit-modal');renderAdminRecords();renderHome();
+  toast('Record updated.','success');
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ══ ANNOUNCE ══
+function populateAnnounceList(){
+  const list=[...records].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  document.getElementById('announce-list').innerHTML=list.length
+    ?list.map(r=>`<div class="announce-item">
+        <input type="checkbox" id="ann-${r.id}" value="${r.id}">
+        <label for="ann-${r.id}" style="cursor:pointer;flex:1">
+          <span class="chip chip-green" style="margin-right:6px">${r.product}</span>
+          <span style="font-size:12px;color:var(--muted)">${r.date} · ${r.time} · ${r.duration}</span>
+          ${r.remarks?`<div style="font-size:11px;color:var(--muted);margin-top:3px">${r.remarks.substring(0,80)}${r.remarks.length>80?'…':''}</div>`:''}
+        </label>
+      </div>`).join('')
+    :'<p style="color:var(--muted);font-size:13px">No records yet.</p>';
+}
+function selectAllAnnounce(val){document.querySelectorAll('#announce-list input[type=checkbox]').forEach(cb=>cb.checked=val);}
+function sendBatchAnnouncement(){
+  const ids=[...document.querySelectorAll('#announce-list input:checked')].map(cb=>cb.value);
+  if(!ids.length){toast('Select at least one record.','error');return;}
+  sendAnnouncement(ids.map(id=>records.find(r=>r.id===id)).filter(Boolean));
+}
+function buildAnnouncementText(recs){
+  const blocks=recs.map(r=>`🌱Date: ${formatDate(r.date)}\nTime: ${r.time}\nDuration: ${r.duration}\nAffected Product/s: ${r.product}\nRemarks: ${r.remarks||'N/A'}`).join('\n\n');
+  return `👩‍💻 Upcoming system maintenance on the week of ${weekOf(recs[0].date)}\n\n${blocks}`;
+}
+function sendAnnouncement(recs){
+  const text=buildAnnouncementText(recs);
+  if(!webhookUrl){toast('Webhook not configured. Check Settings.','error');alert('Preview:\n\n'+text);return;}
+  fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})})
+    .then(r=>{r.ok?toast('Announcement sent to Google Chat! 🎉','success'):toast('Webhook error. Check the URL in Settings.','error');})
+    .catch(()=>toast('Failed to reach webhook.','error'));
+}
+
+// ══ SETTINGS ══
+function loadSettings(){
+  const url=localStorage.getItem('smh_webhook')||'';
+  document.getElementById('webhook-url').value=url;
+  setWebhookPill(url?'ok':'none');
+}
+function saveWebhook(){
+  webhookUrl=document.getElementById('webhook-url').value.trim();
+  localStorage.setItem('smh_webhook',webhookUrl);
+  setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');
+}
+function testWebhook(){
+  if(!webhookUrl){toast('Enter a webhook URL first.','error');return;}
+  fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🌱 Sprout Maintenance Hub — test message'})})
+    .then(r=>{if(r.ok){setWebhookPill('ok');toast('Test sent!','success');}else{setWebhookPill('err');toast('Webhook error.','error');}})
+    .catch(()=>{setWebhookPill('err');toast('Failed to reach webhook.','error');});
+}
+function setWebhookPill(s){
+  const el=document.getElementById('webhook-status-pill');
+  const map={ok:'status-pill ok',err:'status-pill err',none:'status-pill none'};
+  const txt={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'};
+  el.className=map[s];el.textContent=txt[s];
+}
+function changePassword(){
+  const np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;
+  if(!np){toast('Enter a new password.','error');return;}
+  if(np!==cp){toast('Passwords do not match.','error');return;}
+  adminPw=np;localStorage.setItem('smh_pw',np);
+  document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';
+  toast('Password updated.','success');
+}
+
+// ══ CALENDAR ══
+const CAL_ICS='https://calendar.google.com/calendar/ical/c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com/public/basic.ics';
+let calEvents=[],calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+
+const MONTHS_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS_SHORT=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+async function loadCalendar(){
+  setCalState('loading');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:8000,
+        system:'You are a calendar parser. Fetch and parse an ICS calendar feed. Return ONLY a JSON array, no markdown, no explanation. Each object: {summary, start, end, allDay, description, location}. start/end as ISO strings. allDay as boolean.',
+        messages:[{role:'user',content:`Fetch this ICS URL and return all events as a JSON array: ${CAL_ICS}`}],
+        tools:[{type:'web_search_20250305',name:'web_search'}]
+      })
+    });
+    if(!res.ok) throw new Error('API error '+res.status);
+    const data=await res.json();
+    const textBlock=data.content.find(b=>b.type==='text');
+    const raw=textBlock?.text||'[]';
+    const clean=raw.replace(/```json|```/g,'').trim();
+    calEvents=JSON.parse(clean).map(e=>({...e,start:new Date(e.start),end:e.end?new Date(e.end):null}));
+    calEvents.sort((a,b)=>a.start-b.start);
+    renderCal();
+    setCalState('content');
+  }catch(err){
+    // fallback: try direct ICS parse via API as text fetch
+    try{
+      const res2=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:8000,
+          system:'Fetch the given URL and parse the ICS content. Return ONLY a valid JSON array (no markdown, no backticks) of calendar events. Each event must have: summary (string), start (ISO datetime string), end (ISO datetime string or null), allDay (boolean), description (string), location (string). Dates should be in local ISO format.',
+          messages:[{role:'user',content:`URL: ${CAL_ICS}\n\nFetch it and parse all VEVENT blocks into JSON.`}],
+          tools:[{type:'web_search_20250305',name:'web_search'}]
+        })
+      });
+      const data2=await res2.json();
+      const tb=data2.content.find(b=>b.type==='text');
+      const raw2=(tb?.text||'[]').replace(/```json|```/g,'').trim();
+      const parsed=JSON.parse(raw2);
+      calEvents=parsed.map(e=>({...e,start:new Date(e.start),end:e.end?new Date(e.end):null}));
+      calEvents.sort((a,b)=>a.start-b.start);
+      renderCal();
+      setCalState('content');
+    }catch(err2){
+      setCalState('error',`Failed to load calendar: ${err2.message}`);
+    }
   }
+}
 
-  // ── HOME STATUS GRID ──
-  function renderHomeGrid(){
-    var grid=document.getElementById('home-status-grid');
-    if(!grid)return;
-    while(grid.firstChild)grid.removeChild(grid.firstChild);
+function setCalState(s,msg){
+  document.getElementById('cal-loading').style.display=s==='loading'?'block':'none';
+  document.getElementById('cal-error').style.display=s==='error'?'block':'none';
+  document.getElementById('cal-content').style.display=s==='content'?'block':'none';
+  if(msg) document.getElementById('cal-err-msg').textContent=msg;
+}
 
-    var ongoing=S.data.filter(function(m){return computeStatus(m)==='ongoing';}).sort(function(a,b){return new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time);});
-    var upcoming=S.data.filter(function(m){return computeStatus(m)==='upcoming';}).sort(function(a,b){return new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time);});
+function calNav(dir){
+  calMonth+=dir;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCal();
+}
 
-    function makeSection(items,type){
-      var sec=document.createElement('div');
-      sec.className='status-section '+(type==='ongoing'?'ongoing':'upcoming');
+function evColor(e){
+  const t=(e.summary||'').toLowerCase();
+  if(t.includes('cancel')) return '#c0392b';
+  if(t.includes('urgent')||t.includes('emergency')||t.includes('hotfix')) return '#FF7F00';
+  if(t.includes('downtime')||t.includes('maintenance')||t.includes('deploy')) return '#1679FA';
+  return '#8139EE';
+}
 
-      var hdr=document.createElement('div');
-      hdr.className='ss-header';
-      var dot=document.createElement('span');
-      dot.className='ss-dot '+(type==='ongoing'?'on':'up');
-      var ttl=document.createElement('span');
-      ttl.className='ss-title '+(type==='ongoing'?'on':'up');
-      ttl.textContent=type==='ongoing'?'Ongoing':'Upcoming';
-      var cnt=document.createElement('span');
-      cnt.className='ss-count '+(type==='ongoing'?'on':'up');
-      cnt.textContent=items.length;
-      hdr.appendChild(dot);hdr.appendChild(ttl);hdr.appendChild(cnt);
-      sec.appendChild(hdr);
+function renderCal(){
+  document.getElementById('cal-heading').textContent=`${MONTHS_LONG[calMonth]} ${calYear}`;
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();
 
-      if(!items.length){
-        var emp=document.createElement('div');
-        emp.className='ss-empty';
-        emp.textContent=type==='ongoing'?'No ongoing maintenance.':'No upcoming maintenance.';
-        sec.appendChild(emp);
-      } else {
-        items.forEach(function(m){
-          var card=document.createElement('div');
-          card.className='mcard';
-          var prod=document.createElement('div');
-          prod.className='mc-prod';
-          prod.textContent=m.product;
-          var meta=document.createElement('div');
-          meta.className='mc-meta';
-          meta.textContent=fmtD(m.date)+' · '+fmtT(m.time)+(m.duration?' · '+m.duration:'');
-          card.appendChild(prod);card.appendChild(meta);
-          if(m.remarks){var rem=document.createElement('div');rem.className='mc-rem';rem.textContent=m.remarks;card.appendChild(rem);}
-          sec.appendChild(card);
-        });
+  // build day→events
+  const dayMap={};
+  calEvents.forEach(ev=>{
+    const s=ev.start,end=ev.end||ev.start;
+    // span multi-day events
+    const cur=new Date(s); cur.setHours(0,0,0,0);
+    const endD=new Date(end); endD.setHours(0,0,0,0);
+    while(cur<=endD){
+      if(cur.getMonth()===calMonth&&cur.getFullYear()===calYear){
+        const d=cur.getDate();
+        if(!dayMap[d]) dayMap[d]=[];
+        if(!dayMap[d].find(x=>x.summary===ev.summary)) dayMap[d].push(ev);
       }
-      return sec;
+      cur.setDate(cur.getDate()+1);
     }
-
-    grid.appendChild(makeSection(ongoing,'ongoing'));
-    grid.appendChild(makeSection(upcoming,'upcoming'));
-
-    // view all button
-    var footer=document.createElement('div');
-    footer.style.cssText='grid-column:1/-1;text-align:center;margin-top:8px';
-    var btn=document.createElement('button');
-    btn.className='view-all-btn';
-    btn.textContent='View all maintenance records';
-    btn.addEventListener('click',function(){app.showEmpPage('board',document.getElementById('en-board'));});
-    footer.appendChild(btn);
-    grid.appendChild(footer);
-  }
-
-  // ── PERIOD SELECTORS ──
-  function buildPeriodSelectors(){
-    var now=new Date(),curY=now.getFullYear();
-    var yMap={};yMap[curY]=1;
-    S.data.forEach(function(m){if(m.date)yMap[parseInt(m.date.substring(0,4))]=1;});
-    var years=Object.keys(yMap).map(Number).sort().reverse();
-    var mSel=document.getElementById('board-month-sel');
-    var ySel=document.getElementById('board-year-sel');
-    if(!mSel||!ySel)return;
-    var prevM=mSel.value,prevY=ySel.value;
-    mSel.innerHTML='<option value="">All months</option>'+MON.map(function(n,i){return'<option value="'+(i+1)+'">'+(i+1<10?'0':'')+(i+1)+' — '+n+'</option>';}).join('');
-    ySel.innerHTML='<option value="">All years</option>'+years.map(function(y){return'<option value="'+y+'">'+y+'</option>';}).join('');
-    if(prevM)mSel.value=prevM;
-    if(prevY)ySel.value=prevY;
-  }
-
-  function updateBoardStats(){
-    var mEl=document.getElementById('board-month-sel');
-    var yEl=document.getElementById('board-year-sel');
-    var mVal=mEl?mEl.value:'',yVal=yEl?yEl.value:'';
-    var f=S.data.filter(function(d){
-      if(!d.date)return false;
-      if(mVal&&parseInt(d.date.substring(5,7))!==parseInt(mVal))return false;
-      if(yVal&&parseInt(d.date.substring(0,4))!==parseInt(yVal))return false;
-      return true;
-    });
-    var n=f.length,up=0,on=0,done=0;
-    f.forEach(function(d){var s=computeStatus(d);if(s==='upcoming')up++;else if(s==='ongoing')on++;else if(s==='completed')done++;});
-    setEl('eb-total',n);setEl('eb-up',up);setEl('eb-on',on);setEl('eb-done',done);
-  }
-
-  function resetBoardPeriod(){
-    var m=document.getElementById('board-month-sel');if(m)m.value='';
-    var y=document.getElementById('board-year-sel');if(y)y.value='';
-    updateBoardStats();
-  }
-
-  // ── CARD HTML ──
-  function mcHTML(m,isAdm){
-    var st=computeStatus(m),sel=isAdm&&S.selIds.has(m.id);
-    return'<div class="'+(isAdm?'amc':'mc')+'" id="'+(isAdm?'amc-'+m.id:'')+'" style="'+(isAdm&&sel?'border:2px solid var(--ubas)':'')+'">' +
-      '<div class="'+(isAdm?'amc-top':'mc-top')+'">' +
-        '<div style="display:flex;align-items:flex-start;gap:10px;flex:1">' +
-          (isAdm?'<input type="checkbox" id="chk-'+m.id+'" '+(sel?'checked':'')+' onchange="app.toggleSel(\''+m.id+'\')" style="width:15px;height:15px;margin-top:3px;accent-color:var(--ubas);cursor:pointer;flex-shrink:0">':'')+
-          '<div><div class="'+(isAdm?'amc-sys':'mc-sys')+'">'+esc(m.product)+'</div>' +
-          '<div class="'+(isAdm?'amc-meta':'mc-dt')+'">Added '+new Date(m.createdAt).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'})+'</div></div>' +
-        '</div>' +
-        '<span class="badge '+bc(st)+'">'+st+'</span>' +
-      '</div>' +
-      '<div class="'+(isAdm?'amc-grid':'mc-grid')+'">' +
-        '<div class="mc-f"><div class="fl">Date</div><div class="fv">'+fmtD(m.date)+'</div></div>' +
-        '<div class="mc-f"><div class="fl">Start</div><div class="fv">'+fmtT(m.time)+'</div></div>' +
-        '<div class="mc-f"><div class="fl">Duration</div><div class="fv">'+esc(m.duration)+'</div></div>' +
-      '</div>' +
-      (m.remarks?'<div class="'+(isAdm?'amc-rem':'mc-rem')+'">'+esc(m.remarks)+'</div>':'')+
-      (isAdm?'<div class="amc-acts">' +
-        '<button class="act act-e" onclick="app.openEdit(\''+m.id+'\')">Edit</button>' +
-        '<button class="act act-a" onclick="app.announceOne(\''+m.id+'\')">Announce</button>' +
-        (m.status!=='cancelled'&&st!=='completed'?'<button class="act act-c" onclick="app.cancelRec(\''+m.id+'\')">Mark Cancelled</button>':'')+
-        (m.status==='cancelled'?'<button class="act act-c" onclick="app.uncancelRec(\''+m.id+'\')">Uncancel</button>':'')+
-        '<button class="act act-d" onclick="app.del(\''+m.id+'\')">Delete</button>' +
-      '</div>':'')+
-    '</div>';
-  }
-
-  function renderEmpBoard(){
-    var q=(document.getElementById('emp-search').value||'').toLowerCase();
-    var st=document.getElementById('emp-filter').value;
-    var f=S.data.filter(function(m){return(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||computeStatus(m)===st);});
-    document.getElementById('emp-board-list').innerHTML=f.length?f.map(function(m){return mcHTML(m,false);}).join(''):'<div class="empty">No records found.</div>';
-  }
-  function renderAdmBoard(){
-    var q=(document.getElementById('adm-search').value||'').toLowerCase();
-    var st=document.getElementById('adm-filter').value;
-    var f=S.data.filter(function(m){return(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||computeStatus(m)===st);});
-    document.getElementById('adm-list').innerHTML=f.length?f.map(function(m){return mcHTML(m,true);}).join(''):'<div class="empty">No records found.</div>';
-    updateGamification();
-  }
-  function renderAnnList(){
-    var q=(document.getElementById('ann-search').value||'').toLowerCase();
-    var st=document.getElementById('ann-filter').value;
-    var f=S.data.filter(function(m){return(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||computeStatus(m)===st);});
-    var el=document.getElementById('ann-list');
-    if(!f.length){el.innerHTML='<div class="empty" style="padding:20px">No records found.</div>';setEl('sel-count',S.selIds.size);return;}
-    while(el.firstChild)el.removeChild(el.firstChild);
-    f.forEach(function(m){
-      var st2=computeStatus(m),sel=S.selIds.has(m.id);
-      var row=document.createElement('div');
-      row.className='ann-row'+(sel?' sel':'');
-      row.addEventListener('click',function(){toggleSelAnn(m.id);});
-      var cb=document.createElement('input');cb.type='checkbox';cb.checked=sel;cb.style.cssText='width:14px;height:14px;accent-color:var(--ubas);flex-shrink:0';
-      cb.addEventListener('click',function(e){e.stopPropagation();toggleSelAnn(m.id);});
-      var info=document.createElement('div');info.style.cssText='flex:1;min-width:0';
-      var pn=document.createElement('div');pn.style.cssText='font-weight:500;font-size:14px;color:var(--deep)';pn.textContent=m.product;
-      var mt=document.createElement('div');mt.style.cssText='font-size:12px;color:#9ca3af;margin-top:2px';mt.textContent=fmtD(m.date)+' · '+fmtT(m.time)+(m.duration?' · '+m.duration:'');
-      info.appendChild(pn);info.appendChild(mt);
-      if(m.remarks){var re=document.createElement('div');re.style.cssText='font-size:12px;color:#6b7280;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';re.textContent=m.remarks;info.appendChild(re);}
-      var bdg=document.createElement('span');bdg.className='badge '+bc(st2);bdg.textContent=st2;
-      row.appendChild(cb);row.appendChild(info);row.appendChild(bdg);
-      el.appendChild(row);
-    });
-    setEl('sel-count',S.selIds.size);
-  }
-
-  // ── ANALYTICS ──
-  function boardSubTab(tab,btn){
-    document.getElementById('bsp-list').style.display=tab==='list'?'block':'none';
-    document.getElementById('bsp-analytics').style.display=tab==='analytics'?'block':'none';
-    document.getElementById('bst-list').classList.toggle('active',tab==='list');
-    document.getElementById('bst-analytics').classList.toggle('active',tab==='analytics');
-    if(tab==='analytics'){
-      if(chartM){chartM.destroy();chartM=null;}
-      if(chartP){chartP.destroy();chartP=null;}
-      drawAnalytics();
-    }
-  }
-  function drawAnalytics(){
-    var now=new Date(),labels=[],counts=[];
-    for(var i=11;i>=0;i--){var d=new Date(now.getFullYear(),now.getMonth()-i,1);labels.push(MON[d.getMonth()]+' '+d.getFullYear().toString().slice(2));var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');counts.push(S.data.filter(function(m){return m.date&&m.date.substring(0,7)===key;}).length);}
-    var ctxM=document.getElementById('canvas-month');
-    if(ctxM){if(chartM){chartM.destroy();chartM=null;}chartM=new Chart(ctxM,{type:'line',data:{labels:labels,datasets:[{label:'Maintenance',data:counts,borderColor:'#8139EE',backgroundColor:'rgba(129,57,238,.1)',borderWidth:2,pointBackgroundColor:'#8139EE',pointRadius:4,tension:.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{family:'Rubik',size:11}},grid:{color:'rgba(0,0,0,.05)'}},x:{ticks:{font:{family:'Rubik',size:10}},grid:{display:false}}}}});}
-    var pc={};S.data.forEach(function(m){if(m.product)pc[m.product]=(pc[m.product]||0)+1;});
-    var pl=Object.keys(pc).sort(function(a,b){return pc[b]-pc[a];});
-    var ctxP=document.getElementById('canvas-product');
-    if(ctxP){if(chartP){chartP.destroy();chartP=null;}if(pl.length)chartP=new Chart(ctxP,{type:'pie',data:{labels:pl,datasets:[{data:pl.map(function(p){return pc[p];}),backgroundColor:CC.slice(0,pl.length),borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{family:'Rubik',size:11},padding:10,boxWidth:11}}}}});}
-  }
-
-  // ── SELECTION ──
-  function toggleSel(id){if(S.selIds.has(id))S.selIds.delete(id);else S.selIds.add(id);setEl('sel-count',S.selIds.size);var cb=document.getElementById('chk-'+id);if(cb)cb.checked=S.selIds.has(id);var card=document.getElementById('amc-'+id);if(card)card.style.border=S.selIds.has(id)?'2px solid var(--ubas)':'1px solid #e8edf2';}
-  function toggleSelAnn(id){if(S.selIds.has(id))S.selIds.delete(id);else S.selIds.add(id);renderAnnList();}
-  function selAllAnn(){var q=(document.getElementById('ann-search').value||'').toLowerCase(),st=document.getElementById('ann-filter').value;S.data.filter(function(m){return(!q||m.product.toLowerCase().includes(q)||(m.remarks||'').toLowerCase().includes(q))&&(!st||computeStatus(m)===st);}).forEach(function(m){S.selIds.add(m.id);});renderAnnList();}
-  function clrAnn(){S.selIds.clear();setEl('sel-count',0);renderAnnList();}
-  function batchAnnounce(){if(!S.selIds.size){toast('Select at least one record.','err');return;}var e=S.data.filter(function(m){return S.selIds.has(m.id);});e.sort(function(a,b){return new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time);});sendToChat(e);}
-  function announceOne(id){var m=S.data.find(function(x){return x.id===id;});if(m)sendToChat([m]);}
-
-  // ── ENTRY BLOCKS ──
-  function initBlocks(){S.ec=0;document.getElementById('entries-container').innerHTML='';addBlock();}
-  function addBlock(){
-    S.ec++;var idx=S.ec,today=new Date().toISOString().split('T')[0];
-    var d=document.createElement('div');d.className='eb';d.id='eb-'+idx;
-    d.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><span style="font-size:11px;font-weight:600;color:var(--ubas);text-transform:uppercase;letter-spacing:.6px">Product '+idx+'</span>'+(idx>1?'<button type="button" onclick="app.removeBlock('+idx+')" style="background:#fff0f0;color:#c62828;border:1px solid #fee2e2;border-radius:7px;padding:4px 10px;font-size:11px;font-family:Rubik,sans-serif;font-weight:500;cursor:pointer">Remove</button>':'')+
-    '</div><div class="fg"><div class="field full"><label>Product / System</label><select id="ep-p-'+idx+'" onchange="app.onProdChange('+idx+')">'+buildPOpts('')+'</select><div id="ep-cw-'+idx+'" style="display:none;gap:8px;margin-top:8px"><input type="text" id="ep-ci-'+idx+'" placeholder="Enter new product name..." style="flex:1"><button type="button" class="btn-ws sv" onclick="app.addCustomEntry('+idx+')" style="padding:9px 13px">Save</button></div></div>'+
-    '<div class="field"><label>Date</label><input id="ep-d-'+idx+'" type="date" value="'+today+'" oninput="app.calcEntryEnd('+idx+')"></div>'+
-    '<div class="field"><label>Time (start)</label><input id="ep-t-'+idx+'" type="time" oninput="app.calcEntryEnd('+idx+')"></div>'+
-    '<div class="field"><label>Duration (hours)</label><input id="ep-dh-'+idx+'" type="number" min="0" placeholder="0" oninput="app.calcEntryEnd('+idx+')"></div>'+
-    '<div class="field"><label>Duration (minutes)</label><input id="ep-dm-'+idx+'" type="number" min="0" max="59" placeholder="0" oninput="app.calcEntryEnd('+idx+')"></div>'+
-    '<div class="field"><label>End time</label><input id="ep-e-'+idx+'" type="text" readonly style="background:#f3f4f6;color:#6b7280"></div>'+
-    '<div class="field full"><label>Remarks</label><textarea id="ep-r-'+idx+'" placeholder="Reason, expected impact, notes..."></textarea></div></div>'+
-    '<p class="auto-hint">Status is set automatically based on date, time, and duration.</p>';
-    document.getElementById('entries-container').appendChild(d);
-  }
-  function removeBlock(idx){var el=document.getElementById('eb-'+idx);if(el)el.remove();}
-  function onProdChange(idx){var s=document.getElementById('ep-p-'+idx),w=document.getElementById('ep-cw-'+idx);if(s&&w)w.style.display=s.value==='__other__'?'flex':'none';}
-  function calcEntryEnd(idx){var t=document.getElementById('ep-t-'+idx).value,h=document.getElementById('ep-dh-'+idx).value,m=document.getElementById('ep-dm-'+idx).value,el=document.getElementById('ep-e-'+idx);if(el)el.value=calcEnd(t,h,m);}
-  function calcEditEnd(){var t=document.getElementById('e-time').value,h=document.getElementById('e-dur-h').value,m=document.getElementById('e-dur-m').value,el=document.getElementById('e-end');if(el)el.value=calcEnd(t,h,m);}
-  function addCustomEntry(idx){var val=document.getElementById('ep-ci-'+idx).value.trim();if(!val){toast('Enter a product name.','err');return;}if(allP().indexOf(val)>-1){toast('Product already exists.','err');return;}S.cp.push(val);saveCP();document.querySelectorAll('[id^="ep-p-"]').forEach(function(s){var c=s.value==='__other__'?'':s.value;s.innerHTML=buildPOpts(c);});var epm=document.getElementById('e-product');if(epm)epm.innerHTML=buildPOpts(epm.value);document.getElementById('ep-p-'+idx).value=val;document.getElementById('ep-cw-'+idx).style.display='none';document.getElementById('ep-ci-'+idx).value='';toast('Product added!','ok');}
-  function addCustomModal(){var val=document.getElementById('e-custom-product').value.trim();if(!val){toast('Enter a product name.','err');return;}if(allP().indexOf(val)>-1){toast('Product already exists.','err');return;}S.cp.push(val);saveCP();document.querySelectorAll('[id^="ep-p-"]').forEach(function(s){var c=s.value==='__other__'?'':s.value;s.innerHTML=buildPOpts(c);});var epm=document.getElementById('e-product');if(epm){epm.innerHTML=buildPOpts(val);epm.value=val;}document.getElementById('e-custom-wrap').style.display='none';document.getElementById('e-custom-product').value='';toast('Product added!','ok');}
-
-  // ── SUBMIT ──
-  function clearForm(){initBlocks();}
-  function submitForm(){
-    var entries=[],blocks=document.querySelectorAll('#entries-container .eb');
-    for(var i=0;i<blocks.length;i++){
-      var idx=blocks[i].id.replace('eb-','');
-      var product=document.getElementById('ep-p-'+idx).value;
-      var date=document.getElementById('ep-d-'+idx).value;
-      var time=document.getElementById('ep-t-'+idx).value;
-      var dh=parseInt(document.getElementById('ep-dh-'+idx).value)||0;
-      var dm=parseInt(document.getElementById('ep-dm-'+idx).value)||0;
-      var remarks=document.getElementById('ep-r-'+idx).value.trim();
-      if(!product||!date||!time||(dh===0&&dm===0)){toast('Fill in all fields for Product '+(i+1)+'.','err');return;}
-      var dur;if(dh>0&&dm>0)dur=dh+'h '+dm+'m';else if(dh>0)dur=dh+' hour'+(dh>1?'s':'');else dur=dm+' minute'+(dm>1?'s':'');
-      var entry={id:Date.now()+'-'+idx,product:product,date:date,time:time,duration:dur,status:'upcoming',remarks:remarks,createdAt:new Date().toISOString()};
-      entry.status=computeStatus(entry);entries.push(entry);
-    }
-    entries.forEach(function(e){S.data.unshift(e);});
-    saveData();updateGamification();renderHomeGrid();buildPeriodSelectors();
-    var sorted=entries.slice().sort(function(a,b){return new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time);});
-    sendToChat(sorted);toast(entries.length+' record(s) saved & announced!','ok');
-    clearForm();renderAnnList();
-  }
-
-  // ── EDIT / DELETE / CANCEL ──
-  function openEdit(id){var m=S.data.find(function(x){return x.id===id;});if(!m)return;S.editId=id;var epm=document.getElementById('e-product');epm.innerHTML=buildPOpts(m.product);epm.value=m.product;epm.onchange=function(){document.getElementById('e-custom-wrap').style.display=this.value==='__other__'?'flex':'none';};document.getElementById('e-date').value=m.date;document.getElementById('e-time').value=m.time;var l=(m.duration||'').toLowerCase(),dh=0,dm=0,hm=l.match(/(\d+)\s*h/),mm2=l.match(/(\d+)\s*m/);if(hm)dh=parseInt(hm[1]);if(mm2)dm=parseInt(mm2[1]);document.getElementById('e-dur-h').value=dh||'';document.getElementById('e-dur-m').value=dm||'';document.getElementById('e-end').value=calcEnd(m.time,dh,dm);document.getElementById('e-remarks').value=m.remarks||'';document.getElementById('e-custom-wrap').style.display='none';document.getElementById('edit-modal').classList.add('open');}
-  function closeModal(){document.getElementById('edit-modal').classList.remove('open');S.editId=null;}
-  function saveEdit(){var idx=S.data.findIndex(function(x){return x.id===S.editId;});if(idx===-1)return;var dh=parseInt(document.getElementById('e-dur-h').value)||0,dm=parseInt(document.getElementById('e-dur-m').value)||0;var dur;if(dh>0&&dm>0)dur=dh+'h '+dm+'m';else if(dh>0)dur=dh+' hour'+(dh>1?'s':'');else dur=dm+' minute'+(dm>1?'s':'');S.data[idx]=Object.assign({},S.data[idx],{product:document.getElementById('e-product').value,date:document.getElementById('e-date').value,time:document.getElementById('e-time').value,duration:dur,remarks:document.getElementById('e-remarks').value.trim()});if(S.data[idx].status!=='cancelled')S.data[idx].status=computeStatus(S.data[idx]);saveData();closeModal();renderAdmBoard();renderHomeGrid();updateGamification();toast('Updated!','ok');}
-  function del(id){if(!confirm('Delete this maintenance record?'))return;S.data=S.data.filter(function(x){return x.id!==id;});saveData();renderAdmBoard();renderHomeGrid();updateGamification();toast('Deleted.','ok');}
-  function cancelRec(id){var idx=S.data.findIndex(function(x){return x.id===id;});if(idx===-1)return;S.data[idx].status='cancelled';saveData();renderAdmBoard();renderHomeGrid();updateGamification();toast('Marked as cancelled.','ok');}
-  function uncancelRec(id){var idx=S.data.findIndex(function(x){return x.id===id;});if(idx===-1)return;S.data[idx].status=computeStatus(S.data[idx]);saveData();renderAdmBoard();renderHomeGrid();updateGamification();toast('Cancellation removed.','ok');}
-
-  // ── NAVIGATION ──
-  function switchRole(role){document.getElementById('rb-emp').classList.toggle('active',role==='employee');document.getElementById('rb-adm').classList.toggle('active',role==='admin');document.getElementById('emp-ui').style.display=role==='employee'?'block':'none';document.getElementById('adm-ui').style.display=role==='admin'?'block':'none';document.getElementById('emp-nav-tabs').style.display=role==='employee'?'flex':'none';document.getElementById('adm-nav-tabs').style.display=role==='admin'?'flex':'none';if(role==='admin'&&!S.loggedIn)showLogin();else if(role==='admin'&&S.loggedIn)showDash();}
-  function showEmpPage(p,btn){document.querySelectorAll('#emp-ui .page').forEach(function(el){el.classList.remove('active');});document.querySelectorAll('#emp-nav-tabs .nt').forEach(function(el){el.classList.remove('active');});document.getElementById('ep-'+p).classList.add('active');if(btn)btn.classList.add('active');if(p==='board')renderEmpBoard();}
-  function showAdmTab(tab,navBtn){var tabMap={add:'ac-add',rec:'ac-rec',set:'ac-set'};document.querySelectorAll('.atab-content').forEach(function(el){el.classList.remove('active');});var tc=document.getElementById(tabMap[tab]);if(tc)tc.classList.add('active');document.querySelectorAll('#at-add,#at-rec,#at-set').forEach(function(el){el.classList.remove('active');});var inner=document.getElementById('at-'+tab);if(inner)inner.classList.add('active');document.querySelectorAll('#adm-nav-tabs .nt').forEach(function(el){el.classList.remove('active');});if(navBtn)navBtn.classList.add('active');if(tab==='rec')renderAdmBoard();if(tab==='add')renderAnnList();}
-  function showLogin(){document.querySelectorAll('#adm-ui .page').forEach(function(el){el.classList.remove('active');});document.getElementById('ap-login').classList.add('active');}
-  function showDash(){document.querySelectorAll('#adm-ui .page').forEach(function(el){el.classList.remove('active');});document.getElementById('ap-dash').classList.add('active');renderAdmBoard();renderAnnList();}
-
-  // ── AUTH ──
-  function doLogin(){var val=document.getElementById('pw-input').value;if(val===S.pw){S.loggedIn=true;document.getElementById('login-err').style.display='none';document.getElementById('pw-input').value='';showDash();}else document.getElementById('login-err').style.display='block';}
-  function doLogout(){S.loggedIn=false;showLogin();toast('Signed out.','ok');}
-  function changePw(){var np=document.getElementById('new-pw').value,cp=document.getElementById('confirm-pw').value;if(!np){toast('Enter a new password.','err');return;}if(np!==cp){toast('Passwords do not match.','err');return;}S.pw=np;localStorage.setItem('mt_pw',np);document.getElementById('new-pw').value='';document.getElementById('confirm-pw').value='';toast('Password updated!','ok');}
-
-  // ── GOOGLE CHAT ──
-  function getWeekOf(d){if(!d)return'';var dt=new Date(d+'T12:00'),day=dt.getDay(),mon=new Date(dt);mon.setDate(dt.getDate()-(day===0?6:day-1));return mon.toLocaleDateString('en-PH',{month:'long',day:'numeric',year:'numeric'});}
-  function buildMsg(entries){var msg='👩‍💻 *Upcoming system maintenance on the week of '+getWeekOf(entries[0].date)+'*\n';entries.forEach(function(e){msg+='\n🌱Date: '+(e.date?new Date(e.date+'T12:00').toLocaleDateString('en-PH',{month:'long',day:'numeric',year:'numeric'}):'-')+'\n';msg+='Time: '+(e.time?fmtT(e.time):'-')+'\n';msg+='Duration: '+(e.duration||'-')+'\n';msg+='Affected Product/s: '+(e.product||'-')+'\n';msg+='Remarks: '+(e.remarks||'-')+'\n';});return msg;}
-  async function sendToChat(entries){var url=localStorage.getItem('mt_wh');if(!url){toast('No webhook set — go to Settings.','err');return;}try{var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:buildMsg(entries)})});if(r.ok)toast('Announced to Google Chat!','ok');else toast('Webhook error: '+r.status,'err');}catch(e){toast('Could not reach webhook.','err');}}
-  function saveWh(){var url=document.getElementById('wh-url').value.trim();if(!url){toast('Enter a webhook URL.','err');return;}localStorage.setItem('mt_wh',url);S.wh=url;setWdot(true);toast('Webhook saved!','ok');}
-  async function testWh(){var url=document.getElementById('wh-url').value.trim();if(!url){toast('Enter a webhook URL first.','err');return;}localStorage.setItem('mt_wh',url);try{var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'🔧 *Sprout Maintenance Hub* — Test message. Webhook is working! ✅'})});if(r.ok){toast('Test sent!','ok');setWdot(true);}else{toast('Error: '+r.status,'err');setWdot(false);}}catch(e){toast('Could not reach webhook.','err');setWdot(false);}}
-  function setWdot(ok){var d=document.getElementById('wdot'),s=document.getElementById('wstatus-txt');if(d)d.className='wdot '+(ok?'ok':'err');if(s)s.textContent=ok?'Webhook configured and ready':'Webhook error — check URL';}
-
-  // ── BOOT ──
-  window.addEventListener('DOMContentLoaded',function(){
-    if(S.wh){var u=document.getElementById('wh-url');if(u)u.value=S.wh;setWdot(true);}
-    S.data.forEach(function(m){if(m.status!=='cancelled')m.status=computeStatus(m);});
-    saveData();
-    buildPeriodSelectors();
-    updateBoardStats();
-    updateGamification();
-    renderHomeGrid();
-    renderEmpBoard();
-    initBlocks();
-    setInterval(function(){S.data.forEach(function(m){if(m.status!=='cancelled')m.status=computeStatus(m);});saveData();updateGamification();renderHomeGrid();},60000);
   });
 
-  app={
-    switchRole:switchRole,showEmpPage:showEmpPage,showAdmTab:showAdmTab,
-    boardSubTab:boardSubTab,drawAnalytics:drawAnalytics,
-    updateBoardStats:updateBoardStats,resetBoardPeriod:resetBoardPeriod,
-    doLogin:doLogin,doLogout:doLogout,changePw:changePw,
-    addBlock:addBlock,removeBlock:removeBlock,onProdChange:onProdChange,
-    calcEntryEnd:calcEntryEnd,calcEditEnd:calcEditEnd,
-    addCustomEntry:addCustomEntry,addCustomModal:addCustomModal,
-    submitForm:submitForm,clearForm:clearForm,
-    openEdit:openEdit,closeModal:closeModal,saveEdit:saveEdit,
-    del:del,cancelRec:cancelRec,uncancelRec:uncancelRec,
-    toggleSel:toggleSel,toggleSelAnn:toggleSelAnn,
-    selAllAnn:selAllAnn,clrAnn:clrAnn,batchAnnounce:batchAnnounce,announceOne:announceOne,
-    renderEmpBoard:renderEmpBoard,renderAdmBoard:renderAdmBoard,renderAnnList:renderAnnList,
-    saveWh:saveWh,testWh:testWh
-  };
-})();
+  // render grid
+  let g=`<div style="display:grid;grid-template-columns:repeat(7,1fr)">`;
+  DAYS_SHORT.forEach(d=>{g+=`<div style="padding:8px 6px;text-align:center;font-size:11px;font-weight:700;font-family:'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);background:var(--bg)">${d}</div>`;});
+
+  for(let i=0;i<firstDay;i++) g+=`<div style="min-height:72px;background:var(--bg2);border-right:1px solid var(--border);border-bottom:1px solid var(--border)"></div>`;
+
+  for(let d=1;d<=daysInMonth;d++){
+    const isToday=today.getDate()===d&&today.getMonth()===calMonth&&today.getFullYear()===calYear;
+    const evs=dayMap[d]||[];
+    const hasEvs=evs.length>0;
+    const dots=evs.slice(0,3).map(e=>`<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${evColor(e)};margin-right:2px"></span>`).join('');
+    const extra=evs.length>3?`<span style="font-size:9px;color:var(--muted)">+${evs.length-3}</span>`:'';
+    g+=`<div onclick="${hasEvs?`showDayEvents(${d})`:'void(0)'}"
+      style="min-height:72px;padding:7px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:${hasEvs?'pointer':'default'};background:var(--surface);transition:.1s;position:relative"
+      onmouseover="if(${hasEvs?1:0})this.style.background='var(--bg3)'"
+      onmouseout="this.style.background='var(--surface)'">
+      <div style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'Inter',sans-serif;font-weight:${isToday?700:400};background:${isToday?'var(--green)':'transparent'};color:${isToday?'var(--deep)':'var(--text)'};margin-bottom:4px">${d}</div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:1px">${dots}${extra}</div>
+      ${evs.slice(0,2).map(e=>`<div style="font-size:10px;color:var(--deep);background:${evColor(e)}22;border-left:2px solid ${evColor(e)};padding:1px 4px;border-radius:2px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">${e.summary}</div>`).join('')}
+    </div>`;
+  }
+  g+='</div>';
+  document.getElementById('cal-grid').innerHTML=g;
+
+  // event list for month
+  const monthEvs=calEvents.filter(e=>{
+    const s=e.start;
+    return s.getMonth()===calMonth&&s.getFullYear()===calYear;
+  });
+  document.getElementById('cal-list-label').textContent=`Events in ${MONTHS_LONG[calMonth]} ${calYear} (${monthEvs.length})`;
+  renderCalList(monthEvs);
+}
+
+function showDayEvents(d){
+  const evs=calEvents.filter(e=>{
+    const s=e.start;
+    return s.getDate()===d&&s.getMonth()===calMonth&&s.getFullYear()===calYear;
+  });
+  const lbl=document.getElementById('cal-list-label');
+  lbl.innerHTML=`<span style="cursor:pointer;color:var(--blue);font-weight:400" onclick="renderCal()">← Back to ${MONTHS_LONG[calMonth]}</span> &nbsp;·&nbsp; ${MONTHS_LONG[calMonth]} ${d}, ${calYear} (${evs.length} event${evs.length!==1?'s':''})`;
+  renderCalList(evs);
+}
+
+function renderCalList(evs){
+  const el=document.getElementById('cal-list');
+  if(!evs.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>No events this period</p></div>`;return;}
+  el.innerHTML=evs.map(e=>{
+    const c=evColor(e);
+    const timeStr=e.allDay?'All day':`${formatTime(e.start)}${e.end&&e.end>e.start?' – '+formatTime(e.end):''}`;
+    const desc=(e.description||'').replace(/\\n/g,'\n').replace(/\\,/g,',').replace(/https?:\/\/\S+/g,u=>`<a href="${u}" target="_blank" style="color:var(--blue)">${u}</a>`).replace(/\n/g,'<br>').trim();
+    return `<div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid ${c};border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);transition:.12s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow)'">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+        <div style="flex:1">
+          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:5px">${e.summary}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)">
+            <span>📅 ${e.start.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:'numeric'})}</span>
+            <span>🕐 ${timeStr}</span>
+            ${e.location?`<span>📍 ${e.location}</span>`:''}
+          </div>
+        </div>
+        <span style="width:10px;height:10px;border-radius:50%;background:${c};flex-shrink:0;margin-top:3px"></span>
+      </div>
+      ${desc?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.7">${desc}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ══ ADMIN SUB TABS ══
+function switchAdminTab(t){
+  ['add','records','announce','settings'].forEach(id=>{document.getElementById('admin-'+id).style.display=id===t?'':'none';});
+  document.querySelectorAll('#admin-view .sub-tab').forEach((el,i)=>{el.classList.toggle('active',['add','records','announce','settings'][i]===t);});
+  if(t==='records') renderAdminRecords();
+  if(t==='announce') populateAnnounceList();
+  if(t==='settings') loadSettings();
+}
+
+// ══ SAVE / TOAST ══
+function saveRecords(){localStorage.setItem('smh_records',JSON.stringify(records));renderBoard();}
+function toast(msg,type='info'){
+  const el=document.createElement('div');el.className=`toast ${type}`;
+  const icons={success:'✅',error:'❌',info:'ℹ️'};
+  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+}
+
+// ══ SEED ══
+function seedIfEmpty(){
+  if(records.length>0) return;
+  const now=new Date(),fmt=d=>d.toISOString().split('T')[0];
+  const add=n=>{const d=new Date(now);d.setDate(d.getDate()+n);return d;};
+  const sub=n=>{const d=new Date(now);d.setDate(d.getDate()-n);return d;};
+  records=[
+    {id:'s1',product:'Sprout HR',date:fmt(add(2)),time:'22:00',duration:'2 hours',status:'auto',remarks:'Database schema migration for v4.2 rollout.',createdAt:new Date().toISOString()},
+    {id:'s2',product:'ReadyCash',date:fmt(add(5)),time:'00:00',duration:'1 hour 30 mins',status:'auto',remarks:'Scheduled SSL certificate renewal.',createdAt:new Date().toISOString()},
+    {id:'s3',product:'Sprout Payroll',date:fmt(sub(3)),time:'21:00',duration:'3 hours',status:'auto',remarks:'Emergency patch for payroll computation bug.',createdAt:new Date().toISOString()},
+    {id:'s4',product:'API',date:fmt(sub(10)),time:'02:00',duration:'45 mins',status:'auto',remarks:'Rate limiter configuration update.',createdAt:new Date().toISOString()},
+    {id:'s5',product:'Sandbox',date:fmt(sub(20)),time:'10:00',duration:'1 hour',status:'cancelled',remarks:'Cancelled due to deployment freeze.',createdAt:new Date().toISOString()},
+    {id:'s6',product:'ReadyWage',date:fmt(sub(5)),time:'23:00',duration:'2 hours 30 mins',status:'auto',remarks:'Infrastructure upgrade for new cloud region.',createdAt:new Date().toISOString()},
+  ];
+  saveRecords();
+}
+
+// ══ INIT ══
+seedIfEmpty();populateYearFilters();renderHome();
 </script>
 </body>
 </html>
