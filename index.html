@@ -413,41 +413,36 @@ nav{
       </div>
       <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
     </div>
-    <!-- sandbox notice — always shown, no fetch attempted -->
+    <!-- Calendar embed -->
     <div id="cal-sandbox">
-      <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:32px 28px;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
-        <div style="font-size:40px;flex-shrink:0">📅</div>
-        <div style="flex:1;min-width:260px">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:6px">Calendar loads on deployment</div>
-          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">The live calendar feed is blocked inside this preview sandbox due to browser security policies. Once this app is deployed to Vercel (or any web host), the calendar will load automatically — no extra configuration needed.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
+        <iframe
+          id="gcal-iframe"
+          src="https://calendar.google.com/calendar/embed?src=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com&ctz=Asia%2FManila&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=1&mode=MONTH"
+          style="width:100%;height:640px;border:none;display:block"
+          title="Sprout Maintenance Schedule">
+        </iframe>
+      </div>
+      <div id="cal-fallback" style="display:none;margin-top:12px">
+        <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+          <div style="font-size:36px;flex-shrink:0">📅</div>
+          <div style="flex:1;min-width:220px">
+            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--deep);margin-bottom:6px">Calendar preview unavailable in this sandbox</div>
+            <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px">Google Calendar embeds are blocked by browser security in this preview. The calendar will display correctly once deployed to Vercel.</p>
             <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
-          </div>
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px">
-            <div style="font-size:11px;font-weight:700;font-family:'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Calendar feed URL (for deployment)</div>
-            <div style="font-size:11px;color:var(--muted2);word-break:break-all;font-family:monospace">https://calendar.google.com/calendar/ical/c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com/public/basic.ics</div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- live calendar content (shown after successful fetch on deployment) -->
-    <div id="cal-loading" style="display:none;text-align:center;padding:56px 0">
-      <div style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div>
-      <p style="font-size:13px;color:var(--muted)">Fetching maintenance schedule…</p>
-    </div>
-    <div id="cal-content" style="display:none">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-        <button class="btn btn-outline btn-sm" onclick="calNav(-1)">‹ Prev</button>
-        <span id="cal-heading" style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);flex:1;text-align:center"></span>
-        <button class="btn btn-outline btn-sm" onclick="calNav(1)">Next ›</button>
-        <button class="btn btn-ghost btn-sm" onclick="loadCalendar()" title="Refresh">↻</button>
-        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google ↗</a>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
+          <span style="font-size:12px;color:var(--muted)">Developer maintenance announcements · Asia/Manila</span>
+        </div>
+        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
       </div>
-      <div id="cal-grid" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:20px"></div>
-      <div id="cal-list-label" style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--deep);margin-bottom:10px"></div>
-      <div id="cal-list"></div>
     </div>
+    <div id="cal-loading" style="display:none"></div>
+    <div id="cal-content" style="display:none"></div>
   </div>
 </div>
 
