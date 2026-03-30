@@ -413,36 +413,41 @@ nav{
       </div>
       <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
     </div>
-    <!-- Cal loading / error / content states -->
+    <!-- spinner -->
     <div id="cal-loading" style="display:none;text-align:center;padding:56px 0">
-      <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div>
+      <div style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px"></div>
       <p style="font-size:13px;color:var(--muted)">Fetching maintenance schedule…</p>
     </div>
 
-    <div id="cal-error" style="display:none">
-      <div class="cal-card">
-        <div style="font-size:40px;margin-bottom:12px">⚠️</div>
-        <h3 style="font-size:15px;font-family:'Inter',sans-serif;font-weight:700;color:var(--deep);margin-bottom:8px">Could not load calendar</h3>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:18px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto" id="cal-err-msg">—</p>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" onclick="loadCalendar()">↻ Try again</button>
-          <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+    <!-- sandbox notice (shown only when fetch fails) -->
+    <div id="cal-sandbox" style="display:none">
+      <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:32px 28px;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="font-size:40px;flex-shrink:0">📅</div>
+        <div style="flex:1;min-width:260px">
+          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:6px">Calendar loads on deployment</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">The live calendar feed is blocked inside this preview sandbox due to browser security policies. Once this app is deployed to Vercel (or any web host), the calendar will load automatically — no extra configuration needed.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+            <button class="btn btn-outline btn-sm" onclick="loadCalendar()">↻ Retry anyway</button>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px">
+            <div style="font-size:11px;font-weight:700;font-family:'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Calendar feed URL</div>
+            <div style="font-size:11px;color:var(--muted2);word-break:break-all;font-family:monospace">https://calendar.google.com/calendar/ical/c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com/public/basic.ics</div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- live calendar content -->
     <div id="cal-content" style="display:none">
-      <!-- nav bar -->
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
         <button class="btn btn-outline btn-sm" onclick="calNav(-1)">‹ Prev</button>
         <span id="cal-heading" style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);flex:1;text-align:center"></span>
         <button class="btn btn-outline btn-sm" onclick="calNav(1)">Next ›</button>
-        <button class="btn btn-ghost btn-sm" onclick="loadCalendar()">↻</button>
+        <button class="btn btn-ghost btn-sm" onclick="loadCalendar()" title="Refresh">↻</button>
         <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google ↗</a>
       </div>
-      <!-- grid -->
       <div id="cal-grid" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:20px"></div>
-      <!-- event list -->
       <div id="cal-list-label" style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--deep);margin-bottom:10px"></div>
       <div id="cal-list"></div>
     </div>
@@ -711,6 +716,7 @@ function switchBoardTab(t){
   if(t==='analytics') renderCharts();
   if(t==='calendar'&&!calEvents.length) loadCalendar();
 }
+function handleAdminClick(){isAdmin?showView('admin'):showView('login');}
 function populateYearFilters(){
   const years=[...new Set(records.map(r=>new Date(r.date).getFullYear()))];
   const cur=new Date().getFullYear();
