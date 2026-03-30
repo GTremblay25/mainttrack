@@ -309,7 +309,10 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
   <div id="admin-pending">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px">
       <div><div style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--deep);margin-bottom:4px">Pending Approvals</div><p style="font-size:12px;color:var(--muted)">Review calendar-imported events. Set downtime flag and client message before approving.</p></div>
-      <button class="btn btn-outline btn-sm" onclick="simulateCalendarImport()">+ Simulate Calendar Import</button>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span id="sync-status" style="font-size:11px;color:var(--muted)">⚪ Not synced yet</span>
+        <button class="btn btn-outline btn-sm" onclick="syncCalendar(false)">↻ Sync Calendar</button>
+      </div>
     </div>
     <div style="background:linear-gradient(135deg,#f0f8ff,var(--bg4));border:1px solid #ddd6f7;border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--muted2);line-height:1.7">
       <strong style="color:var(--deep);font-family:'Inter',sans-serif">Approval sets the <code style="background:var(--bg);padding:1px 5px;border-radius:3px">hasDowntime</code> flag.</strong> Auto-detected from duration — confirm before approving.
@@ -897,21 +900,127 @@ function saveAll(announce){
   initAdminEntries();renderAdminRecords();populateAnnounceList();renderHome();updateBanner();
 }
 
-const SAMPLE_EVENTS=[
-  {product:'Sprout HR',duration:'2 hours',remark:'Monthly database index rebuild.'},
-  {product:'ReadyCash',duration:'1 hour',remark:'SSL certificate renewal.'},
-  {product:'Sprout Payroll',duration:'3 hours',remark:'Payroll engine upgrade to v5.2.'},
-  {product:'API',duration:'45 mins',remark:'Rate limiter config changes.'},
-  {product:'ReadyWage',duration:'1 hour 30 mins',remark:'Infrastructure migration.'},
+const ICS_URL='https://calendar.google.com/calendar/ical/c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com/public/basic.ics';
+const ICS_PROXIES=[
+  u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+  u=>`https://corsproxy.io/?${encodeURIComponent(u)}`,
 ];
-function simulateCalendarImport(){
-  const s=SAMPLE_EVENTS[Math.floor(Math.random()*SAMPLE_EVENTS.length)];
-  const d=new Date();d.setDate(d.getDate()+Math.floor(Math.random()*14)+3);
-  const dateStr=d.toISOString().split('T')[0];
-  const timeStr=String([22,23,0,2,10][Math.floor(Math.random()*5)]).padStart(2,'0')+':00';
-  records.push({id:'cal_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),product:s.product,date:dateStr,time:timeStr,duration:s.duration,status:'pending',hasDowntime:null,clientMessage:'',remarks:s.remark,createdAt:new Date().toISOString(),fromCalendar:true});
-  saveRecords();renderPending();updatePendingBadge();
-  toast(`Imported: ${s.product} on ${dateStr}`,'info');
+let lastSyncTime=null;
+let syncInterval=null;
+
+async function syncCalendar(silent=false){
+  if(!silent) toast('Syncing calendar…','info');
+  for(const proxy of ICS_PROXIES){
+    try{
+      const r=await fetch(proxy(ICS_URL),{signal:AbortSignal.timeout(8000)});
+      if(!r.ok) continue;
+      const txt=await r.text();
+      if(!txt.includes('BEGIN:VCALENDAR')) continue;
+      const imported=importICSEvents(txt);
+      lastSyncTime=new Date();
+      updateSyncStatus(true, imported);
+      if(!silent&&imported>0) toast(`${imported} new event(s) imported from calendar.`,'success');
+      else if(!silent) toast('Calendar synced — no new events.','success');
+      return;
+    }catch(e){continue;}
+  }
+  // All proxies failed (sandbox)
+  updateSyncStatus(false, 0);
+  if(!silent) toast('Calendar sync unavailable in preview. Will work on deployment.','info');
+}
+
+function importICSEvents(icsText){
+  const now=new Date();
+  const events=parseICS(icsText);
+  let imported=0;
+  events.forEach(ev=>{
+    if(!ev.start||ev.start<now) return; // skip past events
+    // Deduplicate by uid or by product+date+time
+    const alreadyExists=records.some(r=>
+      (r.calUid&&r.calUid===ev.uid)||
+      (r.product===ev.summary&&r.date===ev.dateStr&&r.time===ev.timeStr)
+    );
+    if(alreadyExists) return;
+    const rec={
+      id:'cal_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),
+      calUid:ev.uid,
+      product:ev.summary.replace(/\[.*?\]/g,'').trim(),
+      date:ev.dateStr,
+      time:ev.timeStr,
+      duration:ev.duration||'TBD',
+      status:'pending',
+      hasDowntime:autoDetectDowntimeFromText(ev.summary+' '+(ev.description||'')),
+      clientMessage:'',
+      remarks:(ev.description||'').replace(/\\n/g,' ').replace(/\\,/g,',').trim().slice(0,300),
+      createdAt:new Date().toISOString(),
+      fromCalendar:true,
+    };
+    records.push(rec);
+    imported++;
+  });
+  if(imported>0){saveRecords();renderPending();renderHome();}
+  return imported;
+}
+
+function parseICS(txt){
+  const events=[];
+  txt.split('BEGIN:VEVENT').slice(1).forEach(block=>{
+    const get=k=>{
+      const m=block.match(new RegExp(k+'(?:;[^:\\r\\n]*)?:([^\\r\\n]+(?:\\r?\\n[ \\t][^\\r\\n]+)*)','i'));
+      return m?m[1].replace(/\r?\n[ \t]/g,'').trim():'';
+    };
+    const summary=get('SUMMARY'),dtstart=get('DTSTART'),dtend=get('DTEND'),uid=get('UID'),desc=get('DESCRIPTION');
+    if(!summary||!dtstart) return;
+    const start=parseICSDate(dtstart),end=parseICSDate(dtend||dtstart);
+    if(!start) return;
+    const dateStr=start.toISOString().split('T')[0];
+    const timeStr=start.toTimeString().slice(0,5);
+    // Compute duration
+    let duration='';
+    if(end&&end>start){
+      const mins=Math.round((end-start)/60000);
+      const h=Math.floor(mins/60),m=mins%60;
+      duration=h&&m?`${h} hour${h>1?'s':''} ${m} mins`:h?`${h} hour${h>1?'s':''}`:m?`${m} mins`:'';
+    }
+    // Auto-detect duration from title/description if not found
+    if(!duration){
+      const match=(summary+' '+(desc||'')).match(/(\d+)\s*(hour|hr|hours|hrs|minute|min|mins)/i);
+      if(match) duration=match[0];
+    }
+    events.push({uid,summary,description:desc,start,end,dateStr,timeStr,duration,allDay:!dtstart.includes('T')});
+  });
+  return events.sort((a,b)=>a.start-b.start);
+}
+
+function parseICSDate(s){
+  if(!s) return null;
+  s=s.replace(/^[^:]*:/,'').trim();
+  if(s.includes('T')){
+    const y=s.slice(0,4),mo=s.slice(4,6),d=s.slice(6,8),h=s.slice(9,11),mi=s.slice(11,13),sc=s.slice(13,15);
+    return new Date(s.endsWith('Z')?`${y}-${mo}-${d}T${h}:${mi}:${sc}Z`:`${y}-${mo}-${d}T${h}:${mi}:${sc}`);
+  }
+  return new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T00:00:00`);
+}
+
+function autoDetectDowntimeFromText(text){
+  return /\d+\s*(hour|hr|hours|hrs|minute|min|mins)/i.test(text);
+}
+
+function updateSyncStatus(success, imported){
+  const el=document.getElementById('sync-status');
+  if(!el) return;
+  if(success){
+    const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    el.innerHTML=`<span style="color:#1a7a06">🟢 Synced at ${time}</span>${imported>0?` <span style="color:var(--carrot);font-weight:600">· ${imported} new</span>`:''}`;
+  } else {
+    el.innerHTML=`<span style="color:var(--muted)">⚪ Sync unavailable in preview</span>`;
+  }
+}
+
+function startAutoSync(){
+  syncCalendar(true); // silent on load
+  if(syncInterval) clearInterval(syncInterval);
+  syncInterval=setInterval(()=>syncCalendar(true),5*60*1000); // every 5 min
 }
 
 function renderCharts(){
@@ -980,28 +1089,13 @@ function switchCalView(mode,btn){
 function handleIframeLoad(iframe){try{const doc=iframe.contentDocument||iframe.contentWindow?.document;if(!doc||!doc.body||doc.body.innerHTML.trim()==='')showCalFallback();}catch(e){}}
 function showCalFallback(){document.getElementById('gcal-iframe').style.display='none';document.getElementById('cal-fallback').style.display='block';}
 
-function seedIfEmpty(){
-  if(records.length>0)return;
-  const now=new Date(),fmt=d=>d.toISOString().split('T')[0];
-  const add=n=>{const d=new Date(now);d.setDate(d.getDate()+n);return d;};
-  const sub=n=>{const d=new Date(now);d.setDate(d.getDate()-n);return d;};
-  records=[
-    {id:'s1',product:'Sprout HR',date:fmt(add(2)),time:'22:00',duration:'2 hours',status:'auto',hasDowntime:true,clientMessage:'Sprout HR will be temporarily unavailable on this date from 10:00 PM to 12:00 AM for a scheduled database migration. Please save your work beforehand.',remarks:'DB schema migration v4.2.',createdAt:new Date().toISOString()},
-    {id:'s2',product:'ReadyCash',date:fmt(add(5)),time:'00:00',duration:'1 hour 30 mins',status:'auto',hasDowntime:true,clientMessage:'ReadyCash payment services will experience a brief interruption for SSL certificate renewal.',remarks:'SSL cert renewal.',createdAt:new Date().toISOString()},
-    {id:'s3',product:'Sprout Payroll',date:fmt(sub(3)),time:'21:00',duration:'3 hours',status:'auto',hasDowntime:true,clientMessage:'',remarks:'Emergency patch for payroll computation bug.',createdAt:new Date().toISOString()},
-    {id:'s4',product:'API',date:fmt(sub(10)),time:'02:00',duration:'45 mins',status:'auto',hasDowntime:false,clientMessage:'',remarks:'Rate limiter config update — no service impact.',createdAt:new Date().toISOString()},
-    {id:'s5',product:'Sandbox',date:fmt(sub(20)),time:'10:00',duration:'1 hour',status:'cancelled',hasDowntime:false,clientMessage:'',remarks:'Cancelled due to deployment freeze.',createdAt:new Date().toISOString()},
-    {id:'s6',product:'ReadyWage',date:fmt(sub(5)),time:'23:00',duration:'2 hours 30 mins',status:'auto',hasDowntime:false,clientMessage:'',remarks:'Infrastructure migration — background only.',createdAt:new Date().toISOString()},
-    {id:'p1',product:'Sprout HR',date:fmt(add(4)),time:'23:00',duration:'1 hour',status:'pending',hasDowntime:null,clientMessage:'',remarks:'Monthly index rebuild.',createdAt:new Date().toISOString(),fromCalendar:true},
-    {id:'p2',product:'ReadyCash',date:fmt(add(7)),time:'22:30',duration:'2 hours',status:'pending',hasDowntime:null,clientMessage:'',remarks:'Payment gateway upgrade to v3.5.',createdAt:new Date().toISOString(),fromCalendar:true},
-  ];
-  saveRecords();
-}
-
 // ══ BOOT ══
-seedIfEmpty();
+// Clear any previously seeded demo records
+records = records.filter(r => !r.id.startsWith('s') && !r.id.startsWith('p') && !r.id.startsWith('cal_'));
+saveRecords();
 populateYearFilters();
 renderHome();
+startAutoSync();
 setInterval(()=>{renderHome();if(document.getElementById('board-view').classList.contains('active'))renderBoard();},60000);
 </script>
 </body>
