@@ -415,6 +415,15 @@ nav{
     </div>
     <!-- Calendar embed -->
     <div id="cal-sandbox">
+      <!-- View toggle -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
+        <div style="display:flex;gap:2px;background:var(--surface);padding:4px;border-radius:10px;border:1px solid var(--border);box-shadow:var(--shadow)">
+          <button id="cal-btn-month" class="sub-tab active" onclick="switchCalView('MONTH')">Month</button>
+          <button id="cal-btn-week" class="sub-tab" onclick="switchCalView('WEEK')">Week</button>
+        </div>
+        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+      </div>
+
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
         <iframe
           id="gcal-iframe"
@@ -423,6 +432,7 @@ nav{
           title="Sprout Maintenance Schedule">
         </iframe>
       </div>
+
       <div id="cal-fallback" style="display:none;margin-top:12px">
         <div style="background:linear-gradient(135deg,var(--bg4),#edf4ff);border:1px solid #ddd6f7;border-radius:var(--radius);padding:28px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
           <div style="font-size:36px;flex-shrink:0">📅</div>
@@ -433,12 +443,13 @@ nav{
           </div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);flex-wrap:wrap;gap:8px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
-          <span style="font-size:12px;color:var(--muted)">Developer maintenance announcements · Asia/Manila</span>
-        </div>
-        <a href="https://calendar.google.com/calendar/r?cid=c_2b41b79c5b77e64bb81f0b88359832d27157b1259aed7ab0b02ce3960b9143b5%40group.calendar.google.com" target="_blank" class="btn btn-ubas btn-sm">Open in Google Calendar ↗</a>
+
+      <!-- Note -->
+      <div style="margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:16px;flex-shrink:0;margin-top:1px">ℹ️</span>
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;margin:0">
+          This calendar reflects all scheduled maintenance activities across Sprout products — including windows that may result in <span style="color:var(--carrot);font-weight:600">service interruptions or downtime</span> for users, as well as routine maintenance performed <span style="color:#1a7a06;font-weight:600">transparently in the background</span> with no expected impact. We publish all windows here so your team can plan with confidence.
+        </p>
       </div>
     </div>
     <div id="cal-loading" style="display:none"></div>
