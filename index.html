@@ -434,7 +434,21 @@ nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28
         <button class="btn btn-primary btn-sm" onclick="saveEmailJS()">Save EmailJS Config</button>
       </div>
       <div class="divider"></div>
-      <div class="setting-row"><div class="setting-info"><h4>Change Admin Password</h4></div></div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <h4>Google Calendar API Key</h4>
+          <p>Required for automatic calendar sync. <a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue)">Get a free key from Google Cloud Console ↗</a> — takes 5 minutes, always free.</p>
+        </div>
+        <span id="cal-api-status" class="status-pill none">⚪ Not configured</span>
+      </div>
+      <div style="margin-top:14px;margin-bottom:6px">
+        <input class="form-input" id="cal-api-key" placeholder="AIzaSy…" style="margin-bottom:10px">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="saveCalApiKey()">Save</button>
+          <button class="btn btn-outline btn-sm" onclick="syncCalendar(false)">Test sync now</button>
+        </div>
+      </div>
+      <div class="divider"></div>
       <div style="margin-top:14px">
         <div class="form-row" style="margin-bottom:10px">
           <div><div class="form-label">New Password</div><input class="form-input" type="password" id="new-pw" placeholder="New password"></div>
@@ -1096,6 +1110,10 @@ function loadSettings(){
   document.getElementById('ejs-service').value=localStorage.getItem('ejs_service')||'';
   document.getElementById('ejs-template').value=localStorage.getItem('ejs_template')||'';
   document.getElementById('ejs-pubkey').value=localStorage.getItem('ejs_pubkey')||'';
+  const apiKey=localStorage.getItem('cal_api_key')||'';
+  document.getElementById('cal-api-key').value=apiKey;
+  const pill=document.getElementById('cal-api-status');
+  if(pill){ pill.className=apiKey?'status-pill ok':'status-pill none'; pill.textContent=apiKey?'🟢 Connected':'⚪ Not configured'; }
 }
 function setWebhookPill(s){const el=document.getElementById('webhook-status-pill');el.className='status-pill '+s;el.textContent={ok:'🟢 Configured',err:'🔴 Error',none:'⚪ Not configured'}[s];}
 function saveWebhook(){webhookUrl=document.getElementById('webhook-url').value.trim();localStorage.setItem('smh_webhook',webhookUrl);setWebhookPill(webhookUrl?'ok':'none');toast('Webhook saved.','success');}
